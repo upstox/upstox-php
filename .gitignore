@@ -1,0 +1,43 @@
+# Composer
+/vendor/
+
+# PHPUnit
+/phpunit.xml
+/phpunit.xml.dist
+/phpunit.phar
+/build/
+/tests/
+/phpunit.phar
+
+# IDE specific files
+.idea/
+.vscode/
+
+# Dependency management
+/composer.lock
+
+# Logs and error reports
+/log/
+/error.log
+
+# Caches and session files
+/var/cache/
+/var/sessions/
+
+# Environment configuration
+.env
+
+# Build files
+/build/
+
+# Compiled source code
+/*.phpc
+
+# Editor backup files
+*~
+
+#Ignore swagger generated files
+.swagger-codegen/
+.vscode/
+.swagger-codegen-ignore
+git_push.sh
