@@ -1,6 +1,6 @@
 {
     "name": "upstox/upstox-php-sdk",
-    "description": "Upstox Developer API",
+    "description": "The official PHP client for communicating with the Upstox API",
     "extra": {
         "description": "@cat README.md"
     },

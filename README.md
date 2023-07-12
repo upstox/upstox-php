@@ -1,5 +1,7 @@
 # Upstox PHP SDK for API v2
 
+[![Latest Stable Version](https://img.shields.io/packagist/v/upstox/upstox-php-sdk.svg?label=upstox-php-sdk)](https://packagist.org/packages/upstox/upstox-php-sdk)
+
 ## Introduction
 
 The official PHP client for communicating with the <a href="https://upstox.com/uplink/">Upstox API</a>.
