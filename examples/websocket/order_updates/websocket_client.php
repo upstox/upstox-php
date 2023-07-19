@@ -35,7 +35,7 @@ function getPortfolioStreamFeedAuthorize($apiVersion, $accessToken)
 function fetchOrderUpdates()
 {
     $apiVersion = '2.0';
-    $accessToken = 'eyJ0eXAiOiJKV1QiLCJrZXlfaWQiOiJza192MS4wIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiI2UEJFU0wiLCJqdGkiOiI2NGI1ZmViNjMyM2JmNzU1MWUxYTNhYTMiLCJpc011bHRpQ2xpZW50Ijp0cnVlLCJpc0FjdGl2ZSI6dHJ1ZSwic2NvcGUiOltdLCJpYXQiOjE2ODk2NDg4MjIsImlzcyI6InVkYXBpLWdhdGV3YXktc2VydmljZSIsImV4cCI6MTY4OTczNzAyMn0.wzB-qru8vtmuRYNtvnzABxpsvezxd2HmdHM4cIumCmU';
+    $accessToken = 'ACCESS_TOKEN';
 
     $configuration = Configuration::getDefaultConfiguration();
     $configuration->setAccessToken($accessToken);
