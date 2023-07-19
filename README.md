@@ -79,6 +79,9 @@ try {
 }
 ?>
 ```
+## Examples
+
+[Sample Implementations](examples/README.md) can be found within `/examples`.
 
 ## Documentation for API Endpoints
 
