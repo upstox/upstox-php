@@ -46,6 +46,12 @@ To run the unit tests:
 composer install
 ./vendor/bin/phpunit
 ```
+## Examples
+
+[Sample Implementations](examples/) can be found within `/examples` folder.
+
+- [Websocket Market data](examples/websocket/market_data/)
+- [Websocket Order updates](examples/websocket/order_updates/)
 
 ## Getting Started
 
@@ -79,9 +85,6 @@ try {
 }
 ?>
 ```
-## Examples
-
-[Sample Implementations](examples/README.md) can be found within `/examples`.
 
 ## Documentation for API Endpoints
 
