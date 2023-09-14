@@ -253,6 +253,7 @@ class HoldingsData implements ModelInterface, ArrayAccess
     const EXCHANGE_CDS = 'CDS';
     const EXCHANGE_BSE = 'BSE';
     const EXCHANGE_BCD = 'BCD';
+    const EXCHANGE_BFO = 'BFO';
     const EXCHANGE_MCX = 'MCX';
 
     /**
@@ -268,6 +269,7 @@ class HoldingsData implements ModelInterface, ArrayAccess
             self::EXCHANGE_CDS,
             self::EXCHANGE_BSE,
             self::EXCHANGE_BCD,
+            self::EXCHANGE_BFO,
             self::EXCHANGE_MCX
         ];
     }

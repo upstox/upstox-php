@@ -212,6 +212,7 @@ class TokenResponse implements ModelInterface, ArrayAccess
     const EXCHANGES_CDS = 'CDS';
     const EXCHANGES_BSE = 'BSE';
     const EXCHANGES_BCD = 'BCD';
+    const EXCHANGE_BFO = 'BFO';
     const EXCHANGES_MCX = 'MCX';
     const PRODUCTS_I = 'I';
     const PRODUCTS_D = 'D';
@@ -236,6 +237,7 @@ class TokenResponse implements ModelInterface, ArrayAccess
             self::EXCHANGES_CDS,
             self::EXCHANGES_BSE,
             self::EXCHANGES_BCD,
+            self::EXCHANGE_BFO,
             self::EXCHANGES_MCX,
         ];
     }
