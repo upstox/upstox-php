@@ -65,6 +65,7 @@ class HoldingsData implements ModelInterface, ArrayAccess
         'product' => 'string',
         'quantity' => 'int',
         'tradingsymbol' => 'string',
+        'trading_symbol' => 'string',
         'last_price' => 'float',
         'close_price' => 'float',
         'pnl' => 'float',
@@ -92,6 +93,7 @@ class HoldingsData implements ModelInterface, ArrayAccess
         'product' => null,
         'quantity' => 'int32',
         'tradingsymbol' => null,
+        'trading_symbol' => null,
         'last_price' => 'float',
         'close_price' => 'float',
         'pnl' => 'float',
@@ -140,6 +142,7 @@ class HoldingsData implements ModelInterface, ArrayAccess
         'product' => 'product',
         'quantity' => 'quantity',
         'tradingsymbol' => 'tradingsymbol',
+        'trading_symbol' => 'trading_symbol',
         'last_price' => 'last_price',
         'close_price' => 'close_price',
         'pnl' => 'pnl',
@@ -166,7 +169,8 @@ class HoldingsData implements ModelInterface, ArrayAccess
         'haircut' => 'setHaircut',
         'product' => 'setProduct',
         'quantity' => 'setQuantity',
-        'tradingsymbol' => 'setTradingsymbol',
+        'tradingsymbol' => 'setTradingsymbolDuplicate',
+        'trading_symbol' => 'setTradingSymbol',
         'last_price' => 'setLastPrice',
         'close_price' => 'setClosePrice',
         'pnl' => 'setPnl',
@@ -193,7 +197,8 @@ class HoldingsData implements ModelInterface, ArrayAccess
         'haircut' => 'getHaircut',
         'product' => 'getProduct',
         'quantity' => 'getQuantity',
-        'tradingsymbol' => 'getTradingsymbol',
+        'tradingsymbol' => 'getTradingsymbolDuplicate',
+        'trading_symbol' => 'getTradingSymbol',
         'last_price' => 'getLastPrice',
         'close_price' => 'getClosePrice',
         'pnl' => 'getPnl',
@@ -297,6 +302,7 @@ class HoldingsData implements ModelInterface, ArrayAccess
         $this->container['product'] = isset($data['product']) ? $data['product'] : null;
         $this->container['quantity'] = isset($data['quantity']) ? $data['quantity'] : null;
         $this->container['tradingsymbol'] = isset($data['tradingsymbol']) ? $data['tradingsymbol'] : null;
+        $this->container['trading_symbol'] = isset($data['trading_symbol']) ? $data['trading_symbol'] : null;
         $this->container['last_price'] = isset($data['last_price']) ? $data['last_price'] : null;
         $this->container['close_price'] = isset($data['close_price']) ? $data['close_price'] : null;
         $this->container['pnl'] = isset($data['pnl']) ? $data['pnl'] : null;
@@ -515,7 +521,7 @@ class HoldingsData implements ModelInterface, ArrayAccess
      *
      * @return string
      */
-    public function getTradingsymbol()
+    public function getTradingsymbolDuplicate()
     {
         return $this->container['tradingsymbol'];
     }
@@ -527,9 +533,33 @@ class HoldingsData implements ModelInterface, ArrayAccess
      *
      * @return $this
      */
-    public function setTradingsymbol($tradingsymbol)
+    public function setTradingsymbolDuplicate($tradingsymbol)
     {
         $this->container['tradingsymbol'] = $tradingsymbol;
+
+        return $this;
+    }
+
+    /**
+     * Gets trading_symbol
+     *
+     * @return string
+     */
+    public function getTradingSymbol()
+    {
+        return $this->container['trading_symbol'];
+    }
+
+    /**
+     * Sets trading_symbol
+     *
+     * @param string $trading_symbol Shows the trading symbol of the instrument
+     *
+     * @return $this
+     */
+    public function setTradingSymbol($trading_symbol)
+    {
+        $this->container['trading_symbol'] = $trading_symbol;
 
         return $this;
     }

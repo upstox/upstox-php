@@ -60,6 +60,7 @@ class TradeData implements ModelInterface, ArrayAccess
         'exchange' => 'string',
         'product' => 'string',
         'tradingsymbol' => 'string',
+        'trading_symbol' => 'string',
         'instrument_token' => 'string',
         'order_type' => 'string',
         'transaction_type' => 'string',
@@ -82,6 +83,7 @@ class TradeData implements ModelInterface, ArrayAccess
         'exchange' => null,
         'product' => null,
         'tradingsymbol' => null,
+        'trading_symbol' => null,
         'instrument_token' => null,
         'order_type' => null,
         'transaction_type' => null,
@@ -125,6 +127,7 @@ class TradeData implements ModelInterface, ArrayAccess
         'exchange' => 'exchange',
         'product' => 'product',
         'tradingsymbol' => 'tradingsymbol',
+        'trading_symbol' => 'trading_symbol',
         'instrument_token' => 'instrument_token',
         'order_type' => 'order_type',
         'transaction_type' => 'transaction_type',
@@ -146,7 +149,8 @@ class TradeData implements ModelInterface, ArrayAccess
     protected static $setters = [
         'exchange' => 'setExchange',
         'product' => 'setProduct',
-        'tradingsymbol' => 'setTradingsymbol',
+        'tradingsymbol' => 'setTradingsymbolDuplicate',
+        'trading_symbol' => 'setTradingSymbol',
         'instrument_token' => 'setInstrumentToken',
         'order_type' => 'setOrderType',
         'transaction_type' => 'setTransactionType',
@@ -168,7 +172,8 @@ class TradeData implements ModelInterface, ArrayAccess
     protected static $getters = [
         'exchange' => 'getExchange',
         'product' => 'getProduct',
-        'tradingsymbol' => 'getTradingsymbol',
+        'tradingsymbol' => 'getTradingsymbolDuplicate',
+        'trading_symbol' => 'getTradingSymbol',
         'instrument_token' => 'getInstrumentToken',
         'order_type' => 'getOrderType',
         'transaction_type' => 'getTransactionType',
@@ -319,6 +324,7 @@ class TradeData implements ModelInterface, ArrayAccess
         $this->container['exchange'] = isset($data['exchange']) ? $data['exchange'] : null;
         $this->container['product'] = isset($data['product']) ? $data['product'] : null;
         $this->container['tradingsymbol'] = isset($data['tradingsymbol']) ? $data['tradingsymbol'] : null;
+        $this->container['trading_symbol'] = isset($data['trading_symbol']) ? $data['trading_symbol'] : null;
         $this->container['instrument_token'] = isset($data['instrument_token']) ? $data['instrument_token'] : null;
         $this->container['order_type'] = isset($data['order_type']) ? $data['order_type'] : null;
         $this->container['transaction_type'] = isset($data['transaction_type']) ? $data['transaction_type'] : null;
@@ -459,7 +465,7 @@ class TradeData implements ModelInterface, ArrayAccess
      *
      * @return string
      */
-    public function getTradingsymbol()
+    public function getTradingsymbolDuplicate()
     {
         return $this->container['tradingsymbol'];
     }
@@ -471,9 +477,33 @@ class TradeData implements ModelInterface, ArrayAccess
      *
      * @return $this
      */
-    public function setTradingsymbol($tradingsymbol)
+    public function setTradingsymbolDuplicate($tradingsymbol)
     {
         $this->container['tradingsymbol'] = $tradingsymbol;
+
+        return $this;
+    }
+
+    /**
+     * Gets trading_symbol
+     *
+     * @return string
+     */
+    public function getTradingSymbol()
+    {
+        return $this->container['trading_symbol'];
+    }
+
+    /**
+     * Sets trading_symbol
+     *
+     * @param string $trading_symbol Shows the trading symbol which could be a combination of symbol name, instrument, expiry date etc
+     *
+     * @return $this
+     */
+    public function setTradingSymbol($trading_symbol)
+    {
+        $this->container['trading_symbol'] = $trading_symbol;
 
         return $this;
     }

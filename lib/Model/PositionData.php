@@ -82,6 +82,7 @@ class PositionData implements ModelInterface, ArrayAccess
         'realised' => 'float',
         'sell_value' => 'float',
         'tradingsymbol' => 'string',
+        'trading_symbol' => 'string',
         'close_price' => 'float',
         'buy_price' => 'float',
         'sell_price' => 'float'
@@ -118,6 +119,7 @@ class PositionData implements ModelInterface, ArrayAccess
         'realised' => 'float',
         'sell_value' => 'float',
         'tradingsymbol' => null,
+        'trading_symbol' => null,
         'close_price' => 'float',
         'buy_price' => 'float',
         'sell_price' => 'float'
@@ -175,6 +177,7 @@ class PositionData implements ModelInterface, ArrayAccess
         'realised' => 'realised',
         'sell_value' => 'sell_value',
         'tradingsymbol' => 'tradingsymbol',
+        'trading_symbol' => 'trading_symbol',
         'close_price' => 'close_price',
         'buy_price' => 'buy_price',
         'sell_price' => 'sell_price'
@@ -210,7 +213,8 @@ class PositionData implements ModelInterface, ArrayAccess
         'unrealised' => 'setUnrealised',
         'realised' => 'setRealised',
         'sell_value' => 'setSellValue',
-        'tradingsymbol' => 'setTradingsymbol',
+        'tradingsymbol' => 'setTradingsymbolDuplicate',
+        'trading_symbol' => 'setTradingSymbol',
         'close_price' => 'setClosePrice',
         'buy_price' => 'setBuyPrice',
         'sell_price' => 'setSellPrice'
@@ -246,7 +250,8 @@ class PositionData implements ModelInterface, ArrayAccess
         'unrealised' => 'getUnrealised',
         'realised' => 'getRealised',
         'sell_value' => 'getSellValue',
-        'tradingsymbol' => 'getTradingsymbol',
+        'tradingsymbol' => 'getTradingsymbolDuplicate',
+        'trading_symbol' => 'getTradingSymbol',
         'close_price' => 'getClosePrice',
         'buy_price' => 'getBuyPrice',
         'sell_price' => 'getSellPrice'
@@ -359,6 +364,7 @@ class PositionData implements ModelInterface, ArrayAccess
         $this->container['realised'] = isset($data['realised']) ? $data['realised'] : null;
         $this->container['sell_value'] = isset($data['sell_value']) ? $data['sell_value'] : null;
         $this->container['tradingsymbol'] = isset($data['tradingsymbol']) ? $data['tradingsymbol'] : null;
+        $this->container['trading_symbol'] = isset($data['trading_symbol']) ? $data['trading_symbol'] : null;
         $this->container['close_price'] = isset($data['close_price']) ? $data['close_price'] : null;
         $this->container['buy_price'] = isset($data['buy_price']) ? $data['buy_price'] : null;
         $this->container['sell_price'] = isset($data['sell_price']) ? $data['sell_price'] : null;
@@ -986,7 +992,7 @@ class PositionData implements ModelInterface, ArrayAccess
      *
      * @return string
      */
-    public function getTradingsymbol()
+    public function getTradingsymbolDuplicate()
     {
         return $this->container['tradingsymbol'];
     }
@@ -998,9 +1004,33 @@ class PositionData implements ModelInterface, ArrayAccess
      *
      * @return $this
      */
-    public function setTradingsymbol($tradingsymbol)
+    public function setTradingsymbolDuplicate($tradingsymbol)
     {
         $this->container['tradingsymbol'] = $tradingsymbol;
+
+        return $this;
+    }
+
+    /**
+     * Gets trading_symbol
+     *
+     * @return string
+     */
+    public function getTradingSymbol()
+    {
+        return $this->container['trading_symbol'];
+    }
+
+    /**
+     * Sets trading_symbol
+     *
+     * @param string $trading_symbol Shows the trading symbol of the instrument
+     *
+     * @return $this
+     */
+    public function setTradingSymbol($trading_symbol)
+    {
+        $this->container['trading_symbol'] = $trading_symbol;
 
         return $this;
     }

@@ -76,6 +76,7 @@ class OrderData implements ModelInterface, ArrayAccess
         'order_type' => 'string',
         'parent_order_id' => 'string',
         'tradingsymbol' => 'string',
+        'trading_symbol' => 'string',
         'order_timestamp' => 'string',
         'filled_quantity' => 'int',
         'transaction_type' => 'string',
@@ -109,6 +110,7 @@ class OrderData implements ModelInterface, ArrayAccess
         'order_type' => null,
         'parent_order_id' => null,
         'tradingsymbol' => null,
+        'trading_symbol' => null,
         'order_timestamp' => null,
         'filled_quantity' => 'int32',
         'transaction_type' => null,
@@ -163,6 +165,7 @@ class OrderData implements ModelInterface, ArrayAccess
         'order_type' => 'order_type',
         'parent_order_id' => 'parent_order_id',
         'tradingsymbol' => 'tradingsymbol',
+        'trading_symbol' => 'trading_symbol',
         'order_timestamp' => 'order_timestamp',
         'filled_quantity' => 'filled_quantity',
         'transaction_type' => 'transaction_type',
@@ -195,7 +198,8 @@ class OrderData implements ModelInterface, ArrayAccess
         'order_request_id' => 'setOrderRequestId',
         'order_type' => 'setOrderType',
         'parent_order_id' => 'setParentOrderId',
-        'tradingsymbol' => 'setTradingsymbol',
+        'tradingsymbol' => 'setTradingsymbolDuplicate',
+        'trading_symbol' => 'setTradingSymbol',
         'order_timestamp' => 'setOrderTimestamp',
         'filled_quantity' => 'setFilledQuantity',
         'transaction_type' => 'setTransactionType',
@@ -228,7 +232,8 @@ class OrderData implements ModelInterface, ArrayAccess
         'order_request_id' => 'getOrderRequestId',
         'order_type' => 'getOrderType',
         'parent_order_id' => 'getParentOrderId',
-        'tradingsymbol' => 'getTradingsymbol',
+        'tradingsymbol' => 'getTradingsymbolDuplicate',
+        'trading_symbol' => 'getTradingSymbol',
         'order_timestamp' => 'getOrderTimestamp',
         'filled_quantity' => 'getFilledQuantity',
         'transaction_type' => 'getTransactionType',
@@ -404,6 +409,7 @@ class OrderData implements ModelInterface, ArrayAccess
         $this->container['order_type'] = isset($data['order_type']) ? $data['order_type'] : null;
         $this->container['parent_order_id'] = isset($data['parent_order_id']) ? $data['parent_order_id'] : null;
         $this->container['tradingsymbol'] = isset($data['tradingsymbol']) ? $data['tradingsymbol'] : null;
+        $this->container['trading_symbol'] = isset($data['trading_symbol']) ? $data['trading_symbol'] : null;
         $this->container['order_timestamp'] = isset($data['order_timestamp']) ? $data['order_timestamp'] : null;
         $this->container['filled_quantity'] = isset($data['filled_quantity']) ? $data['filled_quantity'] : null;
         $this->container['transaction_type'] = isset($data['transaction_type']) ? $data['transaction_type'] : null;
@@ -949,7 +955,7 @@ class OrderData implements ModelInterface, ArrayAccess
      *
      * @return string
      */
-    public function getTradingsymbol()
+    public function getTradingsymbolDuplicate()
     {
         return $this->container['tradingsymbol'];
     }
@@ -961,9 +967,33 @@ class OrderData implements ModelInterface, ArrayAccess
      *
      * @return $this
      */
-    public function setTradingsymbol($tradingsymbol)
+    public function setTradingsymbolDuplicate($tradingsymbol)
     {
         $this->container['tradingsymbol'] = $tradingsymbol;
+
+        return $this;
+    }
+
+    /**
+     * Gets trading_symbol
+     *
+     * @return string
+     */
+    public function getTradingSymbol()
+    {
+        return $this->container['trading_symbol'];
+    }
+
+    /**
+     * Sets trading_symbol
+     *
+     * @param string $trading_symbol Shows the trading symbol of the instrument
+     *
+     * @return $this
+     */
+    public function setTradingSymbol($trading_symbol)
+    {
+        $this->container['trading_symbol'] = $trading_symbol;
 
         return $this;
     }
