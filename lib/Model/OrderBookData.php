@@ -67,6 +67,7 @@ class OrderBookData implements ModelInterface, ArrayAccess
         'instrument_token' => 'string',
         'placed_by' => 'string',
         'tradingsymbol' => 'string',
+        'trading_symbol' => 'string',
         'order_type' => 'string',
         'validity' => 'string',
         'trigger_price' => 'float',
@@ -104,6 +105,7 @@ class OrderBookData implements ModelInterface, ArrayAccess
         'instrument_token' => null,
         'placed_by' => null,
         'tradingsymbol' => null,
+        'trading_symbol' => null,
         'order_type' => null,
         'validity' => null,
         'trigger_price' => 'float',
@@ -162,6 +164,7 @@ class OrderBookData implements ModelInterface, ArrayAccess
         'instrument_token' => 'instrument_token',
         'placed_by' => 'placed_by',
         'tradingsymbol' => 'tradingsymbol',
+        'trading_symbol' => 'trading_symbol',
         'order_type' => 'order_type',
         'validity' => 'validity',
         'trigger_price' => 'trigger_price',
@@ -198,7 +201,8 @@ class OrderBookData implements ModelInterface, ArrayAccess
         'tag' => 'setTag',
         'instrument_token' => 'setInstrumentToken',
         'placed_by' => 'setPlacedBy',
-        'tradingsymbol' => 'setTradingsymbol',
+        'tradingsymbol' => 'setTradingsymbolDuplicate',
+        'trading_symbol' => 'setTradingSymbol',
         'order_type' => 'setOrderType',
         'validity' => 'setValidity',
         'trigger_price' => 'setTriggerPrice',
@@ -235,7 +239,8 @@ class OrderBookData implements ModelInterface, ArrayAccess
         'tag' => 'getTag',
         'instrument_token' => 'getInstrumentToken',
         'placed_by' => 'getPlacedBy',
-        'tradingsymbol' => 'getTradingsymbol',
+        'tradingsymbol' => 'getTradingsymbolDuplicate',
+        'trading_symbol' => 'getTradingSymbol',
         'order_type' => 'getOrderType',
         'validity' => 'getValidity',
         'trigger_price' => 'getTriggerPrice',
@@ -415,6 +420,7 @@ class OrderBookData implements ModelInterface, ArrayAccess
         $this->container['instrument_token'] = isset($data['instrument_token']) ? $data['instrument_token'] : null;
         $this->container['placed_by'] = isset($data['placed_by']) ? $data['placed_by'] : null;
         $this->container['tradingsymbol'] = isset($data['tradingsymbol']) ? $data['tradingsymbol'] : null;
+        $this->container['trading_symbol'] = isset($data['trading_symbol']) ? $data['trading_symbol'] : null;
         $this->container['order_type'] = isset($data['order_type']) ? $data['order_type'] : null;
         $this->container['validity'] = isset($data['validity']) ? $data['validity'] : null;
         $this->container['trigger_price'] = isset($data['trigger_price']) ? $data['trigger_price'] : null;
@@ -739,7 +745,7 @@ class OrderBookData implements ModelInterface, ArrayAccess
      *
      * @return string
      */
-    public function getTradingsymbol()
+    public function getTradingsymbolDuplicate()
     {
         return $this->container['tradingsymbol'];
     }
@@ -751,9 +757,33 @@ class OrderBookData implements ModelInterface, ArrayAccess
      *
      * @return $this
      */
-    public function setTradingsymbol($tradingsymbol)
+    public function setTradingsymbolDuplicate($tradingsymbol)
     {
         $this->container['tradingsymbol'] = $tradingsymbol;
+
+        return $this;
+    }
+
+    /**
+     * Gets trading_symbol
+     *
+     * @return string
+     */
+    public function getTradingSymbol()
+    {
+        return $this->container['trading_symbol'];
+    }
+
+    /**
+     * Sets trading_symbol
+     *
+     * @param string $trading_symbol Shows the trading symbol of the instrument
+     *
+     * @return $this
+     */
+    public function setTradingSymbol($trading_symbol)
+    {
+        $this->container['trading_symbol'] = $trading_symbol;
 
         return $this;
     }

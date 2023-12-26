@@ -66,7 +66,8 @@ class TokenResponse implements ModelInterface, ArrayAccess
         'user_type' => 'string',
         'poa' => 'bool',
         'is_active' => 'bool',
-        'access_token' => 'string'
+        'access_token' => 'string',
+        'extended_token' => 'string'
     ];
 
     /**
@@ -85,7 +86,8 @@ class TokenResponse implements ModelInterface, ArrayAccess
         'user_type' => null,
         'poa' => null,
         'is_active' => null,
-        'access_token' => null
+        'access_token' => null,
+        'extended_token' => null
     ];
 
     /**
@@ -125,7 +127,8 @@ class TokenResponse implements ModelInterface, ArrayAccess
         'user_type' => 'user_type',
         'poa' => 'poa',
         'is_active' => 'is_active',
-        'access_token' => 'access_token'
+        'access_token' => 'access_token',
+        'extended_token' => 'extended_token'
     ];
 
     /**
@@ -144,7 +147,8 @@ class TokenResponse implements ModelInterface, ArrayAccess
         'user_type' => 'setUserType',
         'poa' => 'setPoa',
         'is_active' => 'setIsActive',
-        'access_token' => 'setAccessToken'
+        'access_token' => 'setAccessToken',
+        'extended_token' => 'setExtendedToken'
     ];
 
     /**
@@ -163,7 +167,8 @@ class TokenResponse implements ModelInterface, ArrayAccess
         'user_type' => 'getUserType',
         'poa' => 'getPoa',
         'is_active' => 'getIsActive',
-        'access_token' => 'getAccessToken'
+        'access_token' => 'getAccessToken',
+        'extended_token' => 'getExtendedToken'
     ];
 
     /**
@@ -297,6 +302,7 @@ class TokenResponse implements ModelInterface, ArrayAccess
         $this->container['poa'] = isset($data['poa']) ? $data['poa'] : null;
         $this->container['is_active'] = isset($data['is_active']) ? $data['is_active'] : null;
         $this->container['access_token'] = isset($data['access_token']) ? $data['access_token'] : null;
+        $this->container['extended_token'] = isset($data['extended_token']) ? $data['extended_token'] : null;
     }
 
     /**
@@ -610,6 +616,30 @@ class TokenResponse implements ModelInterface, ArrayAccess
     public function setAccessToken($access_token)
     {
         $this->container['access_token'] = $access_token;
+
+        return $this;
+    }
+
+    /**
+     * Gets extended_token
+     *
+     * @return string
+     */
+    public function getExtendedToken()
+    {
+        return $this->container['extended_token'];
+    }
+
+    /**
+     * Sets extended_token
+     *
+     * @param string $extended_token The authentication token that is to used with every subsequent API requests
+     *
+     * @return $this
+     */
+    public function setExtendedToken($extended_token)
+    {
+        $this->container['extended_token'] = $extended_token;
 
         return $this;
     }
