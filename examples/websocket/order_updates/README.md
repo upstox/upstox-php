@@ -12,17 +12,13 @@ Before you can run this script, you need to have PHP 7.4 or later installed on y
 
 [Download PHP](https://www.php.net/downloads.php)
 
-You will also need to install several PHP packages:
-
-- `upstox-php-sdk`
-- `websocket-client`
-- `guzzlehttp/guzzle`
-
-You can install these packages using composer, a package manager for PHP. Open a terminal and enter the following command:
+To ensure the proper functioning of this project, specific PHP packages are required, which are listed in the included composer.json file. To install these dependencies, you should start by ensuring that you are in the root directory of the project where the composer.json file is located. Then, execute the command
 
 ```sh
-composer require upstox-php-sdk websocket-client guzzlehttp/guzzle
+composer install
 ```
+
+in your terminal. This command will automatically install all the necessary PHP packages specified in the composer.json file, including `upstox-php-sdk`, `amphp/websocket-client`, and `guzzlehttp/guzzle`. These dependencies will be installed in a new `/vendor` folder, which will be created on the same level as the composer.json file. This streamlined process facilitates a quick and efficient setup of the project environment with all the required dependencies.
 
 ### Configuration
 

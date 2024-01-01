@@ -12,66 +12,13 @@ Before you can run this script, you need to have PHP 7.4 or later installed on y
 
 [Download PHP](https://www.php.net/downloads.php)
 
-You will also need to install several PHP packages:
-
-- `upstox-php-sdk`
-- `websocket-client`
-- `guzzlehttp/guzzle`
-- `protobuf`
-
-You can install these packages using composer, a package manager for PHP. Open a terminal and enter the following command:
+To ensure the proper functioning of this project, specific PHP packages are required, which are listed in the included composer.json file. To install these dependencies, you should start by ensuring that you are in the root directory of the project where the composer.json file is located. Then, execute the command
 
 ```sh
-composer require upstox-php-sdk websocket-client guzzlehttp/guzzle protobuf
+composer install
 ```
 
-### Protocol Buffers (Protobuf) Classes Generation
-
-Generate the Protobuf classes in PHP from `.proto` file.
-
-Before you can generate the Protobuf classes, you need to download the [proto file](https://assets.upstox.com/feed/market-data-feed/v1/MarketDataFeed.proto) and install the Protocol Buffers compiler (protoc).
-
-To download the Protocol Buffers compiler, go to the [Google Protocol Buffers GitHub repository](https://github.com/protocolbuffers/protobuf/releases) and download the appropriate `protoc-<version>-<os>.zip` file for your operating system. Extract the ZIP file and add the `bin` directory to your system PATH.
-
-For example, on a Unix-like system, you can add the directory to your PATH like this:
-
-```bash
-export PATH=$PATH:/path/to/protoc/bin
-```
-
-You can confirm that the compiler is correctly installed by opening a new terminal window and running the following command:
-
-```
-protoc --version
-```
-
-This should print the protoc version.
-
-#### Install Protobuf Runtime for PHP
-
-You can install the Protobuf runtime for PHP using the [PECL](https://pecl.php.net) package manager:
-
-```
-pecl install protobuf
-```
-
-#### Generate Protobuf classes
-
-Navigate to the directory containing your .proto files and run the following command:
-
-```
-protoc --php_out=. *.proto
-```
-
-This will generate .php files for each .proto file in the directory.
-
-In your PHP code, you can now import the generated classes like any other PHP module. For example, if you have a file MarketDataFeed.proto and you've generated MarketDataFeed.php, you can import it like this:
-
-```
-require_once 'MarketDataFeed.php';
-```
-
-Sample classes included as part of this repo.
+in your terminal. This command will automatically install all the necessary PHP packages specified in the composer.json file, including `upstox-php-sdk`, `amphp/websocket-client`, and `guzzlehttp/guzzle`. These dependencies will be installed in a new `/vendor` folder, which will be created on the same level as the composer.json file. This streamlined process facilitates a quick and efficient setup of the project environment with all the required dependencies.
 
 ### Configuration
 

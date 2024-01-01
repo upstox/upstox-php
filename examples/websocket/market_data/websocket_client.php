@@ -1,9 +1,9 @@
 <?php
 
-require_once(__DIR__ . '/../vendor/autoload.php');
+require_once 'vendor/autoload.php';
 
 use GuzzleHttp\Client;
-use WebSocket\Client as WebSocketClient;
+use function Amp\Websocket\Client\connect;
 use Upstox\Client\Configuration;
 use Upstox\Client\Api\WebsocketApi;
 use Com\Upstox\Marketdatafeeder\Rpc\Proto\FeedResponse;
@@ -17,10 +17,19 @@ use Com\Upstox\Marketdatafeeder\Rpc\Proto\FeedResponse;
 function decodeProtobuf($buffer)
 {
     $feedResponse = new FeedResponse();
-    $feedResponse->mergeFromString($buffer);
+
+    // Check if the buffer is not null and is a non-empty string
+    if ($buffer !== null && $buffer !== '') {
+        $feedResponse->mergeFromString($buffer);
+    } else {
+        // Handle the case where buffer is null or empty
+        // For example, you might want to log this situation or throw an exception
+        echo "Warning: Buffer is null or empty.\n";
+    }
 
     return $feedResponse;
 }
+
 
 /**
  * Function to get market data feed authorization.
@@ -54,20 +63,9 @@ function fetchMarketUpdates()
     // Get the authorized URL for the WebSocket connection
     $response = getMarketDataFeedAuthorize($apiVersion, $configuration);
 
-    // Create a WebSocket client instance with the authorized URL and disable SSL verification
-    $client = new WebSocketClient($response['data']['authorized_redirect_uri'], [
-        'timeout' => 10,
-        'context' => stream_context_create([
-            'ssl' => [
-                'verify_peer' => false,
-                'verify_peer_name' => false
-            ]
-        ])
-    ]);
+    $connection = connect($response['data']['authorized_redirect_uri']);
 
     echo "Connection successful!\n";
-
-    $client->setTimeout(1);  // Wait for 1 second
 
     // Message payload to send to the server
     $data = [
@@ -80,21 +78,22 @@ function fetchMarketUpdates()
     ];
 
     // Send the data as binary
-    $client->binary(json_encode($data));
+    $binaryData = json_encode($data);
 
-    // Continuously receive updates until an error occurs
-    while (true) {
-        try {
-            // Receive and decode the incoming message
-            $message = $client->receive();
-            $decodedData = decodeProtobuf($message);
+    $connection->sendBinary($binaryData);
 
+    foreach ($connection as $message) {
+        $payload = $message->buffer();
+
+        if ($payload === '100') {
+            $connection->close();
+            break;
+        }
+
+        if (!empty($payload)) {
+            $decodedData = decodeProtobuf($payload);
             // Convert the decoded data to JSON and print it
             var_dump($decodedData->serializeToJsonString());
-        } catch (\Exception $e) {
-            // Print the error message and exit the loop if an error occurs
-            echo "Error: {$e->getMessage()}\n";
-            break;
         }
     }
 }
