@@ -1,0 +1,16 @@
+{
+    "name": "upstox/websocket_order_updates_socket_sample",
+    "require": {
+        "upstox/upstox-php-sdk": "*",
+        "guzzlehttp/guzzle": "^7.0",
+        "amphp/websocket-client": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Com\\Upstox\\Marketdatafeeder\\Rpc\\Proto\\": "protobuf/Com/Upstox/Marketdatafeeder/Rpc/Proto/",
+            "GPBMetadata\\": "protobuf/GPBMetadata/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

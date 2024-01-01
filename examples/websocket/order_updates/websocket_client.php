@@ -1,10 +1,11 @@
 <?php
-require_once(__DIR__ . '/../vendor/autoload.php');
+
+require_once 'vendor/autoload.php';
 
 use GuzzleHttp\Client;
-use WebSocket\Client as WebSocketClient;
 use Upstox\Client\Configuration;
 use Upstox\Client\Api\WebsocketApi;
+use function Amp\Websocket\Client\connect;
 
 function get_portfolio_stream_feed_authorize($api_version, $configuration)
 {
@@ -18,20 +19,6 @@ function get_portfolio_stream_feed_authorize($api_version, $configuration)
     return $api_response;
 }
 
-function getPortfolioStreamFeedAuthorize($apiVersion, $accessToken)
-{
-    $client = new Client([
-        'base_uri' => 'https://upstox.com', // Assuming this is the base url
-        'headers' => [
-            'Authorization' => 'Bearer ' . $accessToken
-        ]
-    ]);
-
-    $response = $client->request('POST', '/api/' . $apiVersion . '/portfolio/stream-feed/authorize');
-
-    return json_decode((string) $response->getBody(), true);
-}
-
 function fetchOrderUpdates()
 {
     $apiVersion = '2.0';
@@ -42,24 +29,17 @@ function fetchOrderUpdates()
 
     $response = get_portfolio_stream_feed_authorize($apiVersion, $configuration);
 
-    $client = new WebSocketClient($response['data']['authorized_redirect_uri'], [
-        'timeout' => 10,
-        'context' => stream_context_create([
-            'ssl' => [
-                'verify_peer' => false,
-                'verify_peer_name' => false
-            ]
-        ])
-    ]);
+    $connection = connect($response['data']['authorized_redirect_uri']);
 
     echo "Connection successful!\n";
 
-    while (true) {
-        try {
-            $message = $client->receive();  // This will block until a message arrives
-            echo "Received message: $message\n";
-        } catch (\Exception $e) {
-            echo "Error: {$e->getMessage()}\n";
+    foreach ($connection as $message) {
+        $payload = $message->buffer();
+
+        printf("Received: %s\n", $payload);
+
+        if ($payload === '100') {
+            $connection->close();
             break;
         }
     }
