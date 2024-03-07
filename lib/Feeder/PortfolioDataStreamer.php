@@ -1,12 +1,16 @@
 <?php
+
 namespace Upstox\Client\Feeder;
 
 use Upstox\Client\Configuration;
+use Exception;
 
-class PortfolioDataStreamer extends Streamer{
+class PortfolioDataStreamer extends Streamer
+{
+    
     protected $config;
 
-    public function __construct(Configuration $config = null, $instrumentKeys = [], $mode = "")
+    public function __construct(Configuration $config = null)
     {
         parent::__construct($config);
         $this->config = $config;
@@ -25,16 +29,27 @@ class PortfolioDataStreamer extends Streamer{
         $this->feeder->connect();
     }
 
+
+    public function disconnect()
+    {
+        if ($this->feeder) {
+            $this->disconnectValid = true;
+            $this->feeder->disconnect();
+        } else {
+            throw new Exception("Feeder instance not set.");
+        }
+    }
+
     public function handleOpen()
     {
         $this->disconnectValid = false;
         $this->reconnectInProgress = false;
         $this->reconnectAttempts = 0;
-        $this->emit(self::EVENT["OPEN"]);
+        $this->emit(self::EVENT["OPEN"], $this);
     }
 
     public function handleMessage($message)
     {
-        $this->emit(self::EVENT["MESSAGE"], $message);
+        $this->emit(self::EVENT["MESSAGE"], $this, $message);
     }
 }

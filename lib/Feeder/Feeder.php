@@ -24,7 +24,6 @@ abstract class Feeder
 
     public function disconnect(): void
     {
-        print("DISCONNECT CALLED");
         if ($this->webSocket instanceof WebsocketConnection) {
             $this->webSocket->close();
         }

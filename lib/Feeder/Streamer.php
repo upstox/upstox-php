@@ -61,7 +61,7 @@ abstract class Streamer
         $this->interval = $interval;
         $this->retryCount = $retryCount;
         if (!$enable) {
-            $this->emit(self::EVENT["AUTO_RECONNECT_STOPPED"], "Disabled by client.");
+            $this->emit(self::EVENT["AUTO_RECONNECT_STOPPED"], $this, "Disabled by client.");
         }
     }
 
@@ -70,7 +70,7 @@ abstract class Streamer
         if ($this->enableAutoReconnect) {
             $this->reconnectInProgress = true;
             $this->reconnectAttempts++;
-            $this->emit(self::EVENT["RECONNECTING"], "Auto reconnect attempt {$this->reconnectAttempts}/{$this->retryCount}");
+            $this->emit(self::EVENT["RECONNECTING"], $this, "Auto reconnect attempt {$this->reconnectAttempts}/{$this->retryCount}");
             $this->connect(); // Initial reconnect attempt
         }
     }
@@ -81,7 +81,7 @@ abstract class Streamer
 
     public function handleError($error)
     {
-        $this->emit(self::EVENT["ERROR"], $error);
+        $this->emit(self::EVENT["ERROR"], $this, $error);
 
         if (strpos($error, "401 Unauthorized") !== false) {
             $this->disconnectValid = true;
@@ -91,20 +91,20 @@ abstract class Streamer
         if ($this->enableAutoReconnect && $this->reconnectInProgress && $this->reconnectAttempts < $this->retryCount) {
             sleep($this->interval);
             $this->reconnectAttempts++;
-            $this->emit(self::EVENT["RECONNECTING"], "Auto reconnect attempt {$this->reconnectAttempts}/{$this->retryCount}");
+            $this->emit(self::EVENT["RECONNECTING"], $this, "Auto reconnect attempt {$this->reconnectAttempts}/{$this->retryCount}");
             $this->connect(); // Attempt to reconnect
             return;
         }
 
         if ($this->reconnectAttempts == $this->retryCount) {
-            $this->emit(self::EVENT["AUTO_RECONNECT_STOPPED"], "retryCount of {$this->retryCount} exhausted.");
+            $this->emit(self::EVENT["AUTO_RECONNECT_STOPPED"], $this, "retryCount of {$this->retryCount} exhausted.");
         }
     }
 
     public function handleClose($closeStatusCode, $closeMsg)
     {
         if (!$this->reconnectInProgress) {
-            $this->emit(self::EVENT["CLOSE"], $closeStatusCode, $closeMsg);
+            $this->emit(self::EVENT["CLOSE"], $this, $closeStatusCode, $closeMsg);
         }
 
         if (!$this->reconnectInProgress && !$this->disconnectValid && $closeStatusCode != 1000) {

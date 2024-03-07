@@ -90,7 +90,7 @@ class MarketDataStreamer extends Streamer
             $this->feeder->disconnect();
             $this->clearSubscriptions();
         } else {
-            throw new \Exception("Feeder instance not set.");
+            throw new Exception("Feeder instance not set.");
         }
     }
 
@@ -123,7 +123,7 @@ class MarketDataStreamer extends Streamer
     {
         $decodedData = $this->decodeProtobuf($message);
         $dataDict = $decodedData->serializeToJsonString();
-        $this->emit(self::EVENT["MESSAGE"], $dataDict);
+        $this->emit(self::EVENT["MESSAGE"], $this, $dataDict);
     }
 
     private function decodeProtobuf($buffer)

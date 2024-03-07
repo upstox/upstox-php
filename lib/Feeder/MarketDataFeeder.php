@@ -11,8 +11,6 @@ use function Amp\async;
 use Ramsey\Uuid\Uuid;
 use Upstox\Client\Configuration;
 use Exception;
-use Upstox\Client\Api\WebsocketApi;
-use GuzzleHttp\Client;
 class MarketDataFeeder extends Feeder
 {
     const MODE = [
@@ -58,23 +56,9 @@ class MarketDataFeeder extends Feeder
 
                 $inputStream = $response->getBody()->buffer();
                 $body = json_decode($inputStream, true); // Wait for the body
-                print("\n\nafter body\n\n");
-
+                
                 // Connect to WebSocket asynchronously and wait for the connection
                 $this->webSocket = connect($body['data']['authorized_redirect_uri']);
-
-
-                // $apiVersion = '2.0';
-                // $apiInstance = new WebsocketApi(
-                //     new Client(),
-                //     $this->config
-                // );
-                // $response = $apiInstance->getMarketDataFeedAuthorize($apiVersion);
-
-                // $this->webSocket = connect($response['data']['authorized_redirect_uri']);
-
-
-
 
                 if ($this->onOpen) {
                     call_user_func($this->onOpen);

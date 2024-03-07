@@ -2,20 +2,20 @@
 
 namespace Upstox\Client\Feeder;
 
-use Amp\Websocket\Client\WebsocketHandshake;
+use Amp\Http\Client\HttpClientBuilder;
+use Amp\Http\Client\Request;
 use Amp\Websocket\WebsocketClosedException;
 use function Amp\Websocket\Client\connect;
-use GuzzleHttp\Client;
+use function Amp\async;
 use Upstox\Client\Configuration;
-use Upstox\Client\Api\WebsocketApi;
-
+use Exception;
 class PortfolioDataFeeder extends Feeder
 {
-    
+
     private $onOpen;
     private $onMessage;
     private $onError;
-    private $closingCode = -1;
+    private $onClose;
 
     public function __construct(Configuration $config = null, $onOpen = null, $onMessage = null, $onError = null, $onClose = null)
     {
@@ -30,42 +30,51 @@ class PortfolioDataFeeder extends Feeder
 
     public function connect()
     {
-        $wsUrl = "wss://api.upstox.com/v2/feed/portfolio-stream-feed";
+        async(function () {
+            $authUrl = "https://api.upstox.com/v2/feed/portfolio-stream-feed/authorize";
 
-        try {
-            $handshake = (new WebsocketHandshake($wsUrl))
-                ->withHeader('Authorization', 'Bearer ' . $this->config->getAccessToken());
-            $apiVersion = '2.0';
-            $apiInstance = new WebsocketApi(
-                new Client(),
-                $this->config
-            );
-            $response = $apiInstance->getPortfolioStreamFeedAuthorize($apiVersion);
+            try {
+                $client = HttpClientBuilder::buildDefault();
 
-            $this->webSocket = connect($response['data']['authorized_redirect_uri']);
-            if ($this->onOpen) {
-                call_user_func($this->onOpen);
-            }
-            foreach ($this->webSocket as $message) {
-                $payload = $message->buffer();
+                $request = new Request($authUrl, "GET");
+                $request->setHeader("Authorization", 'Bearer ' . $this->config->getAccessToken());
 
-                if ($payload === '100') {
-                    $this->webSocket->close();
-                    break;
+                // Perform the HTTP request asynchronously
+                $response = $client->request($request);
+
+                $inputStream = $response->getBody()->buffer();
+                $body = json_decode($inputStream, true); // Wait for the body
+                
+                // Connect to WebSocket asynchronously and wait for the connection
+                $this->webSocket = connect($body['data']['authorized_redirect_uri']);
+
+                if ($this->onOpen) {
+                    call_user_func($this->onOpen);
                 }
 
-                if ($this->onMessage) {
-                    call_user_func($this->onMessage, $payload);
+                foreach ($this->webSocket as $message) {
+                    $payload = $message->buffer();
+
+                    if ($payload === '100') {
+                        $this->webSocket->close();
+                        break;
+                    }
+
+                    if ($this->onMessage) {
+                        call_user_func($this->onMessage, $payload);
+                    }
                 }
+            } catch (WebsocketClosedException $e) {
+                $closeCode = $e->getCode();
+                $closeReason = $e->getReason();
+                call_user_func($this->onClose, $closeCode, $closeReason);
+            } catch (\Throwable $e) {
+                if ($this->onError) {
+                    call_user_func($this->onError, $e);
+                }
+            } finally {
+                call_user_func($this->onClose, '1000', 'Graceful shutdown');
             }
-        } catch (WebsocketClosedException $e) {
-            $closeCode = $e->getCode();
-            $closeReason = $e->getReason();
-            call_user_func($this->onClose, $closeCode, $closeReason);
-        } catch (\Throwable $e) {
-            if ($this->onError) {
-                call_user_func($this->onError, $e);
-            }
-        }
+        });
     }
 }
