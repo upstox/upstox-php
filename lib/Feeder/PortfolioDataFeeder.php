@@ -42,6 +42,11 @@ class PortfolioDataFeeder extends Feeder
                 // Perform the HTTP request asynchronously
                 $response = $client->request($request);
 
+                if ($response->getStatus() != 200) {
+                    call_user_func($this->onError, new Exception("Received status " . $response->getStatus() . ". Please fix the issue and try again."));
+                    return;
+                }
+
                 $inputStream = $response->getBody()->buffer();
                 $body = json_decode($inputStream, true); // Wait for the body
                 
