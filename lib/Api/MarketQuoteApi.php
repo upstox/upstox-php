@@ -318,7 +318,7 @@ class MarketQuoteApi
             );
         }
 
-        $resourcePath = '/market-quote/quotes';
+        $resourcePath = '/v2/market-quote/quotes';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -646,7 +646,7 @@ class MarketQuoteApi
             );
         }
 
-        $resourcePath = '/market-quote/ohlc';
+        $resourcePath = '/v2/market-quote/ohlc';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -967,7 +967,7 @@ class MarketQuoteApi
             );
         }
 
-        $resourcePath = '/market-quote/ltp';
+        $resourcePath = '/v2/market-quote/ltp';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
