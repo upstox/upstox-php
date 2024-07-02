@@ -16,8 +16,11 @@ class PortfolioDataFeeder extends Feeder
     private $onMessage;
     private $onError;
     private $onClose;
+    protected $orderUpdate;
+    protected $holdingUpdate;
+    protected $positionUpdate;
 
-    public function __construct(Configuration $config = null, $onOpen = null, $onMessage = null, $onError = null, $onClose = null)
+    public function __construct(Configuration $config = null, $onOpen = null, $onMessage = null, $onError = null, $onClose = null,bool $orderUpdate = true, bool $holdingUpdate = false, bool $positionUpdate = false)
     {
         // Invoke the parent constructor
         parent::__construct($config);
@@ -26,13 +29,15 @@ class PortfolioDataFeeder extends Feeder
         $this->onMessage = $onMessage;
         $this->onError = $onError;
         $this->onClose = $onClose;
+        $this->orderUpdate = $orderUpdate;
+        $this->holdingUpdate = $holdingUpdate;
+        $this->positionUpdate = $positionUpdate;  
     }
 
     public function connect()
     {
         async(function () {
-            $authUrl = "https://api.upstox.com/v2/feed/portfolio-stream-feed/authorize";
-
+            $authUrl = $this->getAuthenticationURL();
             try {
                 $client = HttpClientBuilder::buildDefault();
 
@@ -76,5 +81,33 @@ class PortfolioDataFeeder extends Feeder
                 call_user_func($this->onClose, '1000', 'Graceful shutdown');
             }
         });
+    }
+    public function getAuthenticationURL() {
+        $wsUrl= "https://api.upstox.com/v2/feed/portfolio-stream-feed/authorize";
+        $updateType = [];
+
+        if ($this->orderUpdate) {
+            $updateType[] = "order";
+        }
+        if ($this->holdingUpdate) {
+            $updateType[] = "holding";
+        }
+        if ($this->positionUpdate) {
+            $updateType[] = "position";
+        }
+
+        if (count($updateType) >= 1) {
+            $wsUrl .= "?update_types=";
+        }
+
+        for ($i = 0; $i < count($updateType) - 1; $i++) {
+            $wsUrl .= ($updateType[$i] . "%2C");
+        }
+
+        if (count($updateType) >= 1) {
+            $wsUrl .= $updateType[count($updateType) - 1];
+        }
+        print($wsUrl."\n");
+        return $wsUrl;
     }
 }
