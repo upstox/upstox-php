@@ -10,7 +10,7 @@ use Revolt\EventLoop;
 use function Amp\async;
 use function Amp\delay;
 
-$config = Configuration::getDefaultConfiguration()->setAccessToken('your_access_token');
+$config = Configuration::getDefaultConfiguration()->setAccessToken('eyJ0eXAiOiJKV1QiLCJrZXlfaWQiOiJza192MS4wIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiI3UEJDNkQiLCJqdGkiOiI2Njg3NmIzYzhlNjIxOTEzYWNkY2JhNTciLCJpc011bHRpQ2xpZW50IjpmYWxzZSwiaWF0IjoxNzIwMTUwODQ0LCJpc3MiOiJ1ZGFwaS1nYXRld2F5LXNlcnZpY2UiLCJleHAiOjE3MjAyMTY4MDB9.FAoWWPlxtfpYZow7smU9G-oCStC9OPk2NYEi9m4Domc');
 $streamer = new PortfolioDataStreamer($config,orderUpdate:true,holdingUpdate:true,positionUpdate:true);
 function on_open($streamer)
 {

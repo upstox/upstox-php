@@ -20,7 +20,7 @@ class PortfolioDataFeeder extends Feeder
     protected $holdingUpdate;
     protected $positionUpdate;
 
-    public function __construct(Configuration $config = null, $onOpen = null, $onMessage = null, $onError = null, $onClose = null,bool $orderUpdate = true, bool $holdingUpdate = false, bool $positionUpdate = false)
+    public function __construct(Configuration $config = null, callable $onOpen = null, callable $onMessage = null, callable $onError = null, callable $onClose = null,bool $orderUpdate = true, bool $holdingUpdate = false, bool $positionUpdate = false)
     {
         // Invoke the parent constructor
         parent::__construct($config);
@@ -107,7 +107,7 @@ class PortfolioDataFeeder extends Feeder
         if (count($updateType) >= 1) {
             $wsUrl .= $updateType[count($updateType) - 1];
         }
-        print($wsUrl."\n");
+
         return $wsUrl;
     }
 }
