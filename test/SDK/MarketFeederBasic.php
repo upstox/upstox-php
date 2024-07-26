@@ -1,17 +1,20 @@
 <?php
 
 
-require_once(__DIR__ . '/../../../vendor/autoload.php');
+require_once(__DIR__ . '/../../vendor/autoload.php');
+require_once(__DIR__. '/LocalStorage.php');
 
 use Upstox\Client\Configuration;
-use Upstox\Client\Feeder\PortfolioDataStreamer;
+use Upstox\Client\Feeder\MarketDataStreamer;
 use Revolt\EventLoop;
 
 use function Amp\async;
 use function Amp\delay;
 
-$config = Configuration::getDefaultConfiguration()->setAccessToken('your_access_token');
-$streamer = new PortfolioDataStreamer($config);
+$config = Upstox\Client\Configuration::getDefaultConfiguration()->setAccessToken($accessToken);
+
+
+$streamer = new MarketDataStreamer($config, ["MCX_FO|426302", "NSE_EQ|INE528G01035"], "full");
 function on_open($streamer)
 {
     print("on_open function called");

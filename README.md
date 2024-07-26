@@ -116,7 +116,7 @@ function on_message($streamer, $data)
 
 config = Configuration::getDefaultConfiguration()->setAccessToken(<ACCESS_TOKEN>);
 
-$streamer = new MarketDataStreamer($config, ["NSE_INDEX|Nifty 50", "NSE_INDEX|Bank Nifty"], "full");
+$streamer = new MarketDataStreamer($config, ["NSE_INDEX|Nifty 50", "NSE_INDEX|Nifty Bank"], "full");
 
 $streamer->on("message", 'on_message');
 $streamer->connect();
@@ -165,7 +165,7 @@ use Revolt\EventLoop;
 function on_open($streamer)
 {
     print("Connection Established");
-    $streamer->subscribe(["NSE_INDEX|Nifty 50", "NSE_INDEX|Bank Nifty"], "full");
+    $streamer->subscribe(["NSE_INDEX|Nifty 50", "NSE_INDEX|Nifty Bank"], "full");
 }
 
 function on_message($streamer, $data)
@@ -200,7 +200,7 @@ function on_open($streamer)
     print("Connection Established");
     $streamer->subscribe(["NSE_INDEX|Nifty 50"], "full");
     delay(5);
-    $streamer->subscribe(["NSE_INDEX|Bank Nifty"], "full");
+    $streamer->subscribe(["NSE_INDEX|Nifty Bank"], "full");
 }
 
 function on_message($streamer, $data)

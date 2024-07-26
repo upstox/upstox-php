@@ -1,8 +1,8 @@
 <?php
 require_once(__DIR__ . '/../../vendor/autoload.php');
+require_once(__DIR__. '/LocalStorage.php');
 
-// Configure OAuth2 access token for authorization: OAUTH2
-$config = Upstox\Client\Configuration::getDefaultConfiguration()->setAccessToken('eyJ0eXAiOiJKV1QiLCJrZXlfaWQiOiJza192MS4wIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiI3UEJDNkQiLCJqdGkiOiI2NjdhNjEwODdjNmJiMTM2ZWFhZTJkM2YiLCJpc011bHRpQ2xpZW50IjpmYWxzZSwiaWF0IjoxNzE5Mjk2MjY0LCJpc3MiOiJ1ZGFwaS1nYXRld2F5LXNlcnZpY2UiLCJleHAiOjE3MTkzNTI4MDB9.1Gojc8I_8FRhAQhXRDB6NuqNVv0ySM5atm-QkzcalX4');
+$config = Upstox\Client\Configuration::getDefaultConfiguration()->setAccessToken($accessToken);
 
 
 $apiInstance = new Upstox\Client\Api\ChargeApi(
@@ -62,7 +62,7 @@ $apiInstance = new Upstox\Client\Api\OrderApi(
 );
 
 $body = new \Upstox\Client\Model\PlaceOrderRequest();
-$body->setQuantity(0);
+$body->setQuantity(1);
 $body->setProduct("D");
 $body->setValidity("DAY");
 $body->setPrice(0);
@@ -72,7 +72,7 @@ $body->setOrderType("MARKET");
 $body->setTransactionType("BUY");
 $body->setDisclosedQuantity(0);
 $body->setTriggerPrice(0);
-$body->setIsAmo(true);
+$body->setIsAmo(false);
 try {
     $result = $apiInstance->placeOrder($body,$api_version);
     print($result);
@@ -361,5 +361,23 @@ try {
 }
 
 
-print("All good");
+$apiInstance = new \Upstox\Client\Api\LoginApi(new GuzzleHttp\Client(),$config);
+try{
+    $result = $apiInstance->token("2.0","code","client_id","secret","abc.com","authorization");
+    print_r($result);
+    
+}catch(Exception $e){
+    if(strpos($e->getMessage(), 'UDAPI100069') === false){
+        print_r("error in convert positions");
+    }
+}
+try{
+    $result = $apiInstance->logout("2.0");
+    print("All good log out");
+
+}
+catch(Exception $e){
+    print_r("error at logout= ".$e->getMessage());
+}
+
 ?>
