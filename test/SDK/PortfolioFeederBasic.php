@@ -1,7 +1,7 @@
 <?php
 
 require_once(__DIR__ . '/../../vendor/autoload.php');
-require_once(__DIR__. '/LocalStorage.php');
+require_once(__DIR__. '/DataAcessToken.php');
 
 use Upstox\Client\Configuration;
 use Upstox\Client\Feeder\PortfolioDataStreamer;

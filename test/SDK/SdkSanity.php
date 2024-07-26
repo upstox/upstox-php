@@ -1,6 +1,6 @@
 <?php
 require_once(__DIR__ . '/../../vendor/autoload.php');
-require_once(__DIR__. '/LocalStorage.php');
+require_once(__DIR__. '/DataAcessToken.php');
 
 $config = Upstox\Client\Configuration::getDefaultConfiguration()->setAccessToken($accessToken);
 
