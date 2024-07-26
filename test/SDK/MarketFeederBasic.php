@@ -1,7 +1,8 @@
 <?php
 
 
-require_once(__DIR__ . '/../../../vendor/autoload.php');
+require_once(__DIR__ . '/../../vendor/autoload.php');
+require_once(__DIR__. '/DataAcessToken.php');
 
 use Upstox\Client\Configuration;
 use Upstox\Client\Feeder\MarketDataStreamer;
@@ -10,7 +11,8 @@ use Revolt\EventLoop;
 use function Amp\async;
 use function Amp\delay;
 
-$config = Configuration::getDefaultConfiguration()->setAccessToken('your_access_token');
+$config = Upstox\Client\Configuration::getDefaultConfiguration()->setAccessToken($accessToken);
+
 
 $streamer = new MarketDataStreamer($config, ["MCX_FO|426302", "NSE_EQ|INE528G01035"], "full");
 function on_open($streamer)

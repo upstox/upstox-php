@@ -1,7 +1,7 @@
 <?php
 
-
-require_once(__DIR__ . '/../../../vendor/autoload.php');
+require_once(__DIR__ . '/../../vendor/autoload.php');
+require_once(__DIR__. '/DataAcessToken.php');
 
 use Upstox\Client\Configuration;
 use Upstox\Client\Feeder\PortfolioDataStreamer;
@@ -10,14 +10,11 @@ use Revolt\EventLoop;
 use function Amp\async;
 use function Amp\delay;
 
-$config = Configuration::getDefaultConfiguration()->setAccessToken('your_access_token');
+$config = Upstox\Client\Configuration::getDefaultConfiguration()->setAccessToken($accessToken);
 $streamer = new PortfolioDataStreamer($config);
 function on_open($streamer)
 {
     print("on_open function called");
-    delay(5);
-    print("delay crssed function called");
-    $streamer->disconnect();
 }
 function on_message($streamer,$data)
 {

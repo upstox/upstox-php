@@ -80,8 +80,8 @@ class Configuration
      *
      * @var string
      */
-    protected $host = 'https://api.upstox.com/v2';
-    protected $orderHost = 'https://api-hft.upstox.com/v2';
+    protected $host = 'https://api.upstox.com';
+    protected $orderHost = 'https://api-hft.upstox.com';
     /**
      * User agent of the HTTP request, set to "PHP-Swagger" by default
      *
