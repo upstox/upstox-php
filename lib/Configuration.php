@@ -81,7 +81,7 @@ class Configuration
      * @var string
      */
     protected $host = 'https://api.upstox.com';
-
+    protected $orderHost = 'https://api-hft.upstox.com';
     /**
      * User agent of the HTTP request, set to "PHP-Swagger" by default
      *
@@ -251,7 +251,10 @@ class Configuration
         $this->host = $host;
         return $this;
     }
-
+    public function setOrderHost($orderHost){
+        $this->orderHost = $orderHost;
+        return $this;
+    }
     /**
      * Gets the host
      *
@@ -260,6 +263,10 @@ class Configuration
     public function getHost()
     {
         return $this->host;
+    }
+    public function getOrderHost()
+    {
+        return $this->orderHost;
     }
 
     /**
