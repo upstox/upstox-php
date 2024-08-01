@@ -9,12 +9,17 @@ class PortfolioDataStreamer extends Streamer
 {
     
     protected $config;
+    protected $orderUpdate;
+    protected $holdingUpdate;
+    protected $positionUpdate;
 
-    public function __construct(Configuration $config = null)
+    public function __construct(Configuration $config = null, bool $orderUpdate = true, bool $holdingUpdate = false, bool $positionUpdate = false)
     {
         parent::__construct($config);
         $this->config = $config;
-        
+        $this->orderUpdate = $orderUpdate;
+        $this->holdingUpdate = $holdingUpdate;
+        $this->positionUpdate = $positionUpdate;        
     }
 
     public function connect()
@@ -24,7 +29,10 @@ class PortfolioDataStreamer extends Streamer
             [$this, 'handleOpen'],
             [$this, 'handleMessage'],
             [$this, 'handleError'],
-            [$this, 'handleClose']
+            [$this, 'handleClose'],
+            orderUpdate: $this->orderUpdate,
+            holdingUpdate: $this->holdingUpdate,
+            positionUpdate: $this->positionUpdate
         );
         $this->feeder->connect();
     }
@@ -52,4 +60,5 @@ class PortfolioDataStreamer extends Streamer
     {
         $this->emit(self::EVENT["MESSAGE"], $this, $message);
     }
+    
 }
