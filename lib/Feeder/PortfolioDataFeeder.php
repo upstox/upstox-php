@@ -84,30 +84,23 @@ class PortfolioDataFeeder extends Feeder
     }
     public function getAuthenticationURL() {
         $wsUrl= "https://api.upstox.com/v2/feed/portfolio-stream-feed/authorize";
-        $updateType = [];
+        $updateTypes = [];
 
         if ($this->orderUpdate) {
-            $updateType[] = "order";
+            $updateTypes[] = "order";
         }
         if ($this->holdingUpdate) {
-            $updateType[] = "holding";
+            $updateTypes[] = "holding";
         }
         if ($this->positionUpdate) {
-            $updateType[] = "position";
+            $updateTypes[] = "position";
         }
-
-        if (count($updateType) >= 1) {
-            $wsUrl .= "?update_types=";
+        
+        if (!empty($updateTypes)) {
+            $wsUrl .= "?update_types=" . implode("%2C", $updateTypes);
         }
-
-        for ($i = 0; $i < count($updateType) - 1; $i++) {
-            $wsUrl .= ($updateType[$i] . "%2C");
-        }
-
-        if (count($updateType) >= 1) {
-            $wsUrl .= $updateType[count($updateType) - 1];
-        }
-
+        print($updateTypes);
         return $wsUrl;
+
     }
 }

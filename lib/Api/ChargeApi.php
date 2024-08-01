@@ -362,7 +362,7 @@ class ChargeApi
             );
         }
 
-        $resourcePath = '/charges/brokerage';
+        $resourcePath = '/v2/charges/brokerage';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

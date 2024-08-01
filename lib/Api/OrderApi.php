@@ -318,7 +318,7 @@ class OrderApi
             );
         }
 
-        $resourcePath = '/order/cancel';
+        $resourcePath = '/v2/order/cancel';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -397,7 +397,7 @@ class OrderApi
         $query = \GuzzleHttp\Psr7\Query::build($queryParams);
         return new Request(
             'DELETE',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $this->config->getOrderHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
         );
@@ -624,7 +624,7 @@ class OrderApi
             );
         }
 
-        $resourcePath = '/order/retrieve-all';
+        $resourcePath = '/v2/order/retrieve-all';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -936,7 +936,7 @@ class OrderApi
             );
         }
 
-        $resourcePath = '/order/history';
+        $resourcePath = '/v2/order/history';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1246,7 +1246,7 @@ class OrderApi
             );
         }
 
-        $resourcePath = '/order/trades/get-trades-for-day';
+        $resourcePath = '/v2/order/trades/get-trades-for-day';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1559,7 +1559,7 @@ class OrderApi
             );
         }
 
-        $resourcePath = '/order/trades';
+        $resourcePath = '/v2/order/trades';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1876,7 +1876,7 @@ class OrderApi
             );
         }
 
-        $resourcePath = '/order/modify';
+        $resourcePath = '/v2/order/modify';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1954,7 +1954,7 @@ class OrderApi
         $query = \GuzzleHttp\Psr7\Query::build($queryParams);
         return new Request(
             'PUT',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $this->config->getOrderHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
         );
@@ -2192,7 +2192,7 @@ class OrderApi
             );
         }
 
-        $resourcePath = '/order/place';
+        $resourcePath = '/v2/order/place';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2270,7 +2270,7 @@ class OrderApi
         $query = \GuzzleHttp\Psr7\Query::build($queryParams);
         return new Request(
             'POST',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $this->config->getOrderHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
         );

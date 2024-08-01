@@ -307,7 +307,7 @@ class UserApi
             );
         }
 
-        $resourcePath = '/user/profile';
+        $resourcePath = '/v2/user/profile';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -614,7 +614,7 @@ class UserApi
             );
         }
 
-        $resourcePath = '/user/get-funds-and-margin';
+        $resourcePath = '/v2/user/get-funds-and-margin';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

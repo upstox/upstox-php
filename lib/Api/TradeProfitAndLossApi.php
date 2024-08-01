@@ -339,7 +339,7 @@ class TradeProfitAndLossApi
             );
         }
 
-        $resourcePath = '/trade/profit-loss/charges';
+        $resourcePath = '/v2/trade/profit-loss/charges';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -711,7 +711,7 @@ class TradeProfitAndLossApi
             );
         }
 
-        $resourcePath = '/trade/profit-loss/data';
+        $resourcePath = '/v2/trade/profit-loss/data';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1069,7 +1069,7 @@ class TradeProfitAndLossApi
             );
         }
 
-        $resourcePath = '/trade/profit-loss/metadata';
+        $resourcePath = '/v2/trade/profit-loss/metadata';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

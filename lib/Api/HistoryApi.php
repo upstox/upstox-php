@@ -340,7 +340,7 @@ class HistoryApi
             );
         }
 
-        $resourcePath = '/historical-candle/{instrumentKey}/{interval}/{to_date}';
+        $resourcePath = '/v2/historical-candle/{instrumentKey}/{interval}/{to_date}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -706,7 +706,7 @@ class HistoryApi
             );
         }
 
-        $resourcePath = '/historical-candle/{instrumentKey}/{interval}/{to_date}/{from_date}';
+        $resourcePath = '/v2/historical-candle/{instrumentKey}/{interval}/{to_date}/{from_date}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1058,7 +1058,7 @@ class HistoryApi
             );
         }
 
-        $resourcePath = '/historical-candle/intraday/{instrumentKey}/{interval}';
+        $resourcePath = '/v2/historical-candle/intraday/{instrumentKey}/{interval}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

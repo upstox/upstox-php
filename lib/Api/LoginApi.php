@@ -302,7 +302,7 @@ class LoginApi
             );
         }
 
-        $resourcePath = '/login/authorization/dialog';
+        $resourcePath = '/v2/login/authorization/dialog';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -616,7 +616,7 @@ class LoginApi
             );
         }
 
-        $resourcePath = '/logout';
+        $resourcePath = '/v2/logout';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -943,7 +943,7 @@ class LoginApi
             );
         }
 
-        $resourcePath = '/login/authorization/token';
+        $resourcePath = '/v2/login/authorization/token';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
