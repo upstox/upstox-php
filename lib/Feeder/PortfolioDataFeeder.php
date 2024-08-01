@@ -99,7 +99,6 @@ class PortfolioDataFeeder extends Feeder
         if (!empty($updateTypes)) {
             $wsUrl .= "?update_types=" . implode("%2C", $updateTypes);
         }
-        print($updateTypes);
         return $wsUrl;
 
     }

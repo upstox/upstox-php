@@ -63,6 +63,10 @@ class WebsocketApi
      */
     protected $headerSelector;
 
+    protected $orderUpdate = true;
+    protected $holdingUpdate = false;
+    protected $positionUpdate = false;
+
     /**
      * @param ClientInterface $client
      * @param Configuration   $config
@@ -929,8 +933,11 @@ class WebsocketApi
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\WebsocketAuthRedirectResponse
      */
-    public function getPortfolioStreamFeedAuthorize($api_version)
+    public function getPortfolioStreamFeedAuthorize($api_version,bool $orderUpdate = true, bool $holdingUpdate = false, bool $positionUpdate = false)
     {
+        $this->orderUpdate = $orderUpdate;
+        $this->holdingUpdate = $holdingUpdate;
+        $this->positionUpdate = $positionUpdate; 
         list($response) = $this->getPortfolioStreamFeedAuthorizeWithHttpInfo($api_version);
         return $response;
     }
@@ -1140,6 +1147,21 @@ class WebsocketApi
         }
 
         $resourcePath = '/v2/feed/portfolio-stream-feed/authorize';
+        $updateTypes = [];
+
+        if ($this->orderUpdate) {
+            $updateTypes[] = "order";
+        }
+        if ($this->holdingUpdate) {
+            $updateTypes[] = "holding";
+        }
+        if ($this->positionUpdate) {
+            $updateTypes[] = "position";
+        }
+        
+        if (!empty($updateTypes)) {
+            $resourcePath .= "?update_types=" . implode("%2C", $updateTypes);
+        }
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
