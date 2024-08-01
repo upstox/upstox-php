@@ -371,7 +371,7 @@ EventLoop::run();
 
 <br/>
 
-You can also enable position and holding updates by providing a boolean value to the constructor of `PortfolioDataStreamer`
+Position and holding updates can be enabled by setting the corresponding flag to `true` in the constructor of the `PortfolioDataStreamer` class.
 
 ```php
 
