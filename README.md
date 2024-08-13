@@ -60,6 +60,7 @@ All URIs are relative to *https://api.upstox.com/v2/*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ChargeApi* | [**getBrokerage**](docs/Api/ChargeApi.md#getbrokerage) | **GET** /v2/charges/brokerage | Brokerage details
+*ChargeApi* | [**postMargin**](docs/Api/ChargeApi.md#postmargin) | **POST** /v2/charges/margin | Calculate Margin
 *HistoryApi* | [**getHistoricalCandleData**](docs/Api/HistoryApi.md#gethistoricalcandledata) | **GET** /v2/historical-candle/{instrumentKey}/{interval}/{to_date} | Historical candle data
 *HistoryApi* | [**getHistoricalCandleData1**](docs/Api/HistoryApi.md#gethistoricalcandledata1) | **GET** /v2/historical-candle/{instrumentKey}/{interval}/{to_date}/{from_date} | Historical candle data
 *HistoryApi* | [**getIntraDayCandleData**](docs/Api/HistoryApi.md#getintradaycandledata) | **GET** /v2/historical-candle/intraday/{instrumentKey}/{interval} | Intra day candle data
@@ -85,6 +86,7 @@ Class | Method | HTTP request | Description
 *PortfolioApi* | [**convertPositions**](docs/Api/PortfolioApi.md#convertpositions) | **PUT** /v2/portfolio/convert-position | Convert Positions
 *PortfolioApi* | [**getHoldings**](docs/Api/PortfolioApi.md#getholdings) | **GET** /v2/portfolio/long-term-holdings | Get Holdings
 *PortfolioApi* | [**getPositions**](docs/Api/PortfolioApi.md#getpositions) | **GET** /v2/portfolio/short-term-positions | Get Positions
+*PostTradeApi* | [**getTradeHistory1**](docs/Api/PostTradeApi.md#gettradehistory1) | **GET** /v2/charges/historical-trades | 
 *TradeProfitAndLossApi* | [**getProfitAndLossCharges**](docs/Api/TradeProfitAndLossApi.md#getprofitandlosscharges) | **GET** /v2/trade/profit-loss/charges | Get profit and loss on trades
 *TradeProfitAndLossApi* | [**getTradeWiseProfitAndLossData**](docs/Api/TradeProfitAndLossApi.md#gettradewiseprofitandlossdata) | **GET** /v2/trade/profit-loss/data | Get Trade-wise Profit and Loss Report Data
 *TradeProfitAndLossApi* | [**getTradeWiseProfitAndLossMetaData**](docs/Api/TradeProfitAndLossApi.md#gettradewiseprofitandlossmetadata) | **GET** /v2/trade/profit-loss/metadata | Get profit and loss meta data on trades
@@ -454,9 +456,13 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [HistoricalCandleData](docs/Model/HistoricalCandleData.md)
  - [HoldingsData](docs/Model/HoldingsData.md)
  - [HolidayData](docs/Model/HolidayData.md)
+ - [Instrument](docs/Model/Instrument.md)
  - [InstrumentData](docs/Model/InstrumentData.md)
  - [IntraDayCandleData](docs/Model/IntraDayCandleData.md)
  - [LogoutResponse](docs/Model/LogoutResponse.md)
+ - [Margin](docs/Model/Margin.md)
+ - [MarginData](docs/Model/MarginData.md)
+ - [MarginRequest](docs/Model/MarginRequest.md)
  - [MarketData](docs/Model/MarketData.md)
  - [MarketQuoteOHLC](docs/Model/MarketQuoteOHLC.md)
  - [MarketQuoteSymbol](docs/Model/MarketQuoteSymbol.md)
@@ -478,6 +484,7 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [PlaceOrderRequest](docs/Model/PlaceOrderRequest.md)
  - [PlaceOrderResponse](docs/Model/PlaceOrderResponse.md)
  - [PositionData](docs/Model/PositionData.md)
+ - [PostMarginResponse](docs/Model/PostMarginResponse.md)
  - [Problem](docs/Model/Problem.md)
  - [ProfileData](docs/Model/ProfileData.md)
  - [ProfitAndLossChargesData](docs/Model/ProfitAndLossChargesData.md)
@@ -490,6 +497,10 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [TokenRequest](docs/Model/TokenRequest.md)
  - [TokenResponse](docs/Model/TokenResponse.md)
  - [TradeData](docs/Model/TradeData.md)
+ - [TradeHistoryResponse](docs/Model/TradeHistoryResponse.md)
+ - [TradeHistoryResponseMetaData](docs/Model/TradeHistoryResponseMetaData.md)
+ - [TradeHistoryResponsePageData](docs/Model/TradeHistoryResponsePageData.md)
+ - [TradeHistoryResponseTradeData](docs/Model/TradeHistoryResponseTradeData.md)
  - [TradeWiseMetaData](docs/Model/TradeWiseMetaData.md)
  - [TradeWiseProfitAndLossData](docs/Model/TradeWiseProfitAndLossData.md)
  - [UserFundMarginData](docs/Model/UserFundMarginData.md)

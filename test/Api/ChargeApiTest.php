@@ -80,4 +80,14 @@ class ChargeApiTest extends TestCase
     public function testGetBrokerage()
     {
     }
+
+    /**
+     * Test case for postMargin
+     *
+     * Calculate Margin.
+     *
+     */
+    public function testPostMargin()
+    {
+    }
 }
