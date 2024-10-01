@@ -6,7 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**cancelOrder**](OrderApi.md#cancelorder) | **DELETE** /order/cancel | Cancel order
 [**getOrderBook**](OrderApi.md#getorderbook) | **GET** /order/retrieve-all | Get order book
-[**getOrderDetails**](OrderApi.md#getorderdetails) | **GET** /order/history | Get order details
+[**getOrderDetails**](OrderApi.md#getorderdetails) | **GET** /order/history | Get order history
+[**getOrderStatus**](OrderApi.md#getorderstatus) | **GET**  /order/details | Get order details
 [**getTradeHistory**](OrderApi.md#gettradehistory) | **GET** /order/trades/get-trades-for-day | Get trades
 [**getTradesByOrder**](OrderApi.md#gettradesbyorder) | **GET** /order/trades | Get trades for order
 [**modifyOrder**](OrderApi.md#modifyorder) | **PUT** /order/modify | Modify order
@@ -165,6 +166,59 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\Upstox\Client\Model\GetOrderResponse**](../Model/GetOrderResponse.md)
+
+### Authorization
+
+[OAUTH2](../../README.md#OAUTH2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*, application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getOrderStatus**
+> \Upstox\Client\Model\GetOrderDetailsResponse getOrderStatus($order_id)
+
+Get order details
+
+This API provides the recent detail of the particular order the user has placed. The orders placed by the user is transient for a day and are cleared by the end of the trading session.\\n\\nThe order details can be requested using order_id.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: OAUTH2
+$config = Upstox\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$apiInstance = new Upstox\Client\Api\OrderApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$order_id = "order_id_example"; // string | The order reference ID for which the order details is required
+
+try {
+    $result = $apiInstance->getOrderStatus($order_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling OrderApi->getOrderStatus: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **order_id** | **string**| The order reference ID for which the order details is required | [optional]
+
+### Return type
+
+[**\Upstox\Client\Model\GetOrderDetailsResponse**](../Model/GetOrderDetailsResponse.md)
 
 ### Authorization
 

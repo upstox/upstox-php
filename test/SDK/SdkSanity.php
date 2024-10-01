@@ -4,7 +4,6 @@ require_once(__DIR__. '/DataAcessToken.php');
 
 $config = Upstox\Client\Configuration::getDefaultConfiguration()->setAccessToken($accessToken);
 
-
 $apiInstance = new Upstox\Client\Api\ChargeApi(
     new GuzzleHttp\Client(),
     $config
@@ -56,13 +55,36 @@ try {
     echo 'Exception when calling ChargeApi->getBrokerage: ', $e->getMessage(), PHP_EOL;
 }
 
+$instrument1 = new \Upstox\Client\Model\Instrument();
+$instrument1->setInstrumentKey("NSE_EQ|INE669E01016");
+$instrument1->setQuantity(1);
+$instrument1->setProduct("D");
+$instrument1->setTransactionType("BUY");
+
+
+$instrument2 = new \Upstox\Client\Model\Instrument();
+$instrument2->setInstrumentKey("NSE_EQ|INE066F01020");
+$instrument2->setQuantity(1);
+$instrument2->setProduct("D");
+$instrument2->setTransactionType("BUY");
+
+$body = new \Upstox\Client\Model\MarginRequest();
+$body->setInstruments([$instrument1,$instrument2]);
+try{
+    $result = $apiInstance->postMargin($body);
+    if($result->getStatus() != "success") print("error at margin= ".$result->getStatus());
+}
+catch(Exception $e){
+    print_r("error at calculate margin margin= ".$e->getMessage());
+}
+
 $apiInstance = new Upstox\Client\Api\OrderApi(
     new GuzzleHttp\Client(),
     $config
 );
 
 $body = new \Upstox\Client\Model\PlaceOrderRequest();
-$body->setQuantity(1);
+$body->setQuantity(0);
 $body->setProduct("D");
 $body->setValidity("DAY");
 $body->setPrice(0);
@@ -73,6 +95,7 @@ $body->setTransactionType("BUY");
 $body->setDisclosedQuantity(0);
 $body->setTriggerPrice(0);
 $body->setIsAmo(false);
+
 try {
     $result = $apiInstance->placeOrder($body,$api_version);
     print($result);
@@ -81,6 +104,15 @@ try {
         print_r("error in place order");
     }
 }
+try{
+    $result = $apiInstance->getOrderStatus("2410010103143520");
+    print_r($result);
+}catch (Exception $e){
+    if(strpos($e->getMessage(), 'UDAPI100010') === false){
+        print_r("error in get order status");
+    }
+}
+
 $body = new \Upstox\Client\Model\ModifyOrderRequest();
 $body->setDisclosedQuantity(0);
 $body->setOrderId("240319010634267");
@@ -319,8 +351,6 @@ try{
     echo 'Exception when getPutCallOptionChain ', $e->getMessage(), PHP_EOL;
 }
 
-
-
 $apiInstance = new \Upstox\Client\Api\MarketHolidaysAndTimingsApi(new GuzzleHttp\Client(),$config);
 try{
     $result = $apiInstance->getHolidays();
@@ -360,6 +390,16 @@ try {
     echo 'Exception when getMarketStatus ', $e->getMessage(), PHP_EOL;
 }
 
+$apiInstance = new \Upstox\Client\Api\PostTradeApi(new GuzzleHttp\Client(),$config);
+try{
+    $result = $apiInstance->getTradesByDateRange("2023-04-01","2024-03-31",1,100,"EQ");
+    if($result->getStatus() != "success"){
+        print("error in getMarketStatus");
+    }
+}
+catch(Exception $e){
+    print_r("error at psottrade= ".$e->getMessage());
+}
 
 $apiInstance = new \Upstox\Client\Api\LoginApi(new GuzzleHttp\Client(),$config);
 try{
@@ -371,6 +411,7 @@ try{
         print_r("error in convert positions");
     }
 }
+
 try{
     $result = $apiInstance->logout("2.0");
     print("All good log out");
@@ -379,5 +420,6 @@ try{
 catch(Exception $e){
     print_r("error at logout= ".$e->getMessage());
 }
+
 
 ?>

@@ -4,7 +4,8 @@ All URIs are relative to *https://api-v2.upstox.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getBrokerage**](ChargeApi.md#getbrokerage) | **GET** /charges/brokerage | Brokerage details
+[**getBrokerage**](ChargeApi.md#getbrokerage) | **GET** /v2/charges/brokerage | Brokerage details
+[**postMargin**](ChargeApi.md#postmargin) | **POST** /v2/charges/margin | Calculate Margin
 
 # **getBrokerage**
 > \Upstox\Client\Model\GetBrokerageResponse getBrokerage($instrument_token, $quantity, $product, $transaction_type, $price, $api_version)
@@ -65,6 +66,34 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: */*, application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **postMargin**
+> \Upstox\Client\Model\PostMarginResponse postMargin($body)
+
+Calculate Margin
+
+Compute Margin
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**\Upstox\Client\Model\MarginRequest**](../Model/MarginRequest.md)|  |
+
+### Return type
+
+[**\Upstox\Client\Model\PostMarginResponse**](../Model/PostMarginResponse.md)
+
+### Authorization
+
+[OAUTH2](../../README.md#OAUTH2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: */*, application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
