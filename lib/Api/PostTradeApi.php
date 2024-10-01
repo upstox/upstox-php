@@ -87,7 +87,9 @@ class PostTradeApi
     }
 
     /**
-     * Operation getTradeHistory1
+     * Operation getTradesByDateRange
+     *
+     * Get historical trades
      *
      * @param  string $start_date Date from which trade history needs to be fetched. Date in YYYY-mm-dd format (required)
      * @param  string $end_date Date till which history needs needs to be fetched. Date in YYYY-mm-dd format (required)
@@ -99,14 +101,16 @@ class PostTradeApi
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\TradeHistoryResponse
      */
-    public function getTradeHistory1($start_date, $end_date, $page_number, $page_size, $segment = null)
+    public function getTradesByDateRange($start_date, $end_date, $page_number, $page_size, $segment = null)
     {
-        list($response) = $this->getTradeHistory1WithHttpInfo($start_date, $end_date, $page_number, $page_size, $segment);
+        list($response) = $this->getTradesByDateRangeWithHttpInfo($start_date, $end_date, $page_number, $page_size, $segment);
         return $response;
     }
 
     /**
-     * Operation getTradeHistory1WithHttpInfo
+     * Operation getTradesByDateRangeWithHttpInfo
+     *
+     * Get historical trades
      *
      * @param  string $start_date Date from which trade history needs to be fetched. Date in YYYY-mm-dd format (required)
      * @param  string $end_date Date till which history needs needs to be fetched. Date in YYYY-mm-dd format (required)
@@ -118,10 +122,10 @@ class PostTradeApi
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\TradeHistoryResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTradeHistory1WithHttpInfo($start_date, $end_date, $page_number, $page_size, $segment = null)
+    public function getTradesByDateRangeWithHttpInfo($start_date, $end_date, $page_number, $page_size, $segment = null)
     {
         $returnType = '\Upstox\Client\Model\TradeHistoryResponse';
-        $request = $this->getTradeHistory1Request($start_date, $end_date, $page_number, $page_size, $segment);
+        $request = $this->getTradesByDateRangeRequest($start_date, $end_date, $page_number, $page_size, $segment);
 
         try {
             $options = $this->createHttpClientOption();
@@ -185,7 +189,15 @@ class PostTradeApi
                     );
                     $e->setResponseObject($data);
                     break;
-                case 405:
+                case 423:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 422:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Upstox\Client\Model\ApiGatewayErrorResponse',
@@ -209,7 +221,7 @@ class PostTradeApi
                     );
                     $e->setResponseObject($data);
                     break;
-                case 423:
+                case 405:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Upstox\Client\Model\ApiGatewayErrorResponse',
@@ -231,9 +243,9 @@ class PostTradeApi
     }
 
     /**
-     * Operation getTradeHistory1Async
+     * Operation getTradesByDateRangeAsync
      *
-     * 
+     * Get historical trades
      *
      * @param  string $start_date Date from which trade history needs to be fetched. Date in YYYY-mm-dd format (required)
      * @param  string $end_date Date till which history needs needs to be fetched. Date in YYYY-mm-dd format (required)
@@ -244,9 +256,9 @@ class PostTradeApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTradeHistory1Async($start_date, $end_date, $page_number, $page_size, $segment = null)
+    public function getTradesByDateRangeAsync($start_date, $end_date, $page_number, $page_size, $segment = null)
     {
-        return $this->getTradeHistory1AsyncWithHttpInfo($start_date, $end_date, $page_number, $page_size, $segment)
+        return $this->getTradesByDateRangeAsyncWithHttpInfo($start_date, $end_date, $page_number, $page_size, $segment)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -255,9 +267,9 @@ class PostTradeApi
     }
 
     /**
-     * Operation getTradeHistory1AsyncWithHttpInfo
+     * Operation getTradesByDateRangeAsyncWithHttpInfo
      *
-     * 
+     * Get historical trades
      *
      * @param  string $start_date Date from which trade history needs to be fetched. Date in YYYY-mm-dd format (required)
      * @param  string $end_date Date till which history needs needs to be fetched. Date in YYYY-mm-dd format (required)
@@ -268,10 +280,10 @@ class PostTradeApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTradeHistory1AsyncWithHttpInfo($start_date, $end_date, $page_number, $page_size, $segment = null)
+    public function getTradesByDateRangeAsyncWithHttpInfo($start_date, $end_date, $page_number, $page_size, $segment = null)
     {
         $returnType = '\Upstox\Client\Model\TradeHistoryResponse';
-        $request = $this->getTradeHistory1Request($start_date, $end_date, $page_number, $page_size, $segment);
+        $request = $this->getTradesByDateRangeRequest($start_date, $end_date, $page_number, $page_size, $segment);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -311,7 +323,7 @@ class PostTradeApi
     }
 
     /**
-     * Create request for operation 'getTradeHistory1'
+     * Create request for operation 'getTradesByDateRange'
      *
      * @param  string $start_date Date from which trade history needs to be fetched. Date in YYYY-mm-dd format (required)
      * @param  string $end_date Date till which history needs needs to be fetched. Date in YYYY-mm-dd format (required)
@@ -322,30 +334,30 @@ class PostTradeApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTradeHistory1Request($start_date, $end_date, $page_number, $page_size, $segment = null)
+    protected function getTradesByDateRangeRequest($start_date, $end_date, $page_number, $page_size, $segment = null)
     {
         // verify the required parameter 'start_date' is set
         if ($start_date === null || (is_array($start_date) && count($start_date) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $start_date when calling getTradeHistory1'
+                'Missing the required parameter $start_date when calling getTradesByDateRange'
             );
         }
         // verify the required parameter 'end_date' is set
         if ($end_date === null || (is_array($end_date) && count($end_date) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $end_date when calling getTradeHistory1'
+                'Missing the required parameter $end_date when calling getTradesByDateRange'
             );
         }
         // verify the required parameter 'page_number' is set
         if ($page_number === null || (is_array($page_number) && count($page_number) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $page_number when calling getTradeHistory1'
+                'Missing the required parameter $page_number when calling getTradesByDateRange'
             );
         }
         // verify the required parameter 'page_size' is set
         if ($page_size === null || (is_array($page_size) && count($page_size) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $page_size when calling getTradeHistory1'
+                'Missing the required parameter $page_size when calling getTradesByDateRange'
             );
         }
 

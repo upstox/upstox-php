@@ -4,7 +4,6 @@ require_once(__DIR__. '/DataAcessToken.php');
 
 $config = Upstox\Client\Configuration::getDefaultConfiguration()->setAccessToken($accessToken);
 
-
 $apiInstance = new Upstox\Client\Api\ChargeApi(
     new GuzzleHttp\Client(),
     $config
@@ -96,6 +95,7 @@ $body->setTransactionType("BUY");
 $body->setDisclosedQuantity(0);
 $body->setTriggerPrice(0);
 $body->setIsAmo(false);
+
 try {
     $result = $apiInstance->placeOrder($body,$api_version);
     print($result);
@@ -104,6 +104,15 @@ try {
         print_r("error in place order");
     }
 }
+try{
+    $result = $apiInstance->getOrderStatus("2410010103143520");
+    print_r($result);
+}catch (Exception $e){
+    if(strpos($e->getMessage(), 'UDAPI100010') === false){
+        print_r("error in get order status");
+    }
+}
+
 $body = new \Upstox\Client\Model\ModifyOrderRequest();
 $body->setDisclosedQuantity(0);
 $body->setOrderId("240319010634267");
@@ -383,9 +392,9 @@ try {
 
 $apiInstance = new \Upstox\Client\Api\PostTradeApi(new GuzzleHttp\Client(),$config);
 try{
-    $result = $apiInstance->getTradeHistory1("2023-04-01","2024-03-31",1,100,"EQ");
+    $result = $apiInstance->getTradesByDateRange("2023-04-01","2024-03-31",1,100,"EQ");
     if($result->getStatus() != "success"){
-        print_r("error in getMarketStatus");
+        print("error in getMarketStatus");
     }
 }
 catch(Exception $e){
@@ -403,14 +412,14 @@ try{
     }
 }
 
-// try{
-//     $result = $apiInstance->logout("2.0");
-//     print("All good log out");
+try{
+    $result = $apiInstance->logout("2.0");
+    print("All good log out");
 
-// }
-// catch(Exception $e){
-//     print_r("error at logout= ".$e->getMessage());
-// }
+}
+catch(Exception $e){
+    print_r("error at logout= ".$e->getMessage());
+}
 
 
 ?>

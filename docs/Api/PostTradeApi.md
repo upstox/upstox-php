@@ -4,12 +4,14 @@ All URIs are relative to *https://api-v2.upstox.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getTradeHistory1**](PostTradeApi.md#gettradehistory1) | **GET** /v2/charges/historical-trades | 
+[**getTradesByDateRange**](PostTradeApi.md#gettradesbydaterange) | **GET** /v2/charges/historical-trades | Get historical trades
 
-# **getTradeHistory1**
-> \Upstox\Client\Model\TradeHistoryResponse getTradeHistory1($start_date, $end_date, $page_number, $page_size, $segment)
+# **getTradesByDateRange**
+> \Upstox\Client\Model\TradeHistoryResponse getTradesByDateRange($start_date, $end_date, $page_number, $page_size, $segment)
 
+Get historical trades
 
+This API retrieves the trade history for a specified time interval.
 
 ### Example
 ```php
@@ -32,10 +34,10 @@ $page_size = 56; // int | How many records you want for a page
 $segment = ""; // string | Segment for which data is requested can be from the following options EQ - Equity,   FO - Futures and Options,   COM  - Commodity,   CD - Currency Derivatives MF - Mutual Funds
 
 try {
-    $result = $apiInstance->getTradeHistory1($start_date, $end_date, $page_number, $page_size, $segment);
+    $result = $apiInstance->getTradesByDateRange($start_date, $end_date, $page_number, $page_size, $segment);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling PostTradeApi->getTradeHistory1: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling PostTradeApi->getTradesByDateRange: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```
