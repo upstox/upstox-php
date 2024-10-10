@@ -3220,7 +3220,7 @@ class OrderApi
         );
 
         $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        if(gettype($body) == 'array'){
+        if(gettype($httpBody) == 'array'){
             $httpBody = json_encode($httpBody);
         }
         return new Request(
