@@ -72,12 +72,32 @@ class OrderApiTest extends TestCase
     }
 
     /**
+     * Test case for cancelMultiOrder
+     *
+     * Cancel multi order.
+     *
+     */
+    public function testCancelMultiOrder()
+    {
+    }
+
+    /**
      * Test case for cancelOrder
      *
      * Cancel order.
      *
      */
     public function testCancelOrder()
+    {
+    }
+
+    /**
+     * Test case for exitPositions
+     *
+     * Exit all positions.
+     *
+     */
+    public function testExitPositions()
     {
     }
 
@@ -128,6 +148,16 @@ class OrderApiTest extends TestCase
      *
      */
     public function testModifyOrder()
+    {
+    }
+
+    /**
+     * Test case for placeMultiOrder
+     *
+     * Place multi order.
+     *
+     */
+    public function testPlaceMultiOrder()
     {
     }
 

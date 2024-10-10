@@ -76,13 +76,16 @@ Class | Method | HTTP request | Description
 *MarketQuoteApi* | [**ltp**](docs/Api/MarketQuoteApi.md#ltp) | **GET** /v2/market-quote/ltp | Market quotes and instruments - LTP quotes.
 *OptionsApi* | [**getOptionContracts**](docs/Api/OptionsApi.md#getoptioncontracts) | **GET** /v2/option/contract | Get option contracts
 *OptionsApi* | [**getPutCallOptionChain**](docs/Api/OptionsApi.md#getputcalloptionchain) | **GET** /v2/option/chain | Get option chain
+*OrderApi* | [**cancelMultiOrder**](docs/Api/OrderApi.md#cancelmultiorder) | **DELETE** /v2/order/multi/cancel | Cancel multi order
 *OrderApi* | [**cancelOrder**](docs/Api/OrderApi.md#cancelorder) | **DELETE** /v2/order/cancel | Cancel order
+*OrderApi* | [**exitPositions**](docs/Api/OrderApi.md#exitpositions) | **POST** /v2/order/positions/exit | Exit all positions
 *OrderApi* | [**getOrderBook**](docs/Api/OrderApi.md#getorderbook) | **GET** /v2/order/retrieve-all | Get order book
 *OrderApi* | [**getOrderDetails**](docs/Api/OrderApi.md#getorderdetails) | **GET** /v2/order/history | Get order history
 *OrderApi* | [**getOrderStatus**](docs/Api/OrderApi.md#getorderstatus) | **GET** /v2/order/details | Get order details
 *OrderApi* | [**getTradeHistory**](docs/Api/OrderApi.md#gettradehistory) | **GET** /v2/order/trades/get-trades-for-day | Get trades
 *OrderApi* | [**getTradesByOrder**](docs/Api/OrderApi.md#gettradesbyorder) | **GET** /v2/order/trades | Get trades for order
 *OrderApi* | [**modifyOrder**](docs/Api/OrderApi.md#modifyorder) | **PUT** /v2/order/modify | Modify order
+*OrderApi* | [**placeMultiOrder**](docs/Api/OrderApi.md#placemultiorder) | **POST** /v2/order/multi/place | Place multi order
 *OrderApi* | [**placeOrder**](docs/Api/OrderApi.md#placeorder) | **POST** /v2/order/place | Place order
 *PortfolioApi* | [**convertPositions**](docs/Api/PortfolioApi.md#convertpositions) | **PUT** /v2/portfolio/convert-position | Convert Positions
 *PortfolioApi* | [**getHoldings**](docs/Api/PortfolioApi.md#getholdings) | **GET** /v2/portfolio/long-term-holdings | Get Holdings
@@ -421,9 +424,13 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
 
  - [AnalyticsData](docs/Model/AnalyticsData.md)
  - [ApiGatewayErrorResponse](docs/Model/ApiGatewayErrorResponse.md)
+ - [BatchExecutionSummary](docs/Model/BatchExecutionSummary.md)
  - [BrokerageData](docs/Model/BrokerageData.md)
  - [BrokerageTaxes](docs/Model/BrokerageTaxes.md)
  - [BrokerageWrapperData](docs/Model/BrokerageWrapperData.md)
+ - [CancelOrExitMultiOrderData](docs/Model/CancelOrExitMultiOrderData.md)
+ - [CancelOrExitMultiOrderResponse](docs/Model/CancelOrExitMultiOrderResponse.md)
+ - [CancelOrExitOrderErrorData](docs/Model/CancelOrExitOrderErrorData.md)
  - [CancelOrderData](docs/Model/CancelOrderData.md)
  - [CancelOrderResponse](docs/Model/CancelOrderResponse.md)
  - [ConvertPositionData](docs/Model/ConvertPositionData.md)
@@ -473,6 +480,11 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [ModifyOrderData](docs/Model/ModifyOrderData.md)
  - [ModifyOrderRequest](docs/Model/ModifyOrderRequest.md)
  - [ModifyOrderResponse](docs/Model/ModifyOrderResponse.md)
+ - [MultiOrderData](docs/Model/MultiOrderData.md)
+ - [MultiOrderError](docs/Model/MultiOrderError.md)
+ - [MultiOrderRequest](docs/Model/MultiOrderRequest.md)
+ - [MultiOrderResponse](docs/Model/MultiOrderResponse.md)
+ - [MultiOrderSummary](docs/Model/MultiOrderSummary.md)
  - [OAuthClientException](docs/Model/OAuthClientException.md)
  - [OAuthClientExceptionCause](docs/Model/OAuthClientExceptionCause.md)
  - [OAuthClientExceptionCauseStackTrace](docs/Model/OAuthClientExceptionCauseStackTrace.md)
