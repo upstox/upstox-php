@@ -6,12 +6,69 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**cancelOrder**](OrderApi.md#cancelorder) | **DELETE** /order/cancel | Cancel order
 [**getOrderBook**](OrderApi.md#getorderbook) | **GET** /order/retrieve-all | Get order book
+[**exitPositions**](OrderApi.md#exitpositions) | **POST** /order/positions/exit | Exit all positions
 [**getOrderDetails**](OrderApi.md#getorderdetails) | **GET** /order/history | Get order history
 [**getOrderStatus**](OrderApi.md#getorderstatus) | **GET**  /order/details | Get order details
 [**getTradeHistory**](OrderApi.md#gettradehistory) | **GET** /order/trades/get-trades-for-day | Get trades
 [**getTradesByOrder**](OrderApi.md#gettradesbyorder) | **GET** /order/trades | Get trades for order
 [**modifyOrder**](OrderApi.md#modifyorder) | **PUT** /order/modify | Modify order
+[**placeMultiOrder**](OrderApi.md#placemultiorder) | **POST** /order/multi/place | Place multi order
 [**placeOrder**](OrderApi.md#placeorder) | **POST** /order/place | Place order
+
+# **cancelMultiOrder**
+> \Upstox\Client\Model\CancelOrExitMultiOrderResponse cancelMultiOrder($tag, $segment)
+
+Cancel multi order
+
+API to cancel all the open or pending orders which can be applied to both AMO and regular orders.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: OAUTH2
+$config = Upstox\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$apiInstance = new Upstox\Client\Api\OrderApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$tag = "tag_example"; // string | The tag associated with the orders for which the orders must be cancelled
+$segment = "segment_example"; // string | The segment for which the orders must be cancelled
+
+try {
+    $result = $apiInstance->cancelMultiOrder($tag, $segment);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling OrderApi->cancelMultiOrder: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tag** | **string**| The tag associated with the orders for which the orders must be cancelled | [optional]
+ **segment** | **string**| The segment for which the orders must be cancelled | [optional]
+
+### Return type
+
+[**\Upstox\Client\Model\CancelOrExitMultiOrderResponse**](../Model/CancelOrExitMultiOrderResponse.md)
+
+### Authorization
+
+[OAUTH2](../../README.md#OAUTH2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*, application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **cancelOrder**
 > \Upstox\Client\Model\CancelOrderResponse cancelOrder($order_id, $api_version)
@@ -56,6 +113,61 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\Upstox\Client\Model\CancelOrderResponse**](../Model/CancelOrderResponse.md)
+
+### Authorization
+
+[OAUTH2](../../README.md#OAUTH2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*, application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **exitPositions**
+> \Upstox\Client\Model\CancelOrExitMultiOrderResponse exitPositions($tag, $segment)
+
+Exit all positions
+
+This API provides the functionality to exit all the positions
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: OAUTH2
+$config = Upstox\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$apiInstance = new Upstox\Client\Api\OrderApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$tag = "tag_example"; // string | The tag associated with the positions for which the positions must be exit
+$segment = "segment_example"; // string | The segment for which the positions must be exit
+
+try {
+    $result = $apiInstance->exitPositions($tag, $segment);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling OrderApi->exitPositions: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tag** | **string**| The tag associated with the positions for which the positions must be exit | [optional]
+ **segment** | **string**| The segment for which the positions must be exit | [optional]
+
+### Return type
+
+[**\Upstox\Client\Model\CancelOrExitMultiOrderResponse**](../Model/CancelOrExitMultiOrderResponse.md)
 
 ### Authorization
 
@@ -382,6 +494,59 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\Upstox\Client\Model\ModifyOrderResponse**](../Model/ModifyOrderResponse.md)
+
+### Authorization
+
+[OAUTH2](../../README.md#OAUTH2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: */*, application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **placeMultiOrder**
+> \Upstox\Client\Model\MultiOrderResponse placeMultiOrder($body)
+
+Place multi order
+
+This API allows you to place multiple orders to the exchange via Upstox.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: OAUTH2
+$config = Upstox\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$apiInstance = new Upstox\Client\Api\OrderApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$body = array(new \Upstox\Client\Model\MultiOrderRequest()); // \Upstox\Client\Model\MultiOrderRequest[] | 
+
+try {
+    $result = $apiInstance->placeMultiOrder($body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling OrderApi->placeMultiOrder: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**\Upstox\Client\Model\MultiOrderRequest[]**](../Model/MultiOrderRequest.md)|  |
+
+### Return type
+
+[**\Upstox\Client\Model\MultiOrderResponse**](../Model/MultiOrderResponse.md)
 
 ### Authorization
 
