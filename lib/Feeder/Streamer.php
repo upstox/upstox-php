@@ -25,7 +25,7 @@ abstract class Streamer
     protected $retryCount = 5; // Maximum number of reconnection attempts
     protected $reconnectAttempts = 0; // Current count of reconnection attempts
 
-    public function __construct(Configuration $config = null)
+    public function __construct()
     {
         $this->feeder = null;
         $this->listeners = array_fill_keys(self::EVENT, []);

@@ -210,6 +210,7 @@ class ProfileData implements ModelInterface, ArrayAccess
     const EXCHANGES_BCD = 'BCD';
     const EXCHANGE_BFO = 'BFO';
     const EXCHANGES_MCX = 'MCX';
+    const EXCHANGES_NSCOM = 'NSCOM';
     const PRODUCTS_I = 'I';
     const PRODUCTS_D = 'D';
     const PRODUCTS_CO = 'CO';
@@ -235,6 +236,7 @@ class ProfileData implements ModelInterface, ArrayAccess
             self::EXCHANGES_BCD,
             self::EXCHANGE_BFO,
             self::EXCHANGES_MCX,
+            self::EXCHANGES_NSCOM
         ];
     }
     /**

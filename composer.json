@@ -34,6 +34,7 @@
         "psr-4": {
             "Upstox\\Client\\": "lib/",
             "Com\\Upstox\\Marketdatafeeder\\Rpc\\Proto\\": "lib/Feeder/protobuf/Com/Upstox/Marketdatafeeder/Rpc/Proto/",
+            "Com\\Upstox\\Marketdatafeederv3udapi\\Rpc\\Proto\\": "lib/Feeder/protobuf/Com/Upstox/Marketdatafeederv3udapi/Rpc/Proto/",
             "GPBMetadata\\": "lib/Feeder/protobuf/GPBMetadata/"
         }
     },

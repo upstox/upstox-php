@@ -11,7 +11,7 @@ abstract class Feeder
     protected $apiClient;
     protected $webSocket;
 
-    public function __construct(Configuration $config = null)
+    public function __construct(Configuration $config)
     {
         $this->config = $config ?: new Configuration();
         $this->webSocket;
