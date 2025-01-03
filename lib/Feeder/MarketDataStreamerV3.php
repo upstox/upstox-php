@@ -12,7 +12,6 @@ class MarketDataStreamerV3 extends Streamer
         "LTPC" => "ltpc",
         "FULL" => "full",
         "OPTION" => "option_greeks",
-        "D30" => "full_d30",
     ];
     protected $config;
     private $subscriptions;
@@ -25,7 +24,6 @@ class MarketDataStreamerV3 extends Streamer
             self::MODE["LTPC"] => [],
             self::MODE["FULL"] => [],
             self::MODE["OPTION"] => [],
-            self::MODE["D30"] => [],
         ];
         if (!in_array($mode, self::MODE)) {
             throw new \ValueError("Invalid mode: {$mode}");
