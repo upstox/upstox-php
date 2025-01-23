@@ -1,3 +1,4 @@
 <?php
-$accessToken = "your_access_token"
+$accessToken = "";
+$sandboxToken = "";
 ?>

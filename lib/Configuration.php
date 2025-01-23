@@ -82,6 +82,7 @@ class Configuration
      */
     protected $host = 'https://api.upstox.com';
     protected $orderHost = 'https://api-hft.upstox.com';
+    private $sandbox = false;
     /**
      * User agent of the HTTP request, set to "PHP-Swagger" by default
      *
@@ -113,9 +114,14 @@ class Configuration
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($sandbox = false)
     {
+        $this->sandbox = $sandbox;
         $this->tempFolderPath = sys_get_temp_dir();
+        if($sandbox){
+            $this->host = 'https://api-sandbox.upstox.com';
+            $this->orderHost = 'https://api-sandbox.upstox.com';
+        }
     }
 
     /**
@@ -371,12 +377,12 @@ class Configuration
      *
      * @return Configuration
      */
-    public static function getDefaultConfiguration()
+    public static function getDefaultConfiguration($sandbox = false)
     {
         if (self::$defaultConfiguration === null) {
-            self::$defaultConfiguration = new Configuration();
+            self::$defaultConfiguration = new Configuration($sandbox);
         }
-
+    
         return self::$defaultConfiguration;
     }
 

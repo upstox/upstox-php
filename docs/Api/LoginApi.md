@@ -4,9 +4,10 @@ All URIs are relative to *https://api-v2.upstox.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**authorize**](LoginApi.md#authorize) | **GET** /login/authorization/dialog | Authorize API
-[**logout**](LoginApi.md#logout) | **DELETE** /logout | Logout
-[**token**](LoginApi.md#token) | **POST** /login/authorization/token | Get token API
+[**authorize**](LoginApi.md#authorize) | **GET** /v2/login/authorization/dialog | Authorize API
+[**initTokenRequestForIndieUser**](LoginApi.md#inittokenrequestforindieuser) | **POST** /v3/login/auth/token/request/{client_id} | Init token API
+[**logout**](LoginApi.md#logout) | **DELETE** /v2/logout | Logout
+[**token**](LoginApi.md#token) | **POST** /v2/login/authorization/token | Get token API
 
 # **authorize**
 > authorize($client_id, $redirect_uri, $api_version, $state, $scope)
@@ -61,6 +62,57 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: */*, application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **initTokenRequestForIndieUser**
+> \Upstox\Client\Model\IndieUserInitTokenResponse initTokenRequestForIndieUser($body, $client_id)
+
+Init token API
+
+This API provides the initialize the generate token and it's expiry for an indie user
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$apiInstance = new Upstox\Client\Api\LoginApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$body = new \Upstox\Client\Model\IndieUserTokenRequest(); // \Upstox\Client\Model\IndieUserTokenRequest | 
+$client_id = "client_id_example"; // string | 
+
+try {
+    $result = $apiInstance->initTokenRequestForIndieUser($body, $client_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling LoginApi->initTokenRequestForIndieUser: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**\Upstox\Client\Model\IndieUserTokenRequest**](../Model/IndieUserTokenRequest.md)|  |
+ **client_id** | **string**|  |
+
+### Return type
+
+[**\Upstox\Client\Model\IndieUserInitTokenResponse**](../Model/IndieUserInitTokenResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, */*
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
