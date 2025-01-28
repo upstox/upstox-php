@@ -38,6 +38,40 @@ Download the files and include `autoload.php`:
     require_once('/path/to/UpstoxClient/vendor/autoload.php');
 ```
 
+## Sandbox Mode
+We recommend using the sandbox environment for testing purposes. To enable sandbox mode, set the `sandbox` flag to `true` in the configuration object.
+
+```php
+$config = Upstox\Client\Configuration::getDefaultConfiguration(sandbox:true)->setAccessToken("SANDBOX_ACCESS_TOKEN");
+
+$apiInstance = new Upstox\Client\Api\OrderApi(
+    new GuzzleHttp\Client(),
+    $config
+);
+
+$body = new \Upstox\Client\Model\PlaceOrderRequest();
+$body->setQuantity(1);
+$body->setProduct("D");
+$body->setValidity("DAY");
+$body->setPrice(0);
+$body->setTag("string");
+$body->setInstrumentToken("NSE_EQ|INE669E01016");
+$body->setOrderType("MARKET");
+$body->setTransactionType("BUY");
+$body->setDisclosedQuantity(0);
+$body->setTriggerPrice(0);
+$body->setIsAmo(false);
+try {
+    $result = $apiInstance->placeOrder($body,"2.0");
+    print($result);
+} catch (Exception $e) {
+    print($e->getMessage());
+}
+```
+
+To learn more about the sandbox environment and the available sandbox APIs, please visit the [Upstox API documentation - Sandbox](https://upstox.com/developer/api-documentation/sandbox).
+
+
 ## Tests
 
 To run the unit tests:

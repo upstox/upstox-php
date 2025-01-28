@@ -103,9 +103,11 @@ class WebsocketApi
      */
     public function getMarketDataFeed($api_version)
     {
-        $this->getMarketDataFeedWithHttpInfo($api_version);
+        $this->getMarketDataFeedWithHttpInfo("2.0");
     }
-
+    public function getMarketDataFeedV3() {
+        $this->getMarketDataFeedWithHttpInfo("3.0");
+    }
     /**
      * Operation getMarketDataFeedWithHttpInfo
      *
@@ -273,8 +275,11 @@ class WebsocketApi
                 'Missing the required parameter $api_version when calling getMarketDataFeed'
             );
         }
-
-        $resourcePath = '/v2/feed/market-data-feed';
+        if ($api_version == "2.0") {
+            $resourcePath = '/v2/feed/market-data-feed';
+        } else {
+            $resourcePath = '/v3/feed/market-data-feed';
+        }
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -368,10 +373,13 @@ class WebsocketApi
      */
     public function getMarketDataFeedAuthorize($api_version)
     {
-        list($response) = $this->getMarketDataFeedAuthorizeWithHttpInfo($api_version);
+        list($response) = $this->getMarketDataFeedAuthorizeWithHttpInfo("2.0");
         return $response;
     }
-
+    public function getMarketDataFeedAuthorizeV3() {
+        list($response) = $this->getMarketDataFeedAuthorizeWithHttpInfo("3.0");
+        return $response;
+    }
     /**
      * Operation getMarketDataFeedAuthorizeWithHttpInfo
      *
@@ -576,7 +584,11 @@ class WebsocketApi
             );
         }
 
-        $resourcePath = '/v2/feed/market-data-feed/authorize';
+        if ($api_version == "2.0") {
+            $resourcePath = '/v2/feed/market-data-feed/authorize';
+        } else {
+            $resourcePath = '/v3/feed/market-data-feed/authorize';
+        }
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
