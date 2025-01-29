@@ -1,10 +1,10 @@
-# Portfolio Stream Feed WebSocket Client
+# Market Stream feed websocket client
 
-This PHP project demonstrates how to connect to the Upstox WebSocket API for streaming live order updates. It fetches the order updates and prints them to the console.
+This PHP project demonstrates how to connect to the Upstox WebSocket API for streaming live market data. It fetches market data for a list of instrument keys and decodes the incoming protobuf data to a JSON format.
 
 ## Getting Started
 
-These instructions will help you run the sample websocket client.
+These instructions will help you run the sample v3 websocket client.
 
 ### Prerequisites
 
@@ -18,7 +18,7 @@ To ensure the proper functioning of this project, specific PHP packages are requ
 composer install
 ```
 
-in your terminal. This command will automatically install all the necessary PHP packages specified in the composer.json file, including `upstox-php-sdk`, `amphp/websocket-client`, and `guzzlehttp/guzzle`. These dependencies will be installed in a new `/vendor` folder, which will be created on the same level as the composer.json file. This streamlined process facilitates a quick and efficient setup of the project environment with all the required dependencies.
+in your terminal. This command will automatically install all the necessary PHP packages specified in the composer.json file, including `amphp/websocket-client`, and `guzzlehttp/guzzle`. These dependencies will be installed in a new `/vendor` folder, which will be created on the same level as the composer.json file. This streamlined process facilitates a quick and efficient setup of the project environment with all the required dependencies.
 
 ### Configuration
 
@@ -40,19 +40,18 @@ Replace websocket_client.php with the name of your PHP script.
 
 ## Understanding the Code
 
-The script first sets up an SSL context and an OAuth2 access token for authorization. It fetches the authorized redirect URI from the Upstox server and uses this to establish a connection to the WebSocket server.
+The script first fetches the authorized redirect URI from the Upstox server using a valid access token and utilizes this URI to establish a connection with the WebSocket server.
 
-The script then enters a loop, where it continually receives order update messages from the server and prints them to the console.
+Then the script sends a subscription request for "NSE_INDEX|Nifty Bank" and "NSE_INDEX|Nifty 50". When it receives data from the server, it decodes the protobuf data into a FeedResponse object, converts this object into a dictionary, and then prints the dictionary.
 
 ## Support
 
-If you encounter any problems or have any questions about this project, feel free to open an issue in this repository.
+If you encounter any problems or have any questions about this project, feel free to post it on our [Developer Community](https://community.upstox.com/c/developer-api/15).
 
 ## Disclaimer
 
 This is a sample script meant for educational purposes. It may require modifications to work with your specific requirements.
 
 Please replace 'ACCESS_TOKEN' with your actual access token and websocket_client.php with the name of your PHP script. Modify any other details as needed to fit your project.
-
 
 

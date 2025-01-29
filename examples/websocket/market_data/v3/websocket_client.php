@@ -3,7 +3,6 @@
 require_once 'vendor/autoload.php';
 
 use function Amp\Websocket\Client\connect;
-use Upstox\Client\Configuration;
 use Com\Upstox\Marketdatafeederv3udapi\Rpc\Proto\FeedResponse;
 
 /**

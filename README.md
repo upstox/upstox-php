@@ -72,14 +72,6 @@ try {
 To learn more about the sandbox environment and the available sandbox APIs, please visit the [Upstox API documentation - Sandbox](https://upstox.com/developer/api-documentation/sandbox).
 
 
-## Tests
-
-To run the unit tests:
-
-```
-composer install
-./vendor/bin/phpunit
-```
 ## Examples
 
 [Sample Implementations](examples/) can be found within `/examples` folder.
@@ -89,7 +81,7 @@ composer install
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api.upstox.com/v2/*
+All URIs are relative to *https://api.upstox.com/*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
