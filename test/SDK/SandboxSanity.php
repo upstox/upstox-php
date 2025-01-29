@@ -1,14 +1,14 @@
 <?php
 
 use GuzzleHttp\HandlerStack;
-use Upstox\Client\SandboxEndpointMiddleware;
+use Upstox\Client\SandboxMiddleware;
 
 require_once(__DIR__ . '/../../vendor/autoload.php');
 require_once(__DIR__. '/DataAcessToken.php');
 error_reporting(E_ALL & ~E_DEPRECATED);
 $config = Upstox\Client\Configuration::getDefaultConfiguration(sandbox:true)->setAccessToken($sandboxToken);
 
-$sandboxMiddleware = new SandboxEndpointMiddleware();
+$sandboxMiddleware = new SandboxMiddleware();
 $stack = HandlerStack::create();
 $stack->push($sandboxMiddleware);
 $client = new GuzzleHttp\Client(['handler' => $stack]);

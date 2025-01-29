@@ -5,13 +5,13 @@ namespace Upstox\Client;
 use Psr\Http\Message\RequestInterface;
 use GuzzleHttp\Exception\RequestException;
 
-class SandboxEndpointMiddleware
+class SandboxMiddleware
 {
-    private $sandEndpoints;
+    private $sandboxEndpoints;
 
     public function __construct()
     {
-        $this->sandEndpoints = [
+        $this->sandboxEndpoints = [
             "/v2/order/place" => true,
             "/v2/order/modify" => true,
             "/v2/order/cancel" => true,
@@ -27,7 +27,7 @@ class SandboxEndpointMiddleware
         return function (RequestInterface $request, array $options) use ($handler) {
             $uri = $request->getUri()->getPath();
             // Check if the endpoint is blocked
-            if (!isset($this->sandEndpoints[$uri])) {
+            if (!isset($this->sandboxEndpoints[$uri])) {
                 // Throw an exception or handle the blocked request as needed
                 return new \GuzzleHttp\Promise\RejectedPromise(
                     new RequestException("This API is not available in sandbox mode.", $request)

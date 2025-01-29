@@ -446,7 +446,7 @@ class Configuration
             if($client && $this->hasSandboxMiddleware($client)){
                 return $client;
             }
-            $sandboxMiddleware = new SandboxEndpointMiddleware();
+            $sandboxMiddleware = new SandboxMiddleware();
             $stack = HandlerStack::create();
             $stack->push($sandboxMiddleware);
             if($client){
@@ -464,7 +464,7 @@ class Configuration
     private function hasSandboxMiddleware(ClientInterface $client){
         $handlerStack = $client->getConfig('handler');
         foreach($handlerStack as $handler){
-            if($handler instanceof SandboxEndpointMiddleware){
+            if($handler instanceof SandboxMiddleware){
                 return true;
             }
         }
