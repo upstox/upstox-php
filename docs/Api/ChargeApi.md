@@ -77,6 +77,31 @@ Calculate Margin
 
 Compute Margin
 
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure OAuth2 access token for authorization: OAUTH2
+$config = Upstox\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+$apiInstance = new Upstox\Client\Api\ChargeApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$body = new \Upstox\Client\Model\MarginRequest(); // \Upstox\Client\Model\MarginRequest | 
+
+try {
+    $result = $apiInstance->postMargin($body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ChargeApi->postMargin: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
 ### Parameters
 
 Name | Type | Description  | Notes

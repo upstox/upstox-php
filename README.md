@@ -38,14 +38,40 @@ Download the files and include `autoload.php`:
     require_once('/path/to/UpstoxClient/vendor/autoload.php');
 ```
 
-## Tests
+## Sandbox Mode
+We recommend using the sandbox environment for testing purposes. To enable sandbox mode, set the `sandbox` flag to `true` in the configuration object.
 
-To run the unit tests:
+```php
+$config = Upstox\Client\Configuration::getDefaultConfiguration(sandbox:true)->setAccessToken("SANDBOX_ACCESS_TOKEN");
 
+$apiInstance = new Upstox\Client\Api\OrderApi(
+    new GuzzleHttp\Client(),
+    $config
+);
+
+$body = new \Upstox\Client\Model\PlaceOrderRequest();
+$body->setQuantity(1);
+$body->setProduct("D");
+$body->setValidity("DAY");
+$body->setPrice(0);
+$body->setTag("string");
+$body->setInstrumentToken("NSE_EQ|INE669E01016");
+$body->setOrderType("MARKET");
+$body->setTransactionType("BUY");
+$body->setDisclosedQuantity(0);
+$body->setTriggerPrice(0);
+$body->setIsAmo(false);
+try {
+    $result = $apiInstance->placeOrder($body,"2.0");
+    print($result);
+} catch (Exception $e) {
+    print($e->getMessage());
+}
 ```
-composer install
-./vendor/bin/phpunit
-```
+
+To learn more about the sandbox environment and the available sandbox APIs, please visit the [Upstox API documentation - Sandbox](https://upstox.com/developer/api-documentation/sandbox).
+
+
 ## Examples
 
 [Sample Implementations](examples/) can be found within `/examples` folder.
@@ -55,7 +81,7 @@ composer install
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api.upstox.com/v2/*
+All URIs are relative to *https://api.upstox.com/*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -65,6 +91,7 @@ Class | Method | HTTP request | Description
 *HistoryApi* | [**getHistoricalCandleData1**](docs/Api/HistoryApi.md#gethistoricalcandledata1) | **GET** /v2/historical-candle/{instrumentKey}/{interval}/{to_date}/{from_date} | Historical candle data
 *HistoryApi* | [**getIntraDayCandleData**](docs/Api/HistoryApi.md#getintradaycandledata) | **GET** /v2/historical-candle/intraday/{instrumentKey}/{interval} | Intra day candle data
 *LoginApi* | [**authorize**](docs/Api/LoginApi.md#authorize) | **GET** /v2/login/authorization/dialog | Authorize API
+*LoginApi* | [**initTokenRequestForIndieUser**](docs/Api/LoginApi.md#inittokenrequestforindieuser) | **POST** /v3/login/auth/token/request/{client_id} | Init token API
 *LoginApi* | [**logout**](docs/Api/LoginApi.md#logout) | **DELETE** /v2/logout | Logout
 *LoginApi* | [**token**](docs/Api/LoginApi.md#token) | **POST** /v2/login/authorization/token | Get token API
 *MarketHolidaysAndTimingsApi* | [**getExchangeTimings**](docs/Api/MarketHolidaysAndTimingsApi.md#getexchangetimings) | **GET** /v2/market/timings/{date} | Get Exchange Timings on particular date
@@ -86,7 +113,10 @@ Class | Method | HTTP request | Description
 *OrderApi* | [**getTradesByOrder**](docs/Api/OrderApi.md#gettradesbyorder) | **GET** /v2/order/trades | Get trades for order
 *OrderApi* | [**modifyOrder**](docs/Api/OrderApi.md#modifyorder) | **PUT** /v2/order/modify | Modify order
 *OrderApi* | [**placeMultiOrder**](docs/Api/OrderApi.md#placemultiorder) | **POST** /v2/order/multi/place | Place multi order
-*OrderApi* | [**placeOrder**](docs/Api/OrderApi.md#placeorder) | **POST** /v2/order/place | Place order
+*OrderApi* | [**placeOrder1**](docs/Api/OrderApi.md#placeorder1) | **POST** /v2/order/place | Place order
+*OrderApiV3* | [**cancelOrder**](docs/Api/OrderApiV3.md#cancelorder) | **DELETE** /v3/order/cancel | 
+*OrderApiV3* | [**modifyOrder**](docs/Api/OrderApiV3.md#modifyorder) | **PUT** /v3/order/modify | 
+*OrderApiV3* | [**placeOrder**](docs/Api/OrderApiV3.md#placeorder) | **POST** /v3/order/place | 
 *PortfolioApi* | [**convertPositions**](docs/Api/PortfolioApi.md#convertpositions) | **PUT** /v2/portfolio/convert-position | Convert Positions
 *PortfolioApi* | [**getHoldings**](docs/Api/PortfolioApi.md#getholdings) | **GET** /v2/portfolio/long-term-holdings | Get Holdings
 *PortfolioApi* | [**getPositions**](docs/Api/PortfolioApi.md#getpositions) | **GET** /v2/portfolio/short-term-positions | Get Positions
@@ -683,6 +713,7 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [CancelOrExitOrderErrorData](docs/Model/CancelOrExitOrderErrorData.md)
  - [CancelOrderData](docs/Model/CancelOrderData.md)
  - [CancelOrderResponse](docs/Model/CancelOrderResponse.md)
+ - [CancelOrderV3Response](docs/Model/CancelOrderV3Response.md)
  - [ConvertPositionData](docs/Model/ConvertPositionData.md)
  - [ConvertPositionRequest](docs/Model/ConvertPositionRequest.md)
  - [ConvertPositionResponse](docs/Model/ConvertPositionResponse.md)
@@ -715,6 +746,9 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [HistoricalCandleData](docs/Model/HistoricalCandleData.md)
  - [HoldingsData](docs/Model/HoldingsData.md)
  - [HolidayData](docs/Model/HolidayData.md)
+ - [IndieUserInitTokenData](docs/Model/IndieUserInitTokenData.md)
+ - [IndieUserInitTokenResponse](docs/Model/IndieUserInitTokenResponse.md)
+ - [IndieUserTokenRequest](docs/Model/IndieUserTokenRequest.md)
  - [Instrument](docs/Model/Instrument.md)
  - [InstrumentData](docs/Model/InstrumentData.md)
  - [IntraDayCandleData](docs/Model/IntraDayCandleData.md)
@@ -730,11 +764,13 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [ModifyOrderData](docs/Model/ModifyOrderData.md)
  - [ModifyOrderRequest](docs/Model/ModifyOrderRequest.md)
  - [ModifyOrderResponse](docs/Model/ModifyOrderResponse.md)
+ - [ModifyOrderV3Response](docs/Model/ModifyOrderV3Response.md)
  - [MultiOrderData](docs/Model/MultiOrderData.md)
  - [MultiOrderError](docs/Model/MultiOrderError.md)
  - [MultiOrderRequest](docs/Model/MultiOrderRequest.md)
  - [MultiOrderResponse](docs/Model/MultiOrderResponse.md)
  - [MultiOrderSummary](docs/Model/MultiOrderSummary.md)
+ - [MultiOrderV3Data](docs/Model/MultiOrderV3Data.md)
  - [OAuthClientException](docs/Model/OAuthClientException.md)
  - [OAuthClientExceptionCause](docs/Model/OAuthClientExceptionCause.md)
  - [OAuthClientExceptionCauseStackTrace](docs/Model/OAuthClientExceptionCauseStackTrace.md)
@@ -743,10 +779,13 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [OptionStrikeData](docs/Model/OptionStrikeData.md)
  - [OrderBookData](docs/Model/OrderBookData.md)
  - [OrderData](docs/Model/OrderData.md)
+ - [OrderMetadata](docs/Model/OrderMetadata.md)
  - [OtherTaxes](docs/Model/OtherTaxes.md)
  - [PlaceOrderData](docs/Model/PlaceOrderData.md)
  - [PlaceOrderRequest](docs/Model/PlaceOrderRequest.md)
  - [PlaceOrderResponse](docs/Model/PlaceOrderResponse.md)
+ - [PlaceOrderV3Request](docs/Model/PlaceOrderV3Request.md)
+ - [PlaceOrderV3Response](docs/Model/PlaceOrderV3Response.md)
  - [PositionData](docs/Model/PositionData.md)
  - [PostMarginResponse](docs/Model/PostMarginResponse.md)
  - [Problem](docs/Model/Problem.md)

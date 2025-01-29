@@ -1,10 +1,11 @@
-# Market Stream feed websocket client
+# Portfolio Stream Feed WebSocket Client
 
 This PHP project demonstrates how to connect to the Upstox WebSocket API for streaming live market data. It fetches market data for a list of instrument keys and decodes the incoming protobuf data to a JSON format.
 
 ## Getting Started
 
-These instructions will help you run the sample websocket client.
+We recommend using the v3 WebSocket over the v2 version for enhanced functionality. For an example, please refer to the [V3 Example](v3).
+These instructions will help you run the sample v2 websocket client.
 
 ### Prerequisites
 

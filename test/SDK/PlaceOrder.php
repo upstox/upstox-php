@@ -26,6 +26,7 @@ try {
     $result = $apiInstance->placeOrder($body,"2.0");
     print($result);
 } catch (Exception $e) {
+    print($e->getMessage());
     if(strpos($e->getMessage(), 'UDAPI1052') === false){
         print_r("error in place order");
     }
