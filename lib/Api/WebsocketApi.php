@@ -77,9 +77,9 @@ class WebsocketApi
         Configuration $config = null,
         HeaderSelector $selector = null
     ) {
-        $this->client = $client ?: new Client();
         $this->config = $config ?: new Configuration();
         $this->headerSelector = $selector ?: new HeaderSelector();
+        $this->client = $this->config->getClient($client);
     }
 
     /**

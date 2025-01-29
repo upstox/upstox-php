@@ -27,6 +27,9 @@
 
 namespace Upstox\Client;
 
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\HandlerStack;
+
 /**
  * Configuration Class Doc Comment
  * PHP version 5
@@ -437,5 +440,34 @@ class Configuration
         }
 
         return $keyWithPrefix;
+    }
+    public function getClient(ClientInterface $client = null){
+        if($this->sandbox){
+            if($client && $this->hasSandboxMiddleware($client)){
+                return $client;
+            }
+            $sandboxMiddleware = new SandboxEndpointMiddleware();
+            $stack = HandlerStack::create();
+            $stack->push($sandboxMiddleware);
+            if($client){
+                $client->getConfig('handler')->push($sandboxMiddleware);
+                return $client;
+            }
+            else{
+                return new \GuzzleHttp\Client(['handler' => $stack]);
+            }
+        }
+        else{
+            return $client ?: new \GuzzleHttp\Client();
+        }
+    }
+    private function hasSandboxMiddleware(ClientInterface $client){
+        $handlerStack = $client->getConfig('handler');
+        foreach($handlerStack as $handler){
+            if($handler instanceof SandboxEndpointMiddleware){
+                return true;
+            }
+        }
+        return false;
     }
 }

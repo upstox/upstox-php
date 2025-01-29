@@ -1,14 +1,18 @@
 <?php
+
+use GuzzleHttp\HandlerStack;
+use Upstox\Client\SandboxEndpointMiddleware;
+
 require_once(__DIR__ . '/../../vendor/autoload.php');
 require_once(__DIR__. '/DataAcessToken.php');
 error_reporting(E_ALL & ~E_DEPRECATED);
 $config = Upstox\Client\Configuration::getDefaultConfiguration(sandbox:true)->setAccessToken($sandboxToken);
 
-
-$apiInstance = new Upstox\Client\Api\OrderApi(
-    new GuzzleHttp\Client(),
-    $config
-);
+$sandboxMiddleware = new SandboxEndpointMiddleware();
+$stack = HandlerStack::create();
+$stack->push($sandboxMiddleware);
+$client = new GuzzleHttp\Client(['handler' => $stack]);
+$apiInstance = new Upstox\Client\Api\OrderApi($client, $config);
 
 $body = new \Upstox\Client\Model\PlaceOrderRequest();
 $body->setQuantity(1);
@@ -32,6 +36,13 @@ try {
     }
 }
 
+// try {
+//     $result = $apiInstance->exitPositions(null,null);
+//     print($result);
+// }
+// catch (Exception $e) {
+//     print($e->getMessage());
+// }
 
 $body = new \Upstox\Client\Model\ModifyOrderRequest();
 $body->setDisclosedQuantity(0);
@@ -159,4 +170,5 @@ try {
 } catch (Exception $e) {
     print_r($e->getMessage());
 }
+
 ?> 
