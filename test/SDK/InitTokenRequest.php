@@ -4,8 +4,8 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 $apiInstance = new Upstox\Client\Api\LoginApi(new GuzzleHttp\Client());
 
 $body = new \Upstox\Client\Model\IndieUserTokenRequest();
-$body->setClientSecret("");
-$clientId = "";
+$body->setClientSecret("g");
+$clientId = "e";
 
 try {
     $result = $apiInstance->initTokenRequestForIndieUser($body,$clientId);

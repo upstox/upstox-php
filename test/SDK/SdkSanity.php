@@ -466,6 +466,149 @@ try {
 }
 
 
+
+$apiInstance = new Upstox\Client\Api\OrderApiV3(
+    new GuzzleHttp\Client(),
+    $config
+);
+
+
+$body = new \Upstox\Client\Model\GttPlaceOrderRequest();
+$body->setQuantity(1);
+$body->setProduct("D");
+$body->setType("MULTIPLE");
+$body->setInstrumentToken("NSE_EQ|INE669E01016");
+$body->setTransactionType("BUY");
+$entryRule = new \Upstox\Client\Model\GttRule();
+$entryRule->setStrategy("ENTRY");
+$entryRule->setTriggerType("IMMEDIATE");
+$entryRule->setTriggerPrice(6.9);
+$stopLoss = new \Upstox\Client\Model\GttRule();
+$stopLoss->setStrategy("STOPLOSS");
+$stopLoss->setTriggerType("IMMEDIATE");
+$stopLoss->setTriggerPrice(3);
+
+$targetRule = new \Upstox\Client\Model\GttRule();
+$targetRule->setStrategy("TARGET");
+$targetRule->setTriggerType("IMMEDIATE");
+$targetRule->setTriggerPrice(31);
+
+$body->setRules([$entryRule, $stopLoss, $targetRule]);
+
+
+
+try {
+    $result = $apiInstance->placeGTTOrder($body);
+    print_r( " place gtt order=> " . $result);
+}
+catch (Exception $e) {
+    print($e->getMessage());
+}
+
+$body = new \Upstox\Client\Model\GttModifyOrderRequest();
+$body->setQuantity(3);
+$body->setType("MULTIPLE");
+$body->setGttOrderId("GTT-C250403000727");
+$entryRule = new \Upstox\Client\Model\GttRule();
+$entryRule->setStrategy("ENTRY");
+$entryRule->setTriggerType("IMMEDIATE");
+$entryRule->setTriggerPrice(6.89);
+$stopLoss = new \Upstox\Client\Model\GttRule();
+$stopLoss->setStrategy("STOPLOSS");
+$stopLoss->setTriggerType("IMMEDIATE");
+$stopLoss->setTriggerPrice(3);
+
+$targetRule = new \Upstox\Client\Model\GttRule();
+$targetRule->setStrategy("TARGET");
+$targetRule->setTriggerType("IMMEDIATE");
+$targetRule->setTriggerPrice(31);
+
+$body->setRules([$entryRule, $stopLoss, $targetRule]);
+
+try {
+    $result = $apiInstance->modifyGTTOrder($body);
+    print_r($result);
+}
+catch (Exception $e) {
+    if(strpos($e->getMessage(), 'UDAPI100010') === false){
+        print_r("error in modify gtt order");
+    }
+}
+
+
+$body = new \Upstox\Client\Model\GttCancelOrderRequest();
+$body->setGttOrderId("GTT-C250303001416");
+
+try {
+    $result = $apiInstance->cancelGTTOrder($body);
+    print_r($result);
+}
+catch (Exception $e) {
+    if(strpos($e->getMessage(), 'UDAPI100010') === false){
+        print_r("error in cancel gtt order");
+    }
+}
+
+try {
+    $result = $apiInstance->getGttOrderDetails("GTT-C250303162410");
+    if($result->getStatus() != "success"){
+        print_r("error while get gtt order id");
+    }
+}
+catch (Exception $e) {
+    print($e->getMessage());
+}
+
+$body = new \Upstox\Client\Model\PlaceOrderV3Request();
+$body->setQuantity(1);
+$body->setProduct("D");
+$body->setValidity("DAY");
+$body->setPrice(9);
+$body->setTag("string");
+$body->setInstrumentToken("NSE_EQ|INE669E01016");
+$body->setOrderType("LIMIT");
+$body->setTransactionType("BUY");
+$body->setDisclosedQuantity(0);
+$body->setTriggerPrice(0);
+$body->setIsAmo(true);
+$body->setSlice(true);
+try {
+    $result = $apiInstance->placeOrder($body,"2.0");
+    print_r("place order v3=> ".$result);
+} catch (Exception $e) {
+    print($e->getMessage());
+    if(strpos($e->getMessage(), 'UDAPI1052') === false){
+        print_r("error in place order");
+    }
+}
+
+$body = new \Upstox\Client\Model\ModifyOrderRequest();
+$body->setDisclosedQuantity(0);
+$body->setOrderId("25012301043310");
+$body->setOrderType("LIMIT");
+$body->setPrice(9.0);
+$body->setQuantity(2);
+$body->setTriggerPrice(0);
+$body->setValidity("DAY");
+
+try {
+    $result = $apiInstance->modifyOrder($body);
+    print($result);
+} catch (Exception $e) {
+    if(strpos($e->getMessage(), 'UDAPI100010') === false){
+        print_r("error in modify order v3");
+    }
+}
+
+try {
+    $result = $apiInstance->cancelOrder("250128010537288");
+    print_r($result);
+} catch (Exception $e) {
+    if(strpos($e->getMessage(), 'UDAPI100010') === false){
+        print_r("error in cancel order v3");
+    }
+}
+
 $apiInstance = new \Upstox\Client\Api\LoginApi(new GuzzleHttp\Client(),$config);
 try{
     $result = $apiInstance->token("2.0","code","client_id","secret","abc.com","authorization");
@@ -473,7 +616,22 @@ try{
     
 }catch(Exception $e){
     if(strpos($e->getMessage(), 'UDAPI100069') === false){
-        print_r("error in convert positions");
+        print_r("error in login token");
+    }
+}
+
+
+$body = new \Upstox\Client\Model\IndieUserTokenRequest();
+$body->setClientSecret("g");
+$clientId = "e";
+
+try {
+    $result = $apiInstance->initTokenRequestForIndieUser($body,$clientId);
+    print $result;
+}
+catch (Exception $e) {
+    if(strpos($e->getMessage(), 'UDAPI100069') === false){
+        print_r("error in generate indie token");
     }
 }
 

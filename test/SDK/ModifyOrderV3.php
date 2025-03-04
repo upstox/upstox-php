@@ -13,7 +13,7 @@ $apiInstance = new Upstox\Client\Api\OrderApiV3(
 
 $body = new \Upstox\Client\Model\ModifyOrderRequest();
 $body->setDisclosedQuantity(0);
-$body->setOrderId("250123010433190");
+$body->setOrderId("25012301043310");
 $body->setOrderType("LIMIT");
 $body->setPrice(9.0);
 $body->setQuantity(2);
@@ -24,7 +24,6 @@ try {
     $result = $apiInstance->modifyOrder($body);
     print($result);
 } catch (Exception $e) {
-    print($e->getMessage());
     if(strpos($e->getMessage(), 'UDAPI100010') === false){
         print_r("error in modify order");
     }
