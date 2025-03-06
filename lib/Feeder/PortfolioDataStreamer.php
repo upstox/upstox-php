@@ -12,14 +12,16 @@ class PortfolioDataStreamer extends Streamer
     protected $orderUpdate;
     protected $holdingUpdate;
     protected $positionUpdate;
+    protected $gttUpdate;
 
-    public function __construct(Configuration $config = null, bool $orderUpdate = true, bool $holdingUpdate = false, bool $positionUpdate = false)
+    public function __construct(Configuration $config = null, bool $orderUpdate = true, bool $holdingUpdate = false, bool $positionUpdate = false, bool $gttUpdate = false)
     {
         parent::__construct($config);
         $this->config = $config;
         $this->orderUpdate = $orderUpdate;
         $this->holdingUpdate = $holdingUpdate;
-        $this->positionUpdate = $positionUpdate;        
+        $this->positionUpdate = $positionUpdate;
+        $this->gttUpdate = $gttUpdate;        
     }
 
     public function connect()
@@ -32,7 +34,8 @@ class PortfolioDataStreamer extends Streamer
             [$this, 'handleClose'],
             orderUpdate: $this->orderUpdate,
             holdingUpdate: $this->holdingUpdate,
-            positionUpdate: $this->positionUpdate
+            positionUpdate: $this->positionUpdate,
+            gttUpdate: $this->gttUpdate
         );
         $this->feeder->connect();
     }
