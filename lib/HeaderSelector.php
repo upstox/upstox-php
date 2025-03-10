@@ -56,7 +56,7 @@ class HeaderSelector
 
         $headers['Content-Type'] = $this->selectContentTypeHeader($contentTypes);
         $headers['X-Upstox-SDK-Language'] = 'php';
-        $headers['X-Upstox-SDK-Version'] = '1.14.0';
+        $headers['X-Upstox-SDK-Version'] = '1.15.0';
         return $headers;
     }
 
