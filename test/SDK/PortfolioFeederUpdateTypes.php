@@ -12,7 +12,7 @@ use function Amp\delay;
 
 
 $config = Upstox\Client\Configuration::getDefaultConfiguration()->setAccessToken($accessToken);
-$streamer = new PortfolioDataStreamer($config,orderUpdate:true,holdingUpdate:false,positionUpdate:false);
+$streamer = new PortfolioDataStreamer($config,orderUpdate:true,holdingUpdate:false,positionUpdate:false,gttUpdate:true);
 
 function on_open($streamer)
 {

@@ -58,6 +58,7 @@ class Rule implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'strategy' => 'string',
         'status' => 'string',
+        'message' => 'string',
         'trigger_type' => 'string',
         'trigger_price' => 'double',
         'transaction_type' => 'string',
@@ -72,6 +73,7 @@ class Rule implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'strategy' => null,
         'status' => null,
+        'message' => null,
         'trigger_type' => null,
         'trigger_price' => 'double',
         'transaction_type' => null,
@@ -107,6 +109,7 @@ class Rule implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'strategy' => 'strategy',
         'status' => 'status',
+        'message' => 'message',
         'trigger_type' => 'trigger_type',
         'trigger_price' => 'trigger_price',
         'transaction_type' => 'transaction_type',
@@ -121,6 +124,7 @@ class Rule implements ModelInterface, ArrayAccess
     protected static $setters = [
         'strategy' => 'setStrategy',
         'status' => 'setStatus',
+        'message' => 'setMessage',
         'trigger_type' => 'setTriggerType',
         'trigger_price' => 'setTriggerPrice',
         'transaction_type' => 'setTransactionType',
@@ -135,6 +139,7 @@ class Rule implements ModelInterface, ArrayAccess
     protected static $getters = [
         'strategy' => 'getStrategy',
         'status' => 'getStatus',
+        'message' => 'getMessage',
         'trigger_type' => 'getTriggerType',
         'trigger_price' => 'getTriggerPrice',
         'transaction_type' => 'getTransactionType',
@@ -201,6 +206,7 @@ class Rule implements ModelInterface, ArrayAccess
     {
         $this->container['strategy'] = isset($data['strategy']) ? $data['strategy'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
+        $this->container['message'] = isset($data['message']) ? $data['message'] : null;
         $this->container['trigger_type'] = isset($data['trigger_type']) ? $data['trigger_type'] : null;
         $this->container['trigger_price'] = isset($data['trigger_price']) ? $data['trigger_price'] : null;
         $this->container['transaction_type'] = isset($data['transaction_type']) ? $data['transaction_type'] : null;
@@ -275,6 +281,30 @@ class Rule implements ModelInterface, ArrayAccess
     public function setStatus($status)
     {
         $this->container['status'] = $status;
+
+        return $this;
+    }
+
+    /**
+     * Gets message
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->container['message'];
+    }
+
+    /**
+     * Sets message
+     *
+     * @param string $message message
+     *
+     * @return $this
+     */
+    public function setMessage($message)
+    {
+        $this->container['message'] = $message;
 
         return $this;
     }

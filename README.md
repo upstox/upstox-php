@@ -657,10 +657,9 @@ EventLoop::run();
 
 <br/>
 
-Position and holding updates can be enabled by setting the corresponding flag to `true` in the constructor of the `PortfolioDataStreamer` class.
+Position, holding, and GTT order updates can be enabled by setting the corresponding flag to `true` in the constructor of the `PortfolioDataStreamer` class.
 
 ```php
-
 use Upstox\Client\Configuration;
 use Upstox\Client\Feeder\PortfolioDataStreamer;
 use Revolt\EventLoop;
@@ -671,13 +670,18 @@ function on_message($streamer,$data)
 }
 
 $config = Upstox\Client\Configuration::getDefaultConfiguration()->setAccessToken(<ACCESS_TOKEN>);
-$streamer = new PortfolioDataStreamer($config,orderUpdate:true,holdingUpdate:true,positionUpdate:true);
+$streamer = new PortfolioDataStreamer(
+    $config,
+    orderUpdate: true,
+    holdingUpdate: true,
+    positionUpdate: true,
+    gttUpdate: true
+);
 
 $streamer->on("message", 'on_message');
 $streamer->connect();
 
 EventLoop::run();
-
 ```
 
 <br/>
@@ -687,10 +691,10 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
 ### Exploring the PortfolioDataStreamer Functionality
 
 #### Functions
-1. **constructor PortfolioDataStreamer()**: Initializes the streamer.
+1. **constructor PortfolioDataStreamer(config, orderUpdate, holdingUpdate, positionUpdate, gttUpdate)**: Initializes the streamer with options to receive different types of updates.
 2. **connect()**: Establishes the WebSocket connection.
-6. **disconnect()**: Ends the active WebSocket connection.
-7. **autoReconnect(enable, interval, retryCount)**: Customizes auto-reconnect functionality. Parameters include a flag to enable/disable it, the interval(in seconds) between attempts, and the maximum number of retries.
+3. **disconnect()**: Ends the active WebSocket connection.
+4. **autoReconnect(enable, interval, retryCount)**: Customizes auto-reconnect functionality. Parameters include a flag to enable/disable it, the interval(in seconds) between attempts, and the maximum number of retries.
 
 #### Events
 - **open**: Emitted upon successful connection establishment.

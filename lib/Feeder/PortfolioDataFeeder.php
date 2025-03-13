@@ -19,8 +19,9 @@ class PortfolioDataFeeder extends Feeder
     protected $orderUpdate;
     protected $holdingUpdate;
     protected $positionUpdate;
+    protected $gttUpdate;
 
-    public function __construct(Configuration $config = null, callable $onOpen = null, callable $onMessage = null, callable $onError = null, callable $onClose = null,bool $orderUpdate = true, bool $holdingUpdate = false, bool $positionUpdate = false)
+    public function __construct(Configuration $config = null, callable $onOpen = null, callable $onMessage = null, callable $onError = null, callable $onClose = null, bool $orderUpdate = true, bool $holdingUpdate = false, bool $positionUpdate = false, bool $gttUpdate = false)
     {
         // Invoke the parent constructor
         parent::__construct($config);
@@ -31,7 +32,8 @@ class PortfolioDataFeeder extends Feeder
         $this->onClose = $onClose;
         $this->orderUpdate = $orderUpdate;
         $this->holdingUpdate = $holdingUpdate;
-        $this->positionUpdate = $positionUpdate;  
+        $this->positionUpdate = $positionUpdate;
+        $this->gttUpdate = $gttUpdate;  
     }
 
     public function connect()
@@ -94,6 +96,9 @@ class PortfolioDataFeeder extends Feeder
         }
         if ($this->positionUpdate) {
             $updateTypes[] = "position";
+        }
+        if ($this->gttUpdate) {
+            $updateTypes[] = "gtt_order";
         }
         
         if (!empty($updateTypes)) {
