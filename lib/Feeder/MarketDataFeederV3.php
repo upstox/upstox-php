@@ -18,6 +18,7 @@ class MarketDataFeederV3 extends Feeder
         "LTPC" => "ltpc",
         "FULL" => "full",
         "OPTION" => "option_greeks",
+        "D30" => "full_d30",
     ];
 
     const METHOD = [
