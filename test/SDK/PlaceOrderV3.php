@@ -12,7 +12,7 @@ $apiInstance = new Upstox\Client\Api\OrderApiV3(
 
 $body = new \Upstox\Client\Model\PlaceOrderV3Request();
 $body->setQuantity(1);
-$body->setProduct("D");
+$body->setProduct("MTF");
 $body->setValidity("DAY");
 $body->setPrice(9);
 $body->setTag("string");

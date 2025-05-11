@@ -214,6 +214,7 @@ class PlaceOrderV3Request implements ModelInterface, ArrayAccess
 
     const PRODUCT_I = 'I';
     const PRODUCT_D = 'D';
+    const PRODUCT_MTF = 'MTF';
     const VALIDITY_DAY = 'DAY';
     const VALIDITY_IOC = 'IOC';
     const ORDER_TYPE_MARKET = 'MARKET';
@@ -233,6 +234,7 @@ class PlaceOrderV3Request implements ModelInterface, ArrayAccess
         return [
             self::PRODUCT_I,
             self::PRODUCT_D,
+            self::PRODUCT_MTF,
         ];
     }
     /**
