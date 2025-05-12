@@ -702,41 +702,41 @@ try {
     }
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI100048') === false){
-        print_r("error in place order");
+        print_r("error in get expiries V3 API");
     }
 }
 
 try {
     $result = $apiInstance->getExpiredOptionContracts("NSE_EQ|INE669E01016","2025-04-24");
     if($result->getStatus() != "success"){
-        print_r("error in get expiries V3 API");
+        print_r("error in getExpiredOptionContracts V3 API");
     }
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI100048') === false){
-        print_r("error in place order");
+        print_r("error in getExpiredOptionContracts V3 API");
     }
 }
 
 try {
     $result = $apiInstance->getExpiredFutureContracts("NSE_EQ|INE669E01016","2025-04-24");
     if($result->getStatus() != "success"){
-        print_r("error in get expiries V3 API");
+        print_r("error in getExpiredFutureContracts V3 API");
     }
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI100048') === false){
-        print_r("error in place order");
+        print_r("error in getExpiredFutureContracts V3 API");
     }
 }
 
 
 try {
-    $result = $apiInstance->getExpiredHistoricalCandleData("NSE_EQ|INE669E01016", "weeks", 1, "2025-11-25", "2002-11-25");
+    $result = $apiInstance->getExpiredHistoricalCandleData("NSE_FO|54452|24-04-2025","30minute","2025-06-04","2002-06-04");
     if($result->getStatus() != "success"){
-        print_r("error in get expiries V3 API");
+        print_r("error in getExpiredHistoricalCandleData V3 API");
     }
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI100048') === false){
-        print_r("error in place order");
+        print_r("error in getExpiredHistoricalCandleData V3 API");
     }
 }
 
