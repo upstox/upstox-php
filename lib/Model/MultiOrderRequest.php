@@ -221,6 +221,7 @@ class MultiOrderRequest implements ModelInterface, ArrayAccess, JsonSerializable
 
     const PRODUCT_I = 'I';
     const PRODUCT_D = 'D';
+    const PRODUCT_MTF = 'MTF';
     const VALIDITY_DAY = 'DAY';
     const VALIDITY_IOC = 'IOC';
     const ORDER_TYPE_MARKET = 'MARKET';
@@ -240,6 +241,7 @@ class MultiOrderRequest implements ModelInterface, ArrayAccess, JsonSerializable
         return [
             self::PRODUCT_I,
             self::PRODUCT_D,
+            self::PRODUCT_MTF,
         ];
     }
     /**

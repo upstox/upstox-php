@@ -12,7 +12,7 @@ $apiInstance = new Upstox\Client\Api\OrderApi(
 // Create first MultiOrderRequest object
 $order1 = new \Upstox\Client\Model\MultiOrderRequest();
 $order1->setQuantity(1);
-$order1->setProduct("I");
+$order1->setProduct("MTF");
 $order1->setValidity("DAY");
 $order1->setPrice(0);
 $order1->setTag("string");
