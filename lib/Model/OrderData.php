@@ -283,18 +283,6 @@ class OrderData implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const EXCHANGE_NSE = 'NSE';
-    const EXCHANGE_NFO = 'NFO';
-    const EXCHANGE_CDS = 'CDS';
-    const EXCHANGE_BSE = 'BSE';
-    const EXCHANGE_BCD = 'BCD';
-    const EXCHANGE_BFO = 'BFO';
-    const EXCHANGE_MCX = 'MCX';
-    const PRODUCT_I = 'I';
-    const PRODUCT_D = 'D';
-    const PRODUCT_CO = 'CO';
-    const PRODUCT_OCO = 'OCO';
-    const PRODUCT_MTF = 'MTF';
     const VALIDITY_DAY = 'DAY';
     const VALIDITY_IOC = 'IOC';
     const ORDER_TYPE_MARKET = 'MARKET';
@@ -304,38 +292,6 @@ class OrderData implements ModelInterface, ArrayAccess
     const TRANSACTION_TYPE_BUY = 'BUY';
     const TRANSACTION_TYPE_SELL = 'SELL';
 
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getExchangeAllowableValues()
-    {
-        return [
-            self::EXCHANGE_NSE,
-            self::EXCHANGE_NFO,
-            self::EXCHANGE_CDS,
-            self::EXCHANGE_BSE,
-            self::EXCHANGE_BCD,
-            self::EXCHANGE_BFO,
-            self::EXCHANGE_MCX,
-        ];
-    }
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getProductAllowableValues()
-    {
-        return [
-            self::PRODUCT_I,
-            self::PRODUCT_D,
-            self::PRODUCT_CO,
-            self::PRODUCT_OCO,
-            self::PRODUCT_MTF,
-        ];
-    }
     /**
      * Gets allowable values of the enum
      *
@@ -427,21 +383,6 @@ class OrderData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        $allowedValues = $this->getExchangeAllowableValues();
-        if (!is_null($this->container['exchange']) && !in_array($this->container['exchange'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'exchange', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
-        }
-
-        $allowedValues = $this->getProductAllowableValues();
-        if (!is_null($this->container['product']) && !in_array($this->container['product'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'product', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
-        }
 
         $allowedValues = $this->getValidityAllowableValues();
         if (!is_null($this->container['validity']) && !in_array($this->container['validity'], $allowedValues, true)) {
@@ -501,15 +442,7 @@ class OrderData implements ModelInterface, ArrayAccess
      */
     public function setExchange($exchange)
     {
-        $allowedValues = $this->getExchangeAllowableValues();
-        if (!is_null($exchange) && !in_array($exchange, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'exchange', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
+
         $this->container['exchange'] = $exchange;
 
         return $this;
@@ -558,15 +491,6 @@ class OrderData implements ModelInterface, ArrayAccess
      */
     public function setProduct($product)
     {
-        $allowedValues = $this->getProductAllowableValues();
-        if (!is_null($product) && !in_array($product, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'product', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
         $this->container['product'] = $product;
 
         return $this;

@@ -298,32 +298,6 @@ class PositionData implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const EXCHANGE_NSE = 'NSE';
-    const EXCHANGE_NFO = 'NFO';
-    const EXCHANGE_CDS = 'CDS';
-    const EXCHANGE_BSE = 'BSE';
-    const EXCHANGE_BCD = 'BCD';
-    const EXCHANGE_BFO = 'BFO';
-    const EXCHANGE_MCX = 'MCX';
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getExchangeAllowableValues()
-    {
-        return [
-            self::EXCHANGE_NSE,
-            self::EXCHANGE_NFO,
-            self::EXCHANGE_CDS,
-            self::EXCHANGE_BSE,
-            self::EXCHANGE_BCD,
-            self::EXCHANGE_BFO,
-            self::EXCHANGE_MCX,
-        ];
-    }
-
     /**
      * Associative array for storing property values
      *
@@ -379,14 +353,6 @@ class PositionData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        $allowedValues = $this->getExchangeAllowableValues();
-        if (!is_null($this->container['exchange']) && !in_array($this->container['exchange'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'exchange', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
-        }
-
         return $invalidProperties;
     }
 
@@ -421,15 +387,6 @@ class PositionData implements ModelInterface, ArrayAccess
      */
     public function setExchange($exchange)
     {
-        $allowedValues = $this->getExchangeAllowableValues();
-        if (!is_null($exchange) && !in_array($exchange, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'exchange', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
         $this->container['exchange'] = $exchange;
 
         return $this;

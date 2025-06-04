@@ -228,6 +228,40 @@ class TradeData implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const ORDER_TYPE_MARKET = 'MARKET';
+    const ORDER_TYPE_LIMIT = 'LIMIT';
+    const ORDER_TYPE_SL = 'SL';
+    const ORDER_TYPE_SL_M = 'SL-M';
+    const TRANSACTION_TYPE_BUY = 'BUY';
+    const TRANSACTION_TYPE_SELL = 'SELL';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getOrderTypeAllowableValues()
+    {
+        return [
+            self::ORDER_TYPE_MARKET,
+            self::ORDER_TYPE_LIMIT,
+            self::ORDER_TYPE_SL,
+            self::ORDER_TYPE_SL_M,
+        ];
+    }
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getTransactionTypeAllowableValues()
+    {
+        return [
+            self::TRANSACTION_TYPE_BUY,
+            self::TRANSACTION_TYPE_SELL,
+        ];
+    }
+
     /**
      * Associative array for storing property values
      *
