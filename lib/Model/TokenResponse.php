@@ -212,55 +212,11 @@ class TokenResponse implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const EXCHANGES_NSE = 'NSE';
-    const EXCHANGES_NFO = 'NFO';
-    const EXCHANGES_CDS = 'CDS';
-    const EXCHANGES_BSE = 'BSE';
-    const EXCHANGES_BCD = 'BCD';
-    const EXCHANGE_BFO = 'BFO';
-    const EXCHANGES_MCX = 'MCX';
-    const PRODUCTS_I = 'I';
-    const PRODUCTS_D = 'D';
-    const PRODUCTS_CO = 'CO';
-    const PRODUCTS_OCO = 'OCO';
-    const PRODUCTS_MTF = 'MTF';
     const ORDER_TYPES_MARKET = 'MARKET';
     const ORDER_TYPES_LIMIT = 'LIMIT';
     const ORDER_TYPES_SL = 'SL';
     const ORDER_TYPES_SL_M = 'SL-M';
 
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getExchangesAllowableValues()
-    {
-        return [
-            self::EXCHANGES_NSE,
-            self::EXCHANGES_NFO,
-            self::EXCHANGES_CDS,
-            self::EXCHANGES_BSE,
-            self::EXCHANGES_BCD,
-            self::EXCHANGE_BFO,
-            self::EXCHANGES_MCX,
-        ];
-    }
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getProductsAllowableValues()
-    {
-        return [
-            self::PRODUCTS_I,
-            self::PRODUCTS_D,
-            self::PRODUCTS_CO,
-            self::PRODUCTS_OCO,
-            self::PRODUCTS_MTF,
-        ];
-    }
     /**
      * Gets allowable values of the enum
      *
@@ -372,15 +328,6 @@ class TokenResponse implements ModelInterface, ArrayAccess
      */
     public function setExchanges($exchanges)
     {
-        $allowedValues = $this->getExchangesAllowableValues();
-        if (!is_null($exchanges) && array_diff($exchanges, $allowedValues)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'exchanges', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
         $this->container['exchanges'] = $exchanges;
 
         return $this;
@@ -405,15 +352,6 @@ class TokenResponse implements ModelInterface, ArrayAccess
      */
     public function setProducts($products)
     {
-        $allowedValues = $this->getProductsAllowableValues();
-        if (!is_null($products) && array_diff($products, $allowedValues)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'products', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
         $this->container['products'] = $products;
 
         return $this;
