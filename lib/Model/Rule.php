@@ -62,7 +62,8 @@ class Rule implements ModelInterface, ArrayAccess
         'trigger_type' => 'string',
         'trigger_price' => 'double',
         'transaction_type' => 'string',
-        'order_id' => 'string'
+        'order_id' => 'string',
+        'trailing_gap' => 'double'
     ];
 
     /**
@@ -77,7 +78,8 @@ class Rule implements ModelInterface, ArrayAccess
         'trigger_type' => null,
         'trigger_price' => 'double',
         'transaction_type' => null,
-        'order_id' => null
+        'order_id' => null,
+        'trailing_gap' => 'double'
     ];
 
     /**
@@ -113,7 +115,8 @@ class Rule implements ModelInterface, ArrayAccess
         'trigger_type' => 'trigger_type',
         'trigger_price' => 'trigger_price',
         'transaction_type' => 'transaction_type',
-        'order_id' => 'order_id'
+        'order_id' => 'order_id',
+        'trailing_gap' => 'trailing_gap'
     ];
 
     /**
@@ -128,7 +131,8 @@ class Rule implements ModelInterface, ArrayAccess
         'trigger_type' => 'setTriggerType',
         'trigger_price' => 'setTriggerPrice',
         'transaction_type' => 'setTransactionType',
-        'order_id' => 'setOrderId'
+        'order_id' => 'setOrderId',
+        'trailing_gap' => 'setTrailingGap'
     ];
 
     /**
@@ -143,7 +147,8 @@ class Rule implements ModelInterface, ArrayAccess
         'trigger_type' => 'getTriggerType',
         'trigger_price' => 'getTriggerPrice',
         'transaction_type' => 'getTransactionType',
-        'order_id' => 'getOrderId'
+        'order_id' => 'getOrderId',
+        'trailing_gap' => 'getTrailingGap'
     ];
 
     /**
@@ -211,6 +216,7 @@ class Rule implements ModelInterface, ArrayAccess
         $this->container['trigger_price'] = isset($data['trigger_price']) ? $data['trigger_price'] : null;
         $this->container['transaction_type'] = isset($data['transaction_type']) ? $data['transaction_type'] : null;
         $this->container['order_id'] = isset($data['order_id']) ? $data['order_id'] : null;
+        $this->container['trailing_gap'] = isset($data['trailing_gap']) ? $data['trailing_gap'] : null;
     }
 
     /**
@@ -401,6 +407,30 @@ class Rule implements ModelInterface, ArrayAccess
     public function setOrderId($order_id)
     {
         $this->container['order_id'] = $order_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets trailing_gap
+     *
+     * @return double
+     */
+    public function getTrailingGap()
+    {
+        return $this->container['trailing_gap'];
+    }
+
+    /**
+     * Sets trailing_gap
+     *
+     * @param double $trailing_gap trailing_gap
+     *
+     * @return $this
+     */
+    public function setTrailingGap($trailing_gap)
+    {
+        $this->container['trailing_gap'] = $trailing_gap;
 
         return $this;
     }
