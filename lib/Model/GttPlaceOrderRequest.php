@@ -186,6 +186,7 @@ class GttPlaceOrderRequest implements ModelInterface, ArrayAccess
     const TYPE_MULTIPLE = 'MULTIPLE';
     const PRODUCT_I = 'I';
     const PRODUCT_D = 'D';
+    const PRODUCT_MTF = 'MTF';
     const TRANSACTION_TYPE_BUY = 'BUY';
     const TRANSACTION_TYPE_SELL = 'SELL';
 
@@ -211,6 +212,7 @@ class GttPlaceOrderRequest implements ModelInterface, ArrayAccess
         return [
             self::PRODUCT_I,
             self::PRODUCT_D,
+            self::PRODUCT_MTF,
         ];
     }
     /**
@@ -385,7 +387,7 @@ class GttPlaceOrderRequest implements ModelInterface, ArrayAccess
     /**
      * Sets product
      *
-     * @param string $product Signifies if the order was either Intraday, Delivery, CO or OCO
+     * @param string $product Signifies if the order was either Intraday, Delivery or MTF
      *
      * @return $this
      */

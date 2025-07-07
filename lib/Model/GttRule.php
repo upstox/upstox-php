@@ -59,7 +59,8 @@ class GttRule implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'strategy' => 'string',
         'trigger_type' => 'string',
-        'trigger_price' => 'double'
+        'trigger_price' => 'double',
+        'trailing_gap' => 'double'
     ];
 
     /**
@@ -70,7 +71,8 @@ class GttRule implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'strategy' => null,
         'trigger_type' => null,
-        'trigger_price' => 'double'
+        'trigger_price' => 'double',
+        'trailing_gap' => 'double'
     ];
 
     /**
@@ -102,7 +104,8 @@ class GttRule implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'strategy' => 'strategy',
         'trigger_type' => 'trigger_type',
-        'trigger_price' => 'trigger_price'
+        'trigger_price' => 'trigger_price',
+        'trailing_gap' => 'trailing_gap'
     ];
 
     /**
@@ -113,7 +116,8 @@ class GttRule implements ModelInterface, ArrayAccess
     protected static $setters = [
         'strategy' => 'setStrategy',
         'trigger_type' => 'setTriggerType',
-        'trigger_price' => 'setTriggerPrice'
+        'trigger_price' => 'setTriggerPrice',
+        'trailing_gap' => 'setTrailingGap'
     ];
 
     /**
@@ -124,7 +128,8 @@ class GttRule implements ModelInterface, ArrayAccess
     protected static $getters = [
         'strategy' => 'getStrategy',
         'trigger_type' => 'getTriggerType',
-        'trigger_price' => 'getTriggerPrice'
+        'trigger_price' => 'getTriggerPrice',
+        'trailing_gap' => 'getTrailingGap'
     ];
 
     /**
@@ -220,6 +225,7 @@ class GttRule implements ModelInterface, ArrayAccess
         $this->container['strategy'] = isset($data['strategy']) ? $data['strategy'] : null;
         $this->container['trigger_type'] = isset($data['trigger_type']) ? $data['trigger_type'] : null;
         $this->container['trigger_price'] = isset($data['trigger_price']) ? $data['trigger_price'] : null;
+        $this->container['trailing_gap'] = isset($data['trailing_gap']) ? $data['trailing_gap'] : null;
     }
 
     /**
@@ -357,6 +363,30 @@ class GttRule implements ModelInterface, ArrayAccess
     public function setTriggerPrice($trigger_price)
     {
         $this->container['trigger_price'] = $trigger_price;
+
+        return $this;
+    }
+
+    /**
+     * Gets trailing_gap
+     *
+     * @return double
+     */
+    public function getTrailingGap()
+    {
+        return $this->container['trailing_gap'];
+    }
+
+    /**
+     * Sets trailing_gap
+     *
+     * @param double $trailing_gap Optional parameter defining the trailing gap for the GTT order
+     *
+     * @return $this
+     */
+    public function setTrailingGap($trailing_gap)
+    {
+        $this->container['trailing_gap'] = $trailing_gap;
 
         return $this;
     }
