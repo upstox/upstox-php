@@ -93,14 +93,15 @@ class OrderApi
      *
      * @param  string $tag The tag associated with the orders for which the orders must be cancelled (optional)
      * @param  string $segment The segment for which the orders must be cancelled (optional)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\CancelOrExitMultiOrderResponse
      */
-    public function cancelMultiOrder($tag = null, $segment = null)
+    public function cancelMultiOrder($tag = null, $segment = null, $algo_id = null)
     {
-        list($response) = $this->cancelMultiOrderWithHttpInfo($tag, $segment);
+        list($response) = $this->cancelMultiOrderWithHttpInfo($tag, $segment, $algo_id);
         return $response;
     }
 
@@ -111,15 +112,16 @@ class OrderApi
      *
      * @param  string $tag The tag associated with the orders for which the orders must be cancelled (optional)
      * @param  string $segment The segment for which the orders must be cancelled (optional)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\CancelOrExitMultiOrderResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function cancelMultiOrderWithHttpInfo($tag = null, $segment = null)
+    public function cancelMultiOrderWithHttpInfo($tag = null, $segment = null, $algo_id = null)
     {
         $returnType = '\Upstox\Client\Model\CancelOrExitMultiOrderResponse';
-        $request = $this->cancelMultiOrderRequest($tag, $segment);
+        $request = $this->cancelMultiOrderRequest($tag, $segment, $algo_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -243,13 +245,14 @@ class OrderApi
      *
      * @param  string $tag The tag associated with the orders for which the orders must be cancelled (optional)
      * @param  string $segment The segment for which the orders must be cancelled (optional)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelMultiOrderAsync($tag = null, $segment = null)
+    public function cancelMultiOrderAsync($tag = null, $segment = null, $algo_id = null)
     {
-        return $this->cancelMultiOrderAsyncWithHttpInfo($tag, $segment)
+        return $this->cancelMultiOrderAsyncWithHttpInfo($tag, $segment, $algo_id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -264,14 +267,15 @@ class OrderApi
      *
      * @param  string $tag The tag associated with the orders for which the orders must be cancelled (optional)
      * @param  string $segment The segment for which the orders must be cancelled (optional)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelMultiOrderAsyncWithHttpInfo($tag = null, $segment = null)
+    public function cancelMultiOrderAsyncWithHttpInfo($tag = null, $segment = null, $algo_id = null)
     {
         $returnType = '\Upstox\Client\Model\CancelOrExitMultiOrderResponse';
-        $request = $this->cancelMultiOrderRequest($tag, $segment);
+        $request = $this->cancelMultiOrderRequest($tag, $segment, $algo_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -315,11 +319,12 @@ class OrderApi
      *
      * @param  string $tag The tag associated with the orders for which the orders must be cancelled (optional)
      * @param  string $segment The segment for which the orders must be cancelled (optional)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function cancelMultiOrderRequest($tag = null, $segment = null)
+    protected function cancelMultiOrderRequest($tag = null, $segment = null, $algo_id = null)
     {
 
         $resourcePath = '/v2/order/multi/cancel';
@@ -336,6 +341,11 @@ class OrderApi
         // query params
         if ($segment !== null) {
             $queryParams['segment'] = ObjectSerializer::toQueryValue($segment, null);
+        }
+
+        // header params
+        if ($algo_id !== null) {
+            $headerParams['X-Algo-Id'] = ObjectSerializer::toHeaderValue($algo_id);
         }
 
 
@@ -414,14 +424,15 @@ class OrderApi
      *
      * @param  string $order_id The order ID for which the order must be cancelled (required)
      * @param  string $api_version API Version Header (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\CancelOrderResponse
      */
-    public function cancelOrder($order_id, $api_version)
+    public function cancelOrder($order_id, $api_version, $algo_id = null)
     {
-        list($response) = $this->cancelOrderWithHttpInfo($order_id, $api_version);
+        list($response) = $this->cancelOrderWithHttpInfo($order_id, $api_version, $algo_id);
         return $response;
     }
 
@@ -432,15 +443,16 @@ class OrderApi
      *
      * @param  string $order_id The order ID for which the order must be cancelled (required)
      * @param  string $api_version API Version Header (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\CancelOrderResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function cancelOrderWithHttpInfo($order_id, $api_version)
+    public function cancelOrderWithHttpInfo($order_id, $api_version, $algo_id = null)
     {
         $returnType = '\Upstox\Client\Model\CancelOrderResponse';
-        $request = $this->cancelOrderRequest($order_id, $api_version);
+        $request = $this->cancelOrderRequest($order_id, $api_version, $algo_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -548,13 +560,14 @@ class OrderApi
      *
      * @param  string $order_id The order ID for which the order must be cancelled (required)
      * @param  string $api_version API Version Header (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelOrderAsync($order_id, $api_version)
+    public function cancelOrderAsync($order_id, $api_version, $algo_id = null)
     {
-        return $this->cancelOrderAsyncWithHttpInfo($order_id, $api_version)
+        return $this->cancelOrderAsyncWithHttpInfo($order_id, $api_version, $algo_id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -569,14 +582,15 @@ class OrderApi
      *
      * @param  string $order_id The order ID for which the order must be cancelled (required)
      * @param  string $api_version API Version Header (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelOrderAsyncWithHttpInfo($order_id, $api_version)
+    public function cancelOrderAsyncWithHttpInfo($order_id, $api_version, $algo_id = null)
     {
         $returnType = '\Upstox\Client\Model\CancelOrderResponse';
-        $request = $this->cancelOrderRequest($order_id, $api_version);
+        $request = $this->cancelOrderRequest($order_id, $api_version, $algo_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -620,11 +634,12 @@ class OrderApi
      *
      * @param  string $order_id The order ID for which the order must be cancelled (required)
      * @param  string $api_version API Version Header (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function cancelOrderRequest($order_id, $api_version)
+    protected function cancelOrderRequest($order_id, $api_version, $algo_id = null)
     {
         // verify the required parameter 'order_id' is set
         if ($order_id === null || (is_array($order_id) && count($order_id) === 0)) {
@@ -653,6 +668,9 @@ class OrderApi
         // header params
         if ($api_version !== null) {
             $headerParams['Api-Version'] = ObjectSerializer::toHeaderValue($api_version);
+        }
+        if ($algo_id !== null) {
+            $headerParams['X-Algo-Id'] = ObjectSerializer::toHeaderValue($algo_id);
         }
 
 
@@ -731,14 +749,15 @@ class OrderApi
      *
      * @param  string $tag The tag associated with the positions for which the positions must be exit (optional)
      * @param  string $segment The segment for which the positions must be exit (optional)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\CancelOrExitMultiOrderResponse
      */
-    public function exitPositions($tag = null, $segment = null)
+    public function exitPositions($tag = null, $segment = null, $algo_id = null)
     {
-        list($response) = $this->exitPositionsWithHttpInfo($tag, $segment);
+        list($response) = $this->exitPositionsWithHttpInfo($tag, $segment, $algo_id);
         return $response;
     }
 
@@ -749,15 +768,16 @@ class OrderApi
      *
      * @param  string $tag The tag associated with the positions for which the positions must be exit (optional)
      * @param  string $segment The segment for which the positions must be exit (optional)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\CancelOrExitMultiOrderResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function exitPositionsWithHttpInfo($tag = null, $segment = null)
+    public function exitPositionsWithHttpInfo($tag = null, $segment = null, $algo_id = null)
     {
         $returnType = '\Upstox\Client\Model\CancelOrExitMultiOrderResponse';
-        $request = $this->exitPositionsRequest($tag, $segment);
+        $request = $this->exitPositionsRequest($tag, $segment, $algo_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -881,13 +901,14 @@ class OrderApi
      *
      * @param  string $tag The tag associated with the positions for which the positions must be exit (optional)
      * @param  string $segment The segment for which the positions must be exit (optional)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function exitPositionsAsync($tag = null, $segment = null)
+    public function exitPositionsAsync($tag = null, $segment = null, $algo_id = null)
     {
-        return $this->exitPositionsAsyncWithHttpInfo($tag, $segment)
+        return $this->exitPositionsAsyncWithHttpInfo($tag, $segment, $algo_id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -902,14 +923,15 @@ class OrderApi
      *
      * @param  string $tag The tag associated with the positions for which the positions must be exit (optional)
      * @param  string $segment The segment for which the positions must be exit (optional)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function exitPositionsAsyncWithHttpInfo($tag = null, $segment = null)
+    public function exitPositionsAsyncWithHttpInfo($tag = null, $segment = null, $algo_id = null)
     {
         $returnType = '\Upstox\Client\Model\CancelOrExitMultiOrderResponse';
-        $request = $this->exitPositionsRequest($tag, $segment);
+        $request = $this->exitPositionsRequest($tag, $segment, $algo_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -953,11 +975,12 @@ class OrderApi
      *
      * @param  string $tag The tag associated with the positions for which the positions must be exit (optional)
      * @param  string $segment The segment for which the positions must be exit (optional)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function exitPositionsRequest($tag = null, $segment = null)
+    protected function exitPositionsRequest($tag = null, $segment = null, $algo_id = null)
     {
 
         $resourcePath = '/v2/order/positions/exit';
@@ -976,6 +999,10 @@ class OrderApi
             $queryParams['segment'] = ObjectSerializer::toQueryValue($segment, null);
         }
 
+        // header params
+        if ($algo_id !== null) {
+            $headerParams['X-Algo-Id'] = ObjectSerializer::toHeaderValue($algo_id);
+        }
 
         // body params
         $_tempBody = null;
@@ -2604,14 +2631,15 @@ class OrderApi
      *
      * @param  \Upstox\Client\Model\ModifyOrderRequest $body body (required)
      * @param  string $api_version API Version Header (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\ModifyOrderResponse
      */
-    public function modifyOrder($body, $api_version)
+    public function modifyOrder($body, $api_version, $algo_id = null)
     {
-        list($response) = $this->modifyOrderWithHttpInfo($body, $api_version);
+        list($response) = $this->modifyOrderWithHttpInfo($body, $api_version, $algo_id);
         return $response;
     }
 
@@ -2622,15 +2650,16 @@ class OrderApi
      *
      * @param  \Upstox\Client\Model\ModifyOrderRequest $body (required)
      * @param  string $api_version API Version Header (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\ModifyOrderResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function modifyOrderWithHttpInfo($body, $api_version)
+    public function modifyOrderWithHttpInfo($body, $api_version, $algo_id = null)
     {
         $returnType = '\Upstox\Client\Model\ModifyOrderResponse';
-        $request = $this->modifyOrderRequest($body, $api_version);
+        $request = $this->modifyOrderRequest($body, $api_version, $algo_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2738,13 +2767,14 @@ class OrderApi
      *
      * @param  \Upstox\Client\Model\ModifyOrderRequest $body (required)
      * @param  string $api_version API Version Header (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function modifyOrderAsync($body, $api_version)
+    public function modifyOrderAsync($body, $api_version, $algo_id = null)
     {
-        return $this->modifyOrderAsyncWithHttpInfo($body, $api_version)
+        return $this->modifyOrderAsyncWithHttpInfo($body, $api_version, $algo_id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2759,14 +2789,15 @@ class OrderApi
      *
      * @param  \Upstox\Client\Model\ModifyOrderRequest $body (required)
      * @param  string $api_version API Version Header (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function modifyOrderAsyncWithHttpInfo($body, $api_version)
+    public function modifyOrderAsyncWithHttpInfo($body, $api_version, $algo_id = null)
     {
         $returnType = '\Upstox\Client\Model\ModifyOrderResponse';
-        $request = $this->modifyOrderRequest($body, $api_version);
+        $request = $this->modifyOrderRequest($body, $api_version, $algo_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2810,11 +2841,12 @@ class OrderApi
      *
      * @param  \Upstox\Client\Model\ModifyOrderRequest $body (required)
      * @param  string $api_version API Version Header (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function modifyOrderRequest($body, $api_version)
+    protected function modifyOrderRequest($body, $api_version, $algo_id = null)
     {
         // verify the required parameter 'body' is set
         if ($body === null || (is_array($body) && count($body) === 0)) {
@@ -2839,6 +2871,9 @@ class OrderApi
         // header params
         if ($api_version !== null) {
             $headerParams['Api-Version'] = ObjectSerializer::toHeaderValue($api_version);
+        }
+        if ($algo_id !== null) {
+            $headerParams['X-Algo-Id'] = ObjectSerializer::toHeaderValue($algo_id);
         }
 
 
@@ -2919,14 +2954,15 @@ class OrderApi
      * Place multi order
      *
      * @param  \Upstox\Client\Model\MultiOrderRequest[] $body body (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\MultiOrderResponse
      */
-    public function placeMultiOrder($body)
+    public function placeMultiOrder($body, $algo_id = null)
     {
-        list($response) = $this->placeMultiOrderWithHttpInfo($body);
+        list($response) = $this->placeMultiOrderWithHttpInfo($body, $algo_id);
         return $response;
     }
 
@@ -2936,15 +2972,16 @@ class OrderApi
      * Place multi order
      *
      * @param  \Upstox\Client\Model\MultiOrderRequest[] $body (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\MultiOrderResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function placeMultiOrderWithHttpInfo($body)
+    public function placeMultiOrderWithHttpInfo($body, $algo_id = null)
     {
         $returnType = '\Upstox\Client\Model\MultiOrderResponse';
-        $request = $this->placeMultiOrderRequest($body);
+        $request = $this->placeMultiOrderRequest($body, $algo_id);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -3066,13 +3103,14 @@ class OrderApi
      * Place multi order
      *
      * @param  \Upstox\Client\Model\MultiOrderRequest[] $body (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function placeMultiOrderAsync($body)
+    public function placeMultiOrderAsync($body, $algo_id = null)
     {
-        return $this->placeMultiOrderAsyncWithHttpInfo($body)
+        return $this->placeMultiOrderAsyncWithHttpInfo($body, $algo_id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3086,14 +3124,15 @@ class OrderApi
      * Place multi order
      *
      * @param  \Upstox\Client\Model\MultiOrderRequest[] $body (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function placeMultiOrderAsyncWithHttpInfo($body)
+    public function placeMultiOrderAsyncWithHttpInfo($body, $algo_id = null)
     {
         $returnType = '\Upstox\Client\Model\MultiOrderResponse';
-        $request = $this->placeMultiOrderRequest($body);
+        $request = $this->placeMultiOrderRequest($body, $algo_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3136,11 +3175,12 @@ class OrderApi
      * Create request for operation 'placeMultiOrder'
      *
      * @param  \Upstox\Client\Model\MultiOrderRequest[] $body (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function placeMultiOrderRequest($body)
+    protected function placeMultiOrderRequest($body, $algo_id = null)
     {
         // verify the required parameter 'body' is set
         if ($body === null || (is_array($body) && count($body) === 0)) {
@@ -3155,7 +3195,10 @@ class OrderApi
         $httpBody = '';
         $multipart = false;
 
-
+        // header params
+        if ($algo_id !== null) {
+            $headerParams['X-Algo-Id'] = ObjectSerializer::toHeaderValue($algo_id);
+        }
 
         // body params
         $_tempBody = null;
@@ -3238,14 +3281,15 @@ class OrderApi
      *
      * @param  \Upstox\Client\Model\PlaceOrderRequest $body body (required)
      * @param  string $api_version API Version Header (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\PlaceOrderResponse
      */
-    public function placeOrder($body, $api_version)
+    public function placeOrder($body, $api_version, $algo_id = null)
     {
-        list($response) = $this->placeOrderWithHttpInfo($body, $api_version);
+        list($response) = $this->placeOrderWithHttpInfo($body, $api_version, $algo_id);
         return $response;
     }
 
@@ -3256,15 +3300,16 @@ class OrderApi
      *
      * @param  \Upstox\Client\Model\PlaceOrderRequest $body (required)
      * @param  string $api_version API Version Header (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\PlaceOrderResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function placeOrderWithHttpInfo($body, $api_version)
+    public function placeOrderWithHttpInfo($body, $api_version, $algo_id = null)
     {
         $returnType = '\Upstox\Client\Model\PlaceOrderResponse';
-        $request = $this->placeOrderRequest($body, $api_version);
+        $request = $this->placeOrderRequest($body, $api_version, $algo_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3372,13 +3417,14 @@ class OrderApi
      *
      * @param  \Upstox\Client\Model\PlaceOrderRequest $body (required)
      * @param  string $api_version API Version Header (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function placeOrderAsync($body, $api_version)
+    public function placeOrderAsync($body, $api_version, $algo_id = null)
     {
-        return $this->placeOrderAsyncWithHttpInfo($body, $api_version)
+        return $this->placeOrderAsyncWithHttpInfo($body, $api_version, $algo_id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3393,14 +3439,15 @@ class OrderApi
      *
      * @param  \Upstox\Client\Model\PlaceOrderRequest $body (required)
      * @param  string $api_version API Version Header (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function placeOrderAsyncWithHttpInfo($body, $api_version)
+    public function placeOrderAsyncWithHttpInfo($body, $api_version, $algo_id = null)
     {
         $returnType = '\Upstox\Client\Model\PlaceOrderResponse';
-        $request = $this->placeOrderRequest($body, $api_version);
+        $request = $this->placeOrderRequest($body, $api_version, $algo_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3444,11 +3491,12 @@ class OrderApi
      *
      * @param  \Upstox\Client\Model\PlaceOrderRequest $body (required)
      * @param  string $api_version API Version Header (required)
+     * @param  string|null $algo_id Optional algorithm identifier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function placeOrderRequest($body, $api_version)
+    protected function placeOrderRequest($body, $api_version, $algo_id = null)
     {
         // verify the required parameter 'body' is set
         if ($body === null || (is_array($body) && count($body) === 0)) {
@@ -3473,6 +3521,9 @@ class OrderApi
         // header params
         if ($api_version !== null) {
             $headerParams['Api-Version'] = ObjectSerializer::toHeaderValue($api_version);
+        }
+        if ($algo_id !== null) {
+            $headerParams['X-Algo-Id'] = ObjectSerializer::toHeaderValue($algo_id);
         }
 
 
