@@ -71,6 +71,40 @@ try {
 
 To learn more about the sandbox environment and the available sandbox APIs, please visit the [Upstox API documentation - Sandbox](https://upstox.com/developer/api-documentation/sandbox).
 
+## Algo ID Support
+
+The SDK supports passing an algorithm ID for order tracking and management. When provided, the SDK will pass the algo ID as `X-Algo-Id` header.
+
+```php
+use Upstox\Client\Configuration;
+use Upstox\Client\Api\OrderApiV3;
+use Upstox\Client\Model\PlaceOrderV3Request;
+
+$config = Configuration::getDefaultConfiguration()->setAccessToken('ACCESS_TOKEN');
+
+$apiInstance = new OrderApiV3(new GuzzleHttp\Client(), $config);
+$body = new PlaceOrderV3Request();
+$body->setQuantity(1);
+$body->setProduct("D");
+$body->setValidity("DAY");
+$body->setPrice(0);
+$body->setInstrumentToken("NSE_EQ|INE528G01035");
+$body->setOrderType("MARKET");
+$body->setTransactionType("BUY");
+$body->setDisclosedQuantity(0);
+$body->setTriggerPrice(0);
+$body->setIsAmo(false);
+$body->setSlice(true);
+
+try {
+    $result = $apiInstance->placeOrder($body, "web", "your-algo-id");
+    print($result);
+} catch (Exception $e) {
+    echo "Exception when calling OrderApiV3->placeOrder: " . $e->getMessage() . "\n";
+}
+```
+
+Other order methods (modify, cancel, etc.) follow the same pattern by accepting an optional `algo_id` as the last parameter.
 
 ## Examples
 
