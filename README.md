@@ -71,6 +71,40 @@ try {
 
 To learn more about the sandbox environment and the available sandbox APIs, please visit the [Upstox API documentation - Sandbox](https://upstox.com/developer/api-documentation/sandbox).
 
+## Algo ID Support
+
+The SDK supports passing an algorithm ID for order tracking and management. When provided, the SDK will pass the algo ID as `X-Algo-Id` header.
+
+```php
+use Upstox\Client\Configuration;
+use Upstox\Client\Api\OrderApiV3;
+use Upstox\Client\Model\PlaceOrderV3Request;
+
+$config = Configuration::getDefaultConfiguration()->setAccessToken('ACCESS_TOKEN');
+
+$apiInstance = new OrderApiV3(new GuzzleHttp\Client(), $config);
+$body = new PlaceOrderV3Request();
+$body->setQuantity(1);
+$body->setProduct("D");
+$body->setValidity("DAY");
+$body->setPrice(0);
+$body->setInstrumentToken("NSE_EQ|INE528G01035");
+$body->setOrderType("MARKET");
+$body->setTransactionType("BUY");
+$body->setDisclosedQuantity(0);
+$body->setTriggerPrice(0);
+$body->setIsAmo(false);
+$body->setSlice(true);
+
+try {
+    $result = $apiInstance->placeOrder($body, "web", "your-algo-id");
+    print($result);
+} catch (Exception $e) {
+    echo "Exception when calling OrderApiV3->placeOrder: " . $e->getMessage() . "\n";
+}
+```
+
+Other order methods (modify, cancel, etc.) follow the same pattern by accepting an optional `algo_id` as the last parameter.
 
 ## Examples
 
@@ -154,10 +188,6 @@ Both functions are designed to simplify the process of subscribing to essential 
 ### Detailed Explanation of Feeder Interface
 
 ### MarketDataStreamer
-
-<details>
-<summary style="cursor: pointer; font-size: 1.2em;">V3</summary>
-<p>
 
 The `MarketDataStreamerV3` interface is designed for effortless connection to the market WebSocket, enabling users to receive instantaneous updates on various instruments. The following example demonstrates how to quickly set up and start receiving market updates for selected instrument keys:
 
@@ -397,251 +427,7 @@ EventLoop::run();
 ```
 
 <br/>
-</p>
-</details>
 
-<details>
-<summary style="cursor: pointer; font-size: 1.2em;">V2</summary>
-<p>
-
-The `MarketDataStreamer` interface is designed for effortless connection to the market WebSocket, enabling users to receive instantaneous updates on various instruments. The following example demonstrates how to quickly set up and start receiving market updates for selected instrument keys:
-
-```php
-use Upstox\Client\Configuration;
-use Upstox\Client\Feeder\MarketDataStreamer;
-use Revolt\EventLoop;
-
-function on_message($streamer, $data)
-{
-    print($data);
-}
-
-$config = Configuration::getDefaultConfiguration()->setAccessToken(<ACCESS_TOKEN>);
-
-$streamer = new MarketDataStreamer($config, ["NSE_INDEX|Nifty 50", "NSE_INDEX|Nifty Bank"], "full");
-
-$streamer->on("message", 'on_message');
-$streamer->connect();
-
-EventLoop::run();
-```
-
-In this example, you first authenticate using an access token, then instantiate MarketDataStreamer with specific instrument keys and a subscription mode. Upon connecting, the streamer listens for market updates, which are logged to the console as they arrive.
-
-Feel free to adjust the access token placeholder and any other specifics to better fit your actual implementation or usage scenario.
-
-### Exploring the MarketDataStreamer Functionality
-
-#### Modes
-- **ltpc**: ltpc provides information solely about the most recent trade, encompassing details such as the last trade price, time of the last trade, quantity traded, and the closing price from the previous day.
-- **full**: The full option offers comprehensive information, including the latest trade prices, D5 depth, 1-minute, 30-minute, and daily candlestick data, along with some additional details.
-
-#### Functions
-1. **constructor MarketDataStreamer(apiClient, instrumentKeys, mode)**: Initializes the streamer with optional instrument keys and mode (`full` or `ltpc`).
-2. **connect()**: Establishes the WebSocket connection.
-3. **subscribe(instrumentKeys, mode)**: Subscribes to updates for given instrument keys in the specified mode. Both parameters are mandatory.
-4. **unsubscribe(instrumentKeys)**: Stops updates for the specified instrument keys.
-5. **changeMode(instrumentKeys, mode)**: Switches the mode for already subscribed instrument keys.
-6. **disconnect()**: Ends the active WebSocket connection.
-7. **autoReconnect(enable, interval, retryCount)**: Customizes auto-reconnect functionality. Parameters include a flag to enable/disable it, the interval(in seconds) between attempts, and the maximum number of retries.
-
-#### Events
-- **open**: Emitted upon successful connection establishment.
-- **close**: Indicates the WebSocket connection has been closed.
-- **message**: Delivers market updates.
-- **error**: Signals an error has occurred.
-- **reconnecting**: Announced when a reconnect attempt is initiated.
-- **autoReconnectStopped**: Informs when auto-reconnect efforts have ceased after exhausting the retry count.
-
-The following documentation includes examples to illustrate the usage of these functions and events, providing a practical understanding of how to interact with the MarketDataStreamer effectively.
-
-<br/>
-
-1. Subscribing to Market Data on Connection Open with MarketDataStreamer
-
-```php
-use Upstox\Client\Configuration;
-use Upstox\Client\Feeder\MarketDataStreamer;
-use Revolt\EventLoop;
-
-function on_open($streamer)
-{
-    print("Connection Established");
-    $streamer->subscribe(["NSE_INDEX|Nifty 50", "NSE_INDEX|Nifty Bank"], "full");
-}
-
-function on_message($streamer, $data)
-{
-    print($data);
-}
-
-
-$config = Configuration::getDefaultConfiguration()->setAccessToken(<ACCESS_TOKEN>);
-
-$streamer = new MarketDataStreamer($config);
-
-$streamer->on("open", 'on_open');
-$streamer->on("message", 'on_message');
-$streamer->connect();
-
-EventLoop::run();
-```
-
-<br/>
-
-2. Subscribing to Instruments with Delays
-
-```php
-use Upstox\Client\Configuration;
-use Upstox\Client\Feeder\MarketDataStreamer;
-use Revolt\EventLoop;
-use function Amp\delay;
-
-function on_open($streamer)
-{
-    print("Connection Established");
-    $streamer->subscribe(["NSE_INDEX|Nifty 50"], "full");
-    delay(5);
-    $streamer->subscribe(["NSE_INDEX|Nifty Bank"], "full");
-}
-
-function on_message($streamer, $data)
-{
-    print($data);
-}
-
-
-$config = Configuration::getDefaultConfiguration()->setAccessToken(<ACCESS_TOKEN>);
-
-$streamer = new MarketDataStreamer($config);
-
-$streamer->on("open", 'on_open');
-$streamer->on("message", 'on_message');
-$streamer->connect();
-
-EventLoop::run();
-```
-
-<br/>
-
-3. Subscribing and Unsubscribing to Instruments
-
-```php
-use Upstox\Client\Configuration;
-use Upstox\Client\Feeder\MarketDataStreamer;
-use Revolt\EventLoop;
-use function Amp\delay;
-
-function on_open($streamer)
-{
-    print("Connection Established");
-    $streamer->subscribe(["NSE_EQ|INE020B01018", "NSE_EQ|INE467B01029"], "full");
-    delay(5);
-    $streamer->unsubscribe(["NSE_EQ|INE020B01018", "NSE_EQ|INE467B01029"]);
-}
-
-function on_message($streamer, $data)
-{
-    print($data);
-}
-
-
-$config = Configuration::getDefaultConfiguration()->setAccessToken(<ACCESS_TOKEN>);
-
-$streamer = new MarketDataStreamer($config);
-
-$streamer->on("open", 'on_open');
-$streamer->on("message", 'on_message');
-$streamer->connect();
-
-EventLoop::run();
-```
-
-<br/>
-
-4. Subscribe, Change Mode and Unsubscribe
-
-```php
-use Upstox\Client\Configuration;
-use Upstox\Client\Feeder\MarketDataStreamer;
-use Revolt\EventLoop;
-use function Amp\delay;
-
-function on_open($streamer)
-{
-    print("Connection Established");
-    $streamer->subscribe(["NSE_EQ|INE020B01018", "NSE_EQ|INE467B01029"], "full");
-    delay(5);
-    $streamer->changeMode(
-        ["NSE_EQ|INE020B01018", "NSE_EQ|INE467B01029"], "ltpc");
-}
-
-function on_message($streamer, $data)
-{
-    print($data);
-}
-
-
-$config = Configuration::getDefaultConfiguration()->setAccessToken(<ACCESS_TOKEN>);
-
-$streamer = new MarketDataStreamer($config);
-
-$streamer->on("open", 'on_open');
-$streamer->on("message", 'on_message');
-$streamer->connect();
-
-EventLoop::run();
-```
-
-<br/>
-
-5. Disable Auto-Reconnect
-
-```php
-use Upstox\Client\Configuration;
-use Upstox\Client\Feeder\MarketDataStreamer;
-use Revolt\EventLoop;
-
-function on_reconnectstopped($streamer, $data)
-{
-    print($data);
-}
-
-
-$config = Configuration::getDefaultConfiguration()->setAccessToken(<ACCESS_TOKEN>);
-
-$streamer = new MarketDataStreamer($config);
-
-$streamer->on("autoReconnectStopped", 'on_reconnectstopped');
-
-$streamer->autoReconnect(false);
-$streamer->connect();
-
-EventLoop::run();
-```
-
-<br/>
-
-6. Modify Auto-Reconnect parameters
-
-```php
-use Upstox\Client\Configuration;
-use Upstox\Client\Feeder\MarketDataStreamer;
-use Revolt\EventLoop;
-
-$config = Configuration::getDefaultConfiguration()->setAccessToken(<ACCESS_TOKEN>);
-
-$streamer = new MarketDataStreamer($config);
-
-$streamer->autoReconnect(true, 10, 3);
-$streamer->connect();
-
-EventLoop::run();
-```
-
-<br/>
-</p>
-</details>
 
 ### PortfolioDataStreamer
 
@@ -649,7 +435,7 @@ Connecting to the Portfolio WebSocket for real-time order updates is straightfor
 
 ```php
 use Upstox\Client\Configuration;
-use Upstox\Client\Feeder\MarketDataStreamer;
+use Upstox\Client\Feeder\PortfolioDataStreamer;
 use Revolt\EventLoop;
 
 function on_message($streamer, $data)

@@ -41,3 +41,6 @@
 .vscode/
 .swagger-codegen-ignore
 git_push.sh
+
+#cursor
+.cursor/
