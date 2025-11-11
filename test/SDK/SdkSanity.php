@@ -97,7 +97,7 @@ $body->setTriggerPrice(0);
 $body->setIsAmo(false);
 
 try {
-    $result = $apiInstance->placeOrder($body,$api_version);
+    $result = $apiInstance->placeOrder($body,$api_version,$AlgoName);
     print($result);
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI1052') === false){
@@ -123,7 +123,7 @@ $body->setTriggerPrice(0);
 $body->setValidity("DAY");
 
 try {
-    $result = $apiInstance->modifyOrder($body,"2.0");
+    $result = $apiInstance->modifyOrder($body,"2.0",$AlgoName);
     print_r($result);
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI100010') === false){
@@ -131,7 +131,7 @@ try {
     }
 }
 try{
-    $result = $apiInstance->cancelOrder("240319010634267","2.0");
+    $result = $apiInstance->cancelOrder("240319010634267","2.0",$AlgoName);
     print_r($result);
 } catch (Exception $e){
     if(strpos($e->getMessage(), 'UDAPI100010') === false){
@@ -444,13 +444,13 @@ $order2->setSlice(false);
 // Create an array of MultiOrderRequest objects
 $multiOrderRequests = [$order1, $order2];
 try {
-    $result = $apiInstance->placeMultiOrder($multiOrderRequests);
+    $result = $apiInstance->placeMultiOrder($multiOrderRequests,$AlgoName);
 } catch (Exception $e) {
     print_r($e->getMessage());
 }
 
 try {
-    $result = $apiInstance->cancelMultiOrder("php_sdk_sanity_tag",null);
+    $result = $apiInstance->cancelMultiOrder("php_sdk_sanity_tag",null,$AlgoName);
 } catch (Exception $e){
     if(strpos($e->getMessage(), 'UDAPI1109') === false){
         print_r("error in cancel all order");
@@ -458,7 +458,7 @@ try {
 }
 
 try {
-    $result = $apiInstance->exitPositions("php_sdk_sanity_tag",null);
+    $result = $apiInstance->exitPositions("php_sdk_sanity_tag",null,$AlgoName);
 } catch (Exception $e){
     if(strpos($e->getMessage(), 'UDAPI1113') === false && strpos($e->getMessage(), 'UDAPI1111') === false ){
         print_r("error in exit all order");
@@ -498,8 +498,7 @@ $body->setRules([$entryRule, $stopLoss, $targetRule]);
 
 
 try {
-    $result = $apiInstance->placeGTTOrder($body);
-    print_r( " place gtt order=> " . $result);
+    $result = $apiInstance->placeGTTOrder($body,$AlgoName);
 }
 catch (Exception $e) {
     print($e->getMessage());
@@ -526,7 +525,7 @@ $targetRule->setTriggerPrice(31);
 $body->setRules([$entryRule, $stopLoss, $targetRule]);
 
 try {
-    $result = $apiInstance->modifyGTTOrder($body);
+    $result = $apiInstance->modifyGTTOrder($body,$AlgoName);
     print_r($result);
 }
 catch (Exception $e) {
@@ -540,7 +539,7 @@ $body = new \Upstox\Client\Model\GttCancelOrderRequest();
 $body->setGttOrderId("GTT-C250303001416");
 
 try {
-    $result = $apiInstance->cancelGTTOrder($body);
+    $result = $apiInstance->cancelGTTOrder($body,$AlgoName);
     print_r($result);
 }
 catch (Exception $e) {
@@ -573,8 +572,7 @@ $body->setTriggerPrice(0);
 $body->setIsAmo(true);
 $body->setSlice(true);
 try {
-    $result = $apiInstance->placeOrder($body,"2.0");
-    print_r("place order v3=> ".$result);
+    $result = $apiInstance->placeOrder($body,"2.0",$AlgoName);
 } catch (Exception $e) {
     print($e->getMessage());
     if(strpos($e->getMessage(), 'UDAPI1052') === false){
@@ -592,7 +590,7 @@ $body->setTriggerPrice(0);
 $body->setValidity("DAY");
 
 try {
-    $result = $apiInstance->modifyOrder($body);
+    $result = $apiInstance->modifyOrder($body,"web",$AlgoName);
     print($result);
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI100010') === false){
@@ -601,7 +599,7 @@ try {
 }
 
 try {
-    $result = $apiInstance->cancelOrder("250128010537288");
+    $result = $apiInstance->cancelOrder("250128010537288","web",$AlgoName);
     print_r($result);
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI100010') === false){
@@ -777,14 +775,14 @@ catch(Exception $e){
 }
 
 // ========================================================================
-// ALGO ID PARAMETER TESTS - Testing all 12 API method groups
+// ALGO NAME PARAMETER TESTS - Testing all 12 API method groups
 // ========================================================================
 $algoTestResults = [];
 $totalAlgoTests = 0;
 $passedAlgoTests = 0;
 
-// Test helper function for algo_id parameter validation
-function testAlgoIdMethodSignature($className, $methodName, $expectedParams, &$results, &$total, &$passed) {
+// Test helper function for algo_name parameter validation
+function testAlgoNameMethodSignature($className, $methodName, $expectedParams, &$results, &$total, &$passed) {
     $total++;
     try {
         $reflection = new ReflectionMethod($className, $methodName);
@@ -792,14 +790,14 @@ function testAlgoIdMethodSignature($className, $methodName, $expectedParams, &$r
         
         if (count($params) === $expectedParams) {
             $lastParam = $params[$expectedParams - 1];
-            if ($lastParam->getName() === 'algo_id' && $lastParam->isOptional() && $lastParam->getDefaultValue() === null) {
-                $results[] = "✅ $className::$methodName - algo_id parameter PASS";
+            if ($lastParam->getName() === 'algo_name' && $lastParam->isOptional() && $lastParam->getDefaultValue() === null) {
+                $results[] = "✅ $className::$methodName - algo_name parameter PASS";
                 $passed++;
                 return true;
             }
         }
         
-        $results[] = "❌ $className::$methodName - algo_id parameter FAIL";
+        $results[] = "❌ $className::$methodName - algo_name parameter FAIL";
         return false;
     } catch (Exception $e) {
         $results[] = "❌ $className::$methodName - ERROR: " . $e->getMessage();
@@ -811,101 +809,101 @@ function testAlgoIdMethodSignature($className, $methodName, $expectedParams, &$r
 // ========================================================================
 // 1. PLACE ORDER V2 - OrderApi
 // ========================================================================
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'placeOrder', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'placeOrderWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'placeOrderAsync', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'placeOrderAsyncWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'placeOrder', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'placeOrderWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'placeOrderAsync', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'placeOrderAsyncWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
 
 // ========================================================================
 // 2. PLACE MULTI ORDER - OrderApi
 // ========================================================================
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'placeMultiOrder', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'placeMultiOrderWithHttpInfo', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'placeMultiOrderAsync', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'placeMultiOrderAsyncWithHttpInfo', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'placeMultiOrder', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'placeMultiOrderWithHttpInfo', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'placeMultiOrderAsync', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'placeMultiOrderAsyncWithHttpInfo', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
 
 // ========================================================================
 // 3. MODIFY ORDER V2 - OrderApi
 // ========================================================================
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'modifyOrder', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'modifyOrderWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'modifyOrderAsync', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'modifyOrderAsyncWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'modifyOrder', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'modifyOrderWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'modifyOrderAsync', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'modifyOrderAsyncWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
 
 // ========================================================================
 // 4. CANCEL ORDER V2 - OrderApi
 // ========================================================================
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'cancelOrder', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'cancelOrderWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'cancelOrderAsync', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'cancelOrderAsyncWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'cancelOrder', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'cancelOrderWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'cancelOrderAsync', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'cancelOrderAsyncWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
 
 // ========================================================================
 // 5. CANCEL MULTI ORDER - OrderApi
 // ========================================================================
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'cancelMultiOrder', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'cancelMultiOrderWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'cancelMultiOrderAsync', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'cancelMultiOrderAsyncWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'cancelMultiOrder', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'cancelMultiOrderWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'cancelMultiOrderAsync', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'cancelMultiOrderAsyncWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
 
 // ========================================================================
 // 6. EXIT POSITIONS - OrderApi
 // ========================================================================
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'exitPositions', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'exitPositionsWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'exitPositionsAsync', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApi', 'exitPositionsAsyncWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'exitPositions', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'exitPositionsWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'exitPositionsAsync', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApi', 'exitPositionsAsyncWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
 
 // ========================================================================
 // 7. PLACE ORDER V3 - OrderApiV3
 // ========================================================================
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'placeOrder', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'placeOrderWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'placeOrderAsync', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'placeOrderAsyncWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'placeOrder', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'placeOrderWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'placeOrderAsync', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'placeOrderAsyncWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
 
 // ========================================================================
 // 8. MODIFY ORDER V3 - OrderApiV3
 // ========================================================================
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'modifyOrder', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'modifyOrderWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'modifyOrderAsync', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'modifyOrderAsyncWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'modifyOrder', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'modifyOrderWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'modifyOrderAsync', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'modifyOrderAsyncWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
 
 // ========================================================================
 // 9. CANCEL ORDER V3 - OrderApiV3
 // ========================================================================
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'cancelOrder', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'cancelOrderWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'cancelOrderAsync', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'cancelOrderAsyncWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'cancelOrder', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'cancelOrderWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'cancelOrderAsync', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'cancelOrderAsyncWithHttpInfo', 3, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
 
 // ========================================================================
 // 10. PLACE GTT - OrderApiV3
 // ========================================================================
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'placeGTTOrder', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'placeGTTOrderWithHttpInfo', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'placeGTTOrderAsync', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'placeGTTOrderAsyncWithHttpInfo', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'placeGTTOrder', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'placeGTTOrderWithHttpInfo', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'placeGTTOrderAsync', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'placeGTTOrderAsyncWithHttpInfo', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
 
 // ========================================================================
 // 11. MODIFY GTT - OrderApiV3
 // ========================================================================
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'modifyGTTOrder', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'modifyGTTOrderWithHttpInfo', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'modifyGTTOrderAsync', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'modifyGTTOrderAsyncWithHttpInfo', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'modifyGTTOrder', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'modifyGTTOrderWithHttpInfo', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'modifyGTTOrderAsync', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'modifyGTTOrderAsyncWithHttpInfo', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
 
 // ========================================================================
 // 12. CANCEL GTT - OrderApiV3
 // ========================================================================
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'cancelGTTOrder', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'cancelGTTOrderWithHttpInfo', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'cancelGTTOrderAsync', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
-testAlgoIdMethodSignature('Upstox\Client\Api\OrderApiV3', 'cancelGTTOrderAsyncWithHttpInfo', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'cancelGTTOrder', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'cancelGTTOrderWithHttpInfo', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'cancelGTTOrderAsync', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
+testAlgoNameMethodSignature('Upstox\Client\Api\OrderApiV3', 'cancelGTTOrderAsyncWithHttpInfo', 2, $algoTestResults, $totalAlgoTests, $passedAlgoTests);
 
 // ========================================================================
-// FUNCTIONAL TESTS - Testing actual API calls with algo_id
+// FUNCTIONAL TESTS - Testing actual API calls with algo_name
 // ========================================================================
 
 // Test configuration for functional tests
@@ -914,7 +912,7 @@ $orderApiTest = new Upstox\Client\Api\OrderApi(new GuzzleHttp\Client(), $testCon
 $orderApiV3Test = new Upstox\Client\Api\OrderApiV3(new GuzzleHttp\Client(), $testConfig);
 
 // ========================================================================
-// FUNCTIONAL TEST 1: Place Order V2 with algo_id
+// FUNCTIONAL TEST 1: Place Order V2 with algo_name
 // ========================================================================
 try {
     $placeOrderBody = new \Upstox\Client\Model\PlaceOrderRequest();
@@ -930,18 +928,18 @@ try {
     $placeOrderBody->setTriggerPrice(0);
     $placeOrderBody->setIsAmo(false);
     
-    // Test with algo_id
-    $result = $orderApiTest->placeOrder($placeOrderBody, "2.0", "algo id <-> placeOrder");
-    echo "✅ Place Order V2 with algo_id: SUCCESS\n";
+    // Test with algo_name
+    $result = $orderApiTest->placeOrder($placeOrderBody, "2.0", $AlgoName);
+    echo "✅ Place Order V2 with algo_name: SUCCESS\n";
     
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI1052') !== false) {
-        echo "   (Expected sandbox limitation - algo_id parameter was sent correctly)\n";
+        echo "   (Expected sandbox limitation - algo_name parameter was sent correctly)\n";
     }
 }
 
 // ========================================================================
-// FUNCTIONAL TEST 2: Place Order V3 with algo_id
+// FUNCTIONAL TEST 2: Place Order V3 with algo_name
 // ========================================================================
 try {
     $placeOrderV3Body = new \Upstox\Client\Model\PlaceOrderV3Request();
@@ -958,19 +956,19 @@ try {
     $placeOrderV3Body->setIsAmo(false);
     $placeOrderV3Body->setSlice(false);
     
-    // Test with algo_id
-    $result = $orderApiV3Test->placeOrder($placeOrderV3Body, "web", "algo id <-> placeOrder");
-    echo "✅ Place Order V3 with algo_id: SUCCESS\n";
+    // Test with algo_name
+    $result = $orderApiV3Test->placeOrder($placeOrderV3Body, "web", $AlgoName);
+    echo "✅ Place Order V3 with algo_name: SUCCESS\n";
     
 } catch (Exception $e) {
-    echo "⚠️  Place Order V3 with algo_id: " . substr($e->getMessage(), 0, 100) . "...\n";
+    echo "⚠️  Place Order V3 with algo_name: " . substr($e->getMessage(), 0, 100) . "...\n";
     if(strpos($e->getMessage(), 'UDAPI1052') !== false) {
-        echo "   (Expected sandbox limitation - algo_id parameter was sent correctly)\n";
+        echo "   (Expected sandbox limitation - algo_name parameter was sent correctly)\n";
     }
 }
 
 // ========================================================================
-// FUNCTIONAL TEST 3: Place Multi Order with algo_id
+// FUNCTIONAL TEST 3: Place Multi Order with algo_name
 // ========================================================================
 try {
     $multiOrder1 = new \Upstox\Client\Model\MultiOrderRequest();
@@ -990,9 +988,9 @@ try {
     
     $multiOrderRequests = [$multiOrder1];
     
-    // Test with algo_id
-    $result = $orderApiTest->placeMultiOrder($multiOrderRequests, "algo id <-> placeMultiOrder");
-    echo "✅ Place Multi Order with algo_id: SUCCESS\n";
+    // Test with algo_name
+    $result = $orderApiTest->placeMultiOrder($multiOrderRequests, $AlgoName);
+    echo "✅ Place Multi Order with algo_name: SUCCESS\n";
     
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI1052') === false) {
@@ -1001,7 +999,7 @@ try {
 }
 
 // ========================================================================
-// FUNCTIONAL TEST 4: Place GTT with algo_id
+// FUNCTIONAL TEST 4: Place GTT with algo_name
 // ========================================================================
 try {
     $gttBody = new \Upstox\Client\Model\GttPlaceOrderRequest();
@@ -1017,9 +1015,9 @@ try {
     $entryRule->setTriggerPrice(1500);
     $gttBody->setRules([$entryRule]);
     
-    // Test with algo_id
-    $result = $orderApiV3Test->placeGTTOrder($gttBody, "algo id <-> placeGTTOrder");
-    echo "✅ Place GTT with algo_id: SUCCESS\n";
+    // Test with algo_name
+    $result = $orderApiV3Test->placeGTTOrder($gttBody, $AlgoName);
+    echo "✅ Place GTT with algo_name: SUCCESS\n";
     
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI1052') === false) {
@@ -1028,7 +1026,7 @@ try {
 }
 
 // ========================================================================
-// FUNCTIONAL TEST 5: Modify Order V2 with algo_id
+// FUNCTIONAL TEST 5: Modify Order V2 with algo_name
 // ========================================================================
 try {
     $modifyOrderBody = new \Upstox\Client\Model\ModifyOrderRequest();
@@ -1039,9 +1037,9 @@ try {
     $modifyOrderBody->setTriggerPrice(0);
     $modifyOrderBody->setOrderType("LIMIT");
     
-    // Test with algo_id
-    $result = $orderApiTest->modifyOrder($modifyOrderBody, "2.0", "algo id <-> modifyOrder");
-    echo "✅ Modify Order V2 with algo_id: SUCCESS\n";
+    // Test with algo_name
+    $result = $orderApiTest->modifyOrder($modifyOrderBody, "2.0", $AlgoName);
+    echo "✅ Modify Order V2 with algo_name: SUCCESS\n";
     
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI100010') === false && strpos($e->getMessage(), 'UDAPI1052') === false) {
@@ -1050,12 +1048,12 @@ try {
 }
 
 // ========================================================================
-// FUNCTIONAL TEST 6: Cancel Order V2 with algo_id
+// FUNCTIONAL TEST 6: Cancel Order V2 with algo_name
 // ========================================================================
 try {
-    // Test with algo_id
-    $result = $orderApiTest->cancelOrder("240319010634267", "2.0", "algo id <-> cancelOrder");
-    echo "✅ Cancel Order V2 with algo_id: SUCCESS\n";
+    // Test with algo_name
+    $result = $orderApiTest->cancelOrder("240319010634267", "2.0", $AlgoName);
+    echo "✅ Cancel Order V2 with algo_name: SUCCESS\n";
     
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI100010') === false && strpos($e->getMessage(), 'UDAPI1052') === false) {
@@ -1064,12 +1062,12 @@ try {
 }
 
 // ========================================================================
-// FUNCTIONAL TEST 7: Cancel Multi Order with algo_id
+// FUNCTIONAL TEST 7: Cancel Multi Order with algo_name
 // ========================================================================
 try {
-    // Test with algo_id
-    $result = $orderApiTest->cancelMultiOrder("php_sdk_sanity_tag", null, "algo id <-> cancelMultiOrder");
-    echo "✅ Cancel Multi Order with algo_id: SUCCESS\n";
+    // Test with algo_name
+    $result = $orderApiTest->cancelMultiOrder("php_sdk_sanity_tag", null, $AlgoName);
+    echo "✅ Cancel Multi Order with algo_name: SUCCESS\n";
     
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI1109') === false && strpos($e->getMessage(), 'UDAPI1052') === false) {
@@ -1078,12 +1076,12 @@ try {
 }
 
 // ========================================================================
-// FUNCTIONAL TEST 8: Exit Positions with algo_id
+// FUNCTIONAL TEST 8: Exit Positions with algo_name
 // ========================================================================
 try {
-    // Test with algo_id
-    $result = $orderApiTest->exitPositions("php_sdk_sanity_tag", null, "algo id <-> exitPositions");
-    echo "✅ Exit Positions with algo_id: SUCCESS\n";
+    // Test with algo_name
+    $result = $orderApiTest->exitPositions("php_sdk_sanity_tag", null, $AlgoName);
+    echo "✅ Exit Positions with algo_name: SUCCESS\n";
     
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI1113') === false && strpos($e->getMessage(), 'UDAPI1111') === false && strpos($e->getMessage(), 'UDAPI1052') === false) {
@@ -1092,7 +1090,7 @@ try {
 }
 
 // ========================================================================
-// FUNCTIONAL TEST 9: Modify Order V3 with algo_id
+// FUNCTIONAL TEST 9: Modify Order V3 with algo_name
 // ========================================================================
 try {
     $modifyOrderV3Body = new \Upstox\Client\Model\ModifyOrderRequest();
@@ -1103,9 +1101,9 @@ try {
     $modifyOrderV3Body->setTriggerPrice(0);
     $modifyOrderV3Body->setOrderType("LIMIT");
     
-    // Test with algo_id
-    $result = $orderApiV3Test->modifyOrder($modifyOrderV3Body, "web", "algo id <-> modifyOrder");
-    echo "✅ Modify Order V3 with algo_id: SUCCESS\n";
+    // Test with algo_name
+    $result = $orderApiV3Test->modifyOrder($modifyOrderV3Body, "web", $AlgoName);
+    echo "✅ Modify Order V3 with algo_name: SUCCESS\n";
     
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI100010') === false && strpos($e->getMessage(), 'UDAPI1052') === false) {
@@ -1114,12 +1112,12 @@ try {
 }
 
 // ========================================================================
-// FUNCTIONAL TEST 10: Cancel Order V3 with algo_id
+// FUNCTIONAL TEST 10: Cancel Order V3 with algo_name
 // ========================================================================
 try {
-    // Test with algo_id
-    $result = $orderApiV3Test->cancelOrder("250128010537288", "web", "algo id <-> cancelOrder");
-    echo "✅ Cancel Order V3 with algo_id: SUCCESS\n";
+    // Test with algo_name
+    $result = $orderApiV3Test->cancelOrder("250128010537288", "web", $AlgoName);
+    echo "✅ Cancel Order V3 with algo_name: SUCCESS\n";
     
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI100010') === false && strpos($e->getMessage(), 'UDAPI1052') === false) {
@@ -1128,7 +1126,7 @@ try {
 }
 
 // ========================================================================
-// FUNCTIONAL TEST 11: Modify GTT with algo_id
+// FUNCTIONAL TEST 11: Modify GTT with algo_name
 // ========================================================================
 try {
     $modifyGttBody = new \Upstox\Client\Model\GttModifyOrderRequest();
@@ -1153,9 +1151,9 @@ try {
     
     $modifyGttBody->setRules([$entryRule, $stopLoss, $targetRule]);
     
-    // Test with algo_id
-    $result = $orderApiV3Test->modifyGTTOrder($modifyGttBody, "algo id <-> modifyGTTOrder");
-    echo "✅ Modify GTT with algo_id: SUCCESS\n";
+    // Test with algo_name
+    $result = $orderApiV3Test->modifyGTTOrder($modifyGttBody, $AlgoName);
+    echo "✅ Modify GTT with algo_name: SUCCESS\n";
     
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI100010') === false && strpos($e->getMessage(), 'UDAPI1052') === false) {
@@ -1164,15 +1162,15 @@ try {
 }
 
 // ========================================================================
-// FUNCTIONAL TEST 12: Cancel GTT with algo_id
+// FUNCTIONAL TEST 12: Cancel GTT with algo_name
 // ========================================================================
 try {
     $cancelGttBody = new \Upstox\Client\Model\GttCancelOrderRequest();
     $cancelGttBody->setGttOrderId("GTT-C250303001416");
     
-    // Test with algo_id
-    $result = $orderApiV3Test->cancelGTTOrder($cancelGttBody, "algo id <-> cancelGTTOrder");
-    echo "✅ Cancel GTT with algo_id: SUCCESS\n";
+    // Test with algo_name
+    $result = $orderApiV3Test->cancelGTTOrder($cancelGttBody, $AlgoName);
+    echo "✅ Cancel GTT with algo_name: SUCCESS\n";
     
 } catch (Exception $e) {
     if(strpos($e->getMessage(), 'UDAPI100010') === false && strpos($e->getMessage(), 'UDAPI1052') === false) {
@@ -1184,32 +1182,32 @@ try {
 // BACKWARD COMPATIBILITY TESTS
 // ========================================================================
 
-// Test Place Order V2 without algo_id (backward compatibility)
+// Test Place Order V2 without algo_name (backward compatibility)
 try {
     $result = $orderApiTest->placeOrder($placeOrderBody, "2.0");
-    echo "✅ Place Order V2 without algo_id: SUCCESS (backward compatible)\n";
+    echo "✅ Place Order V2 without algo_name: SUCCESS (backward compatible)\n";
 } catch (Exception $e) {
-    echo "⚠️  Place Order V2 without algo_id: " . substr($e->getMessage(), 0, 100) . "...\n";
+    echo "⚠️  Place Order V2 without algo_name: " . substr($e->getMessage(), 0, 100) . "...\n";
     if(strpos($e->getMessage(), 'UDAPI1052') === false) {
         echo "   Error: " . $e->getMessage() . "\n";    
     }
 }
 
-// Test Place Order V3 without algo_id (backward compatibility)
+// Test Place Order V3 without algo_name (backward compatibility)
 try {
     $result = $orderApiV3Test->placeOrder($placeOrderV3Body, "web");
-    echo "✅ Place Order V3 without algo_id: SUCCESS (backward compatible)\n";
+    echo "✅ Place Order V3 without algo_name: SUCCESS (backward compatible)\n";
 } catch (Exception $e) {
-    echo "⚠️  Place Order V3 without algo_id: " . substr($e->getMessage(), 0, 100) . "...\n";
+    echo "⚠️  Place Order V3 without algo_name: " . substr($e->getMessage(), 0, 100) . "...\n";
     if(strpos($e->getMessage(), 'UDAPI1052') === false) {
         echo "   Error: " . $e->getMessage() . "\n";
     }
 }
 
 // ========================================================================
-// ALGO ID TEST RESULTS SUMMARY
+// ALGO NAME TEST RESULTS SUMMARY
 // ========================================================================
-echo "\n\n📊 ALGO ID TESTS SUMMARY\n";
+echo "\n\n📊 ALGO NAME TESTS SUMMARY\n";
 echo "========================================================================\n";
 echo "Total Method Signature Tests: $totalAlgoTests\n";
 echo "Passed Method Signature Tests: $passedAlgoTests\n";
@@ -1218,9 +1216,9 @@ echo "Success Rate: " . round(($passedAlgoTests / $totalAlgoTests) * 100, 1) . "
 echo "========================================================================\n";
 
 if ($passedAlgoTests === $totalAlgoTests) {
-    echo "\n🎉 ALL ALGO ID TESTS PASSED!\n";
+    echo "\n🎉 ALL ALGO NAME TESTS PASSED!\n";
 } else {
-    echo "\n❌ SOME ALGO ID TESTS FAILED!\n";
+    echo "\n❌ SOME ALGO NAME TESTS FAILED!\n";
     echo "Please review the failed methods:\n\n";
     
     foreach ($algoTestResults as $result) {
@@ -1230,7 +1228,7 @@ if ($passedAlgoTests === $totalAlgoTests) {
     }
 }
 
-echo "\n🏁 Algo ID tests completed!\n";
+echo "\n🏁 Algo name tests completed!\n";
 echo "========================================================================\n\n";
 
 

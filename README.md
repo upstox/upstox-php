@@ -71,9 +71,9 @@ try {
 
 To learn more about the sandbox environment and the available sandbox APIs, please visit the [Upstox API documentation - Sandbox](https://upstox.com/developer/api-documentation/sandbox).
 
-## Algo ID Support
+## Algo Name Support
 
-The SDK supports passing an algorithm ID for order tracking and management. When provided, the SDK will pass the algo ID as `X-Algo-Id` header.
+The SDK supports passing an algorithm name for order tracking and management. When provided, the SDK will pass the algo name as `X-Algo-Name` header.
 
 ```php
 use Upstox\Client\Configuration;
@@ -97,14 +97,14 @@ $body->setIsAmo(false);
 $body->setSlice(true);
 
 try {
-    $result = $apiInstance->placeOrder($body, "web", "your-algo-id");
+    $result = $apiInstance->placeOrder($body, "web", "your-algo-name");
     print($result);
 } catch (Exception $e) {
     echo "Exception when calling OrderApiV3->placeOrder: " . $e->getMessage() . "\n";
 }
 ```
 
-Other order methods (modify, cancel, etc.) follow the same pattern by accepting an optional `algo_id` as the last parameter.
+Other order methods (modify, cancel, etc.) follow the same pattern by accepting an optional `algo_name` as the last parameter.
 
 ## Examples
 
