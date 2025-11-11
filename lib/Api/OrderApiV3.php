@@ -92,14 +92,15 @@ class OrderApiV3
      * Cancel GTT order
      *
      * @param  \Upstox\Client\Model\GttCancelOrderRequest $body body (required)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\GttTriggerOrderResponse
      */
-    public function cancelGTTOrder($body, $algo_id = null)
+    public function cancelGTTOrder($body, $algo_name = null)
     {
-        list($response) = $this->cancelGTTOrderWithHttpInfo($body, $algo_id);
+        list($response) = $this->cancelGTTOrderWithHttpInfo($body, $algo_name);
         return $response;
     }
 
@@ -109,15 +110,16 @@ class OrderApiV3
      * Cancel GTT order
      *
      * @param  \Upstox\Client\Model\GttCancelOrderRequest $body (required)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\GttTriggerOrderResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function cancelGTTOrderWithHttpInfo($body, $algo_id = null)
+    public function cancelGTTOrderWithHttpInfo($body, $algo_name = null)
     {
         $returnType = '\Upstox\Client\Model\GttTriggerOrderResponse';
-        $request = $this->cancelGTTOrderRequest($body, $algo_id);
+        $request = $this->cancelGTTOrderRequest($body, $algo_name);
 
         try {
             $options = $this->createHttpClientOption();
@@ -240,13 +242,14 @@ class OrderApiV3
      * Cancel GTT order
      *
      * @param  \Upstox\Client\Model\GttCancelOrderRequest $body (required)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelGTTOrderAsync($body, $algo_id = null)
+    public function cancelGTTOrderAsync($body, $algo_name = null)
     {
-        return $this->cancelGTTOrderAsyncWithHttpInfo($body, $algo_id)
+        return $this->cancelGTTOrderAsyncWithHttpInfo($body, $algo_name)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -260,14 +263,15 @@ class OrderApiV3
      * Cancel GTT order
      *
      * @param  \Upstox\Client\Model\GttCancelOrderRequest $body (required)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelGTTOrderAsyncWithHttpInfo($body, $algo_id = null)
+    public function cancelGTTOrderAsyncWithHttpInfo($body, $algo_name = null)
     {
         $returnType = '\Upstox\Client\Model\GttTriggerOrderResponse';
-        $request = $this->cancelGTTOrderRequest($body, $algo_id);
+        $request = $this->cancelGTTOrderRequest($body, $algo_name);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -310,11 +314,12 @@ class OrderApiV3
      * Create request for operation 'cancelGTTOrder'
      *
      * @param  \Upstox\Client\Model\GttCancelOrderRequest $body (required)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function cancelGTTOrderRequest($body, $algo_id = null)
+    protected function cancelGTTOrderRequest($body, $algo_name = null)
     {
         // verify the required parameter 'body' is set
         if ($body === null || (is_array($body) && count($body) === 0)) {
@@ -331,8 +336,8 @@ class OrderApiV3
         $multipart = false;
 
         // header params
-        if ($algo_id !== null) {
-            $headerParams['X-Algo-Id'] = ObjectSerializer::toHeaderValue($algo_id);
+        if ($algo_name !== null) {
+            $headerParams['X-Algo-Name'] = ObjectSerializer::toHeaderValue($algo_name);
         }
 
         // body params
@@ -411,15 +416,15 @@ class OrderApiV3
      *
      * @param  string $order_id order_id (required)
      * @param  string $origin origin (optional)
-     * @param  string|null $algo_id Optional algorithm identifier (optional)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\CancelOrderV3Response
      */
-    public function cancelOrder($order_id, $origin = null, $algo_id = null)
+    public function cancelOrder($order_id, $origin = null, $algo_name = null)
     {
-        list($response) = $this->cancelOrderWithHttpInfo($order_id, $origin, $algo_id);
+        list($response) = $this->cancelOrderWithHttpInfo($order_id, $origin, $algo_name);
         return $response;
     }
 
@@ -428,16 +433,16 @@ class OrderApiV3
      *
      * @param  string $order_id (required)
      * @param  string $origin (optional)
-     * @param  string|null $algo_id Optional algorithm identifier (optional)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\CancelOrderV3Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function cancelOrderWithHttpInfo($order_id, $origin = null, $algo_id = null)
+    public function cancelOrderWithHttpInfo($order_id, $origin = null, $algo_name = null)
     {
         $returnType = '\Upstox\Client\Model\CancelOrderV3Response';
-        $request = $this->cancelOrderRequest($order_id, $origin, $algo_id);
+        $request = $this->cancelOrderRequest($order_id, $origin, $algo_name);
 
         try {
             $options = $this->createHttpClientOption();
@@ -561,13 +566,14 @@ class OrderApiV3
      *
      * @param  string $order_id (required)
      * @param  string $origin (optional)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelOrderAsync($order_id, $origin = null, $algo_id = null)
+    public function cancelOrderAsync($order_id, $origin = null, $algo_name = null)
     {
-        return $this->cancelOrderAsyncWithHttpInfo($order_id, $origin, $algo_id)
+        return $this->cancelOrderAsyncWithHttpInfo($order_id, $origin, $algo_name)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -582,14 +588,15 @@ class OrderApiV3
      *
      * @param  string $order_id (required)
      * @param  string $origin (optional)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelOrderAsyncWithHttpInfo($order_id, $origin = null, $algo_id = null)
+    public function cancelOrderAsyncWithHttpInfo($order_id, $origin = null, $algo_name = null)
     {
         $returnType = '\Upstox\Client\Model\CancelOrderV3Response';
-        $request = $this->cancelOrderRequest($order_id, $origin, $algo_id);
+        $request = $this->cancelOrderRequest($order_id, $origin, $algo_name);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -633,11 +640,12 @@ class OrderApiV3
      *
      * @param  string $order_id (required)
      * @param  string $origin (optional)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function cancelOrderRequest($order_id, $origin = null, $algo_id = null)
+    protected function cancelOrderRequest($order_id, $origin = null, $algo_name = null)
     {
         // verify the required parameter 'order_id' is set
         if ($order_id === null || (is_array($order_id) && count($order_id) === 0)) {
@@ -661,8 +669,8 @@ class OrderApiV3
         if ($origin !== null) {
             $headerParams['Origin'] = ObjectSerializer::toHeaderValue($origin);
         }
-        if ($algo_id !== null) {
-            $headerParams['X-Algo-Id'] = ObjectSerializer::toHeaderValue($algo_id);
+        if ($algo_name !== null) {
+            $headerParams['X-Algo-Name'] = ObjectSerializer::toHeaderValue($algo_name);
         }
 
         // body params
@@ -1051,14 +1059,15 @@ class OrderApiV3
      * Modify GTT order
      *
      * @param  \Upstox\Client\Model\GttModifyOrderRequest $body body (required)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\GttTriggerOrderResponse
      */
-    public function modifyGTTOrder($body, $algo_id = null)
+    public function modifyGTTOrder($body, $algo_name = null)
     {
-        list($response) = $this->modifyGTTOrderWithHttpInfo($body, $algo_id);
+        list($response) = $this->modifyGTTOrderWithHttpInfo($body, $algo_name);
         return $response;
     }
 
@@ -1068,15 +1077,16 @@ class OrderApiV3
      * Modify GTT order
      *
      * @param  \Upstox\Client\Model\GttModifyOrderRequest $body (required)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\GttTriggerOrderResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function modifyGTTOrderWithHttpInfo($body, $algo_id = null)
+    public function modifyGTTOrderWithHttpInfo($body, $algo_name = null)
     {
         $returnType = '\Upstox\Client\Model\GttTriggerOrderResponse';
-        $request = $this->modifyGTTOrderRequest($body, $algo_id);
+        $request = $this->modifyGTTOrderRequest($body, $algo_name);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1199,13 +1209,14 @@ class OrderApiV3
      * Modify GTT order
      *
      * @param  \Upstox\Client\Model\GttModifyOrderRequest $body (required)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function modifyGTTOrderAsync($body, $algo_id = null)
+    public function modifyGTTOrderAsync($body, $algo_name = null)
     {
-        return $this->modifyGTTOrderAsyncWithHttpInfo($body, $algo_id)
+        return $this->modifyGTTOrderAsyncWithHttpInfo($body, $algo_name)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1219,14 +1230,15 @@ class OrderApiV3
      * Modify GTT order
      *
      * @param  \Upstox\Client\Model\GttModifyOrderRequest $body (required)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function modifyGTTOrderAsyncWithHttpInfo($body, $algo_id = null)
+    public function modifyGTTOrderAsyncWithHttpInfo($body, $algo_name = null)
     {
         $returnType = '\Upstox\Client\Model\GttTriggerOrderResponse';
-        $request = $this->modifyGTTOrderRequest($body, $algo_id);
+        $request = $this->modifyGTTOrderRequest($body, $algo_name);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1269,11 +1281,12 @@ class OrderApiV3
      * Create request for operation 'modifyGTTOrder'
      *
      * @param  \Upstox\Client\Model\GttModifyOrderRequest $body (required)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function modifyGTTOrderRequest($body, $algo_id = null)
+    protected function modifyGTTOrderRequest($body, $algo_name = null)
     {
         // verify the required parameter 'body' is set
         if ($body === null || (is_array($body) && count($body) === 0)) {
@@ -1290,8 +1303,8 @@ class OrderApiV3
         $multipart = false;
 
         // header params
-        if ($algo_id !== null) {
-            $headerParams['X-Algo-Id'] = ObjectSerializer::toHeaderValue($algo_id);
+        if ($algo_name !== null) {
+            $headerParams['X-Algo-Name'] = ObjectSerializer::toHeaderValue($algo_name);
         }
 
         // body params
@@ -1370,15 +1383,15 @@ class OrderApiV3
      *
      * @param  \Upstox\Client\Model\ModifyOrderRequest $body body (required)
      * @param  string $origin origin (optional)
-     * @param  string|null $algo_id Optional algorithm identifier (optional)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\ModifyOrderV3Response
      */
-    public function modifyOrder($body, $origin = null, $algo_id = null)
+    public function modifyOrder($body, $origin = null, $algo_name = null)
     {
-        list($response) = $this->modifyOrderWithHttpInfo($body, $origin, $algo_id);
+        list($response) = $this->modifyOrderWithHttpInfo($body, $origin, $algo_name);
         return $response;
     }
 
@@ -1387,16 +1400,16 @@ class OrderApiV3
      *
      * @param  \Upstox\Client\Model\ModifyOrderRequest $body (required)
      * @param  string $origin (optional)
-     * @param  string|null $algo_id Optional algorithm identifier (optional)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\ModifyOrderV3Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function modifyOrderWithHttpInfo($body, $origin = null, $algo_id = null)
+    public function modifyOrderWithHttpInfo($body, $origin = null, $algo_name = null)
     {
         $returnType = '\Upstox\Client\Model\ModifyOrderV3Response';
-        $request = $this->modifyOrderRequest($body, $origin, $algo_id);
+        $request = $this->modifyOrderRequest($body, $origin, $algo_name);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1520,14 +1533,14 @@ class OrderApiV3
      *
      * @param  \Upstox\Client\Model\ModifyOrderRequest $body (required)
      * @param  string $origin (optional)
-     * @param  string|null $algo_id Optional algorithm identifier (optional)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function modifyOrderAsync($body, $origin = null, $algo_id = null)
+    public function modifyOrderAsync($body, $origin = null, $algo_name = null)
     {
-        return $this->modifyOrderAsyncWithHttpInfo($body, $origin, $algo_id)
+        return $this->modifyOrderAsyncWithHttpInfo($body, $origin, $algo_name)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1542,15 +1555,15 @@ class OrderApiV3
      *
      * @param  \Upstox\Client\Model\ModifyOrderRequest $body (required)
      * @param  string $origin (optional)
-     * @param  string|null $algo_id Optional algorithm identifier (optional)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function modifyOrderAsyncWithHttpInfo($body, $origin = null, $algo_id = null)
+    public function modifyOrderAsyncWithHttpInfo($body, $origin = null, $algo_name = null)
     {
         $returnType = '\Upstox\Client\Model\ModifyOrderV3Response';
-        $request = $this->modifyOrderRequest($body, $origin, $algo_id);
+        $request = $this->modifyOrderRequest($body, $origin, $algo_name);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1594,12 +1607,12 @@ class OrderApiV3
      *
      * @param  \Upstox\Client\Model\ModifyOrderRequest $body (required)
      * @param  string $origin (optional)
-     * @param  string|null $algo_id Optional algorithm identifier (optional)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function modifyOrderRequest($body, $origin = null, $algo_id = null)
+    protected function modifyOrderRequest($body, $origin = null, $algo_name = null)
     {
         // verify the required parameter 'body' is set
         if ($body === null || (is_array($body) && count($body) === 0)) {
@@ -1619,8 +1632,8 @@ class OrderApiV3
         if ($origin !== null) {
             $headerParams['Origin'] = ObjectSerializer::toHeaderValue($origin);
         }
-        if ($algo_id !== null) {
-            $headerParams['X-Algo-Id'] = ObjectSerializer::toHeaderValue($algo_id);
+        if ($algo_name !== null) {
+            $headerParams['X-Algo-Name'] = ObjectSerializer::toHeaderValue($algo_name);
         }
 
 
@@ -1701,14 +1714,15 @@ class OrderApiV3
      * Place GTT order
      *
      * @param  \Upstox\Client\Model\GttPlaceOrderRequest $body body (required)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\GttTriggerOrderResponse
      */
-    public function placeGTTOrder($body, $algo_id = null)
+    public function placeGTTOrder($body, $algo_name = null)
     {
-        list($response) = $this->placeGTTOrderWithHttpInfo($body, $algo_id);
+        list($response) = $this->placeGTTOrderWithHttpInfo($body, $algo_name);
         return $response;
     }
 
@@ -1718,15 +1732,16 @@ class OrderApiV3
      * Place GTT order
      *
      * @param  \Upstox\Client\Model\GttPlaceOrderRequest $body (required)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\GttTriggerOrderResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function placeGTTOrderWithHttpInfo($body, $algo_id = null)
+    public function placeGTTOrderWithHttpInfo($body, $algo_name = null)
     {
         $returnType = '\Upstox\Client\Model\GttTriggerOrderResponse';
-        $request = $this->placeGTTOrderRequest($body, $algo_id);
+        $request = $this->placeGTTOrderRequest($body, $algo_name);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1849,13 +1864,14 @@ class OrderApiV3
      * Place GTT order
      *
      * @param  \Upstox\Client\Model\GttPlaceOrderRequest $body (required)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function placeGTTOrderAsync($body, $algo_id = null)
+    public function placeGTTOrderAsync($body, $algo_name = null)
     {
-        return $this->placeGTTOrderAsyncWithHttpInfo($body, $algo_id)
+        return $this->placeGTTOrderAsyncWithHttpInfo($body, $algo_name)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1869,14 +1885,15 @@ class OrderApiV3
      * Place GTT order
      *
      * @param  \Upstox\Client\Model\GttPlaceOrderRequest $body (required)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function placeGTTOrderAsyncWithHttpInfo($body, $algo_id = null)
+    public function placeGTTOrderAsyncWithHttpInfo($body, $algo_name = null)
     {
         $returnType = '\Upstox\Client\Model\GttTriggerOrderResponse';
-        $request = $this->placeGTTOrderRequest($body, $algo_id);
+        $request = $this->placeGTTOrderRequest($body, $algo_name);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1919,11 +1936,12 @@ class OrderApiV3
      * Create request for operation 'placeGTTOrder'
      *
      * @param  \Upstox\Client\Model\GttPlaceOrderRequest $body (required)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function placeGTTOrderRequest($body, $algo_id = null)
+    protected function placeGTTOrderRequest($body, $algo_name = null)
     {
         // verify the required parameter 'body' is set
         if ($body === null || (is_array($body) && count($body) === 0)) {
@@ -1940,8 +1958,8 @@ class OrderApiV3
         $multipart = false;
 
         // header params
-        if ($algo_id !== null) {
-            $headerParams['X-Algo-Id'] = ObjectSerializer::toHeaderValue($algo_id);
+        if ($algo_name !== null) {
+            $headerParams['X-Algo-Name'] = ObjectSerializer::toHeaderValue($algo_name);
         }
 
         // body params
@@ -2020,15 +2038,15 @@ class OrderApiV3
      *
      * @param  \Upstox\Client\Model\PlaceOrderV3Request $body body (required)
      * @param  string $origin origin (optional)
-     * @param  string|null $algo_id Optional algorithm identifier (optional)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\PlaceOrderV3Response
      */
-    public function placeOrder($body, $origin = null, $algo_id = null)
+    public function placeOrder($body, $origin = null, $algo_name = null)
     {
-        list($response) = $this->placeOrderWithHttpInfo($body, $origin, $algo_id);
+        list($response) = $this->placeOrderWithHttpInfo($body, $origin, $algo_name);
         return $response;
     }
 
@@ -2037,16 +2055,16 @@ class OrderApiV3
      *
      * @param  \Upstox\Client\Model\PlaceOrderV3Request $body (required)
      * @param  string $origin (optional)
-     * @param  string|null $algo_id Optional algorithm identifier (optional)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\PlaceOrderV3Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function placeOrderWithHttpInfo($body, $origin = null, $algo_id = null)
+    public function placeOrderWithHttpInfo($body, $origin = null, $algo_name = null)
     {
         $returnType = '\Upstox\Client\Model\PlaceOrderV3Response';
-        $request = $this->placeOrderRequest($body, $origin, $algo_id);
+        $request = $this->placeOrderRequest($body, $origin, $algo_name);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2170,14 +2188,14 @@ class OrderApiV3
      *
      * @param  \Upstox\Client\Model\PlaceOrderV3Request $body (required)
      * @param  string $origin (optional)
-     * @param  string|null $algo_id Optional algorithm identifier (optional)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function placeOrderAsync($body, $origin = null, $algo_id = null)
+    public function placeOrderAsync($body, $origin = null, $algo_name = null)
     {
-        return $this->placeOrderAsyncWithHttpInfo($body, $origin, $algo_id)
+        return $this->placeOrderAsyncWithHttpInfo($body, $origin, $algo_name)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2192,15 +2210,15 @@ class OrderApiV3
      *
      * @param  \Upstox\Client\Model\PlaceOrderV3Request $body (required)
      * @param  string $origin (optional)
-     * @param  string|null $algo_id Optional algorithm identifier (optional)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function placeOrderAsyncWithHttpInfo($body, $origin = null, $algo_id = null)
+    public function placeOrderAsyncWithHttpInfo($body, $origin = null, $algo_name = null)
     {
         $returnType = '\Upstox\Client\Model\PlaceOrderV3Response';
-        $request = $this->placeOrderRequest($body, $origin, $algo_id);
+        $request = $this->placeOrderRequest($body, $origin, $algo_name);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2244,12 +2262,12 @@ class OrderApiV3
      *
      * @param  \Upstox\Client\Model\PlaceOrderV3Request $body (required)
      * @param  string $origin (optional)
-     * @param  string|null $algo_id Optional algorithm identifier (optional)
+     * @param  string|null $algo_name Optional algorithm name (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function placeOrderRequest($body, $origin = null, $algo_id = null)
+    protected function placeOrderRequest($body, $origin = null, $algo_name = null)
     {
         // verify the required parameter 'body' is set
         if ($body === null || (is_array($body) && count($body) === 0)) {
@@ -2269,8 +2287,8 @@ class OrderApiV3
         if ($origin !== null) {
             $headerParams['Origin'] = ObjectSerializer::toHeaderValue($origin);
         }
-        if ($algo_id !== null) {
-            $headerParams['X-Algo-Id'] = ObjectSerializer::toHeaderValue($algo_id);
+        if ($algo_name !== null) {
+            $headerParams['X-Algo-Name'] = ObjectSerializer::toHeaderValue($algo_name);
         }
 
 

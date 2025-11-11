@@ -23,13 +23,13 @@ $body->setDisclosedQuantity(0);
 $body->setTriggerPrice(0);
 $body->setIsAmo(true);
 try {
-    // Example 1: Place order without algo_id (backward compatible)
+    // Example 1: Place order without algo_name (backward compatible)
     // $result = $apiInstance->placeOrder($body,"2.0");
-    // print("Order placed without algo_id: " . $result);
+    // print("Order placed without algo_name: " . $result);
     
-    // Example 2: Place order with algo_id
-    $result = $apiInstance->placeOrder($body, "2.0", "my-algorithm-123");
-    print("Order placed with algo_id: " . $result);
+    // Example 2: Place order with algo_name
+    $result = $apiInstance->placeOrder($body, "2.0", "name");
+    print("Order placed with algo_name: " . $result);
     
 } catch (Exception $e) {
     print($e->getMessage());
