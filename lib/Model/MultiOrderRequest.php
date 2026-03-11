@@ -70,7 +70,8 @@ class MultiOrderRequest implements ModelInterface, ArrayAccess, JsonSerializable
         'disclosed_quantity' => 'int',
         'trigger_price' => 'float',
         'is_amo' => 'bool',
-        'correlation_id' => 'string'
+        'correlation_id' => 'string',
+        'market_protection' => 'float'
     ];
 
     /**
@@ -91,7 +92,8 @@ class MultiOrderRequest implements ModelInterface, ArrayAccess, JsonSerializable
         'disclosed_quantity' => 'int32',
         'trigger_price' => 'float',
         'is_amo' => null,
-        'correlation_id' => null
+        'correlation_id' => null,
+        'market_protection' => 'float'
     ];
 
     /**
@@ -133,7 +135,8 @@ class MultiOrderRequest implements ModelInterface, ArrayAccess, JsonSerializable
         'disclosed_quantity' => 'disclosed_quantity',
         'trigger_price' => 'trigger_price',
         'is_amo' => 'is_amo',
-        'correlation_id' => 'correlation_id'
+        'correlation_id' => 'correlation_id',
+        'market_protection' => 'market_protection'
     ];
 
     /**
@@ -154,7 +157,8 @@ class MultiOrderRequest implements ModelInterface, ArrayAccess, JsonSerializable
         'disclosed_quantity' => 'setDisclosedQuantity',
         'trigger_price' => 'setTriggerPrice',
         'is_amo' => 'setIsAmo',
-        'correlation_id' => 'setCorrelationId'
+        'correlation_id' => 'setCorrelationId',
+        'market_protection' => 'setMarketProtection'
     ];
 
     /**
@@ -175,7 +179,8 @@ class MultiOrderRequest implements ModelInterface, ArrayAccess, JsonSerializable
         'disclosed_quantity' => 'getDisclosedQuantity',
         'trigger_price' => 'getTriggerPrice',
         'is_amo' => 'getIsAmo',
-        'correlation_id' => 'getCorrelationId'
+        'correlation_id' => 'getCorrelationId',
+        'market_protection' => 'getMarketProtection'
     ];
 
     /**
@@ -311,6 +316,7 @@ class MultiOrderRequest implements ModelInterface, ArrayAccess, JsonSerializable
         $this->container['trigger_price'] = isset($data['trigger_price']) ? $data['trigger_price'] : null;
         $this->container['is_amo'] = isset($data['is_amo']) ? $data['is_amo'] : null;
         $this->container['correlation_id'] = isset($data['correlation_id']) ? $data['correlation_id'] : null;
+        $this->container['market_protection'] = isset($data['market_protection']) ? $data['market_protection'] : null;
     }
 
     /**
@@ -749,6 +755,30 @@ class MultiOrderRequest implements ModelInterface, ArrayAccess, JsonSerializable
     public function setCorrelationId($correlation_id)
     {
         $this->container['correlation_id'] = $correlation_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets market_protection
+     *
+     * @return float
+     */
+    public function getMarketProtection()
+    {
+        return $this->container['market_protection'];
+    }
+
+    /**
+     * Sets market_protection
+     *
+     * @param float $market_protection Market price protection value (optional)
+     *
+     * @return $this
+     */
+    public function setMarketProtection($market_protection)
+    {
+        $this->container['market_protection'] = $market_protection;
 
         return $this;
     }

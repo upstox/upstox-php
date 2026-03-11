@@ -23,6 +23,7 @@ $body->setDisclosedQuantity(0);
 $body->setTriggerPrice(0);
 $body->setIsAmo(true);
 $body->setSlice(true);
+$body->setMarketProtection(0);
 try {
     $result = $apiInstance->placeOrder($body,"2.0");
     print $result;

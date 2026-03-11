@@ -60,7 +60,8 @@ class GttRule implements ModelInterface, ArrayAccess
         'strategy' => 'string',
         'trigger_type' => 'string',
         'trigger_price' => 'double',
-        'trailing_gap' => 'double'
+        'trailing_gap' => 'double',
+        'market_protection' => 'float'
     ];
 
     /**
@@ -72,7 +73,8 @@ class GttRule implements ModelInterface, ArrayAccess
         'strategy' => null,
         'trigger_type' => null,
         'trigger_price' => 'double',
-        'trailing_gap' => 'double'
+        'trailing_gap' => 'double',
+        'market_protection' => 'float'
     ];
 
     /**
@@ -105,7 +107,8 @@ class GttRule implements ModelInterface, ArrayAccess
         'strategy' => 'strategy',
         'trigger_type' => 'trigger_type',
         'trigger_price' => 'trigger_price',
-        'trailing_gap' => 'trailing_gap'
+        'trailing_gap' => 'trailing_gap',
+        'market_protection' => 'market_protection'
     ];
 
     /**
@@ -117,7 +120,8 @@ class GttRule implements ModelInterface, ArrayAccess
         'strategy' => 'setStrategy',
         'trigger_type' => 'setTriggerType',
         'trigger_price' => 'setTriggerPrice',
-        'trailing_gap' => 'setTrailingGap'
+        'trailing_gap' => 'setTrailingGap',
+        'market_protection' => 'setMarketProtection'
     ];
 
     /**
@@ -129,7 +133,8 @@ class GttRule implements ModelInterface, ArrayAccess
         'strategy' => 'getStrategy',
         'trigger_type' => 'getTriggerType',
         'trigger_price' => 'getTriggerPrice',
-        'trailing_gap' => 'getTrailingGap'
+        'trailing_gap' => 'getTrailingGap',
+        'market_protection' => 'getMarketProtection'
     ];
 
     /**
@@ -226,6 +231,7 @@ class GttRule implements ModelInterface, ArrayAccess
         $this->container['trigger_type'] = isset($data['trigger_type']) ? $data['trigger_type'] : null;
         $this->container['trigger_price'] = isset($data['trigger_price']) ? $data['trigger_price'] : null;
         $this->container['trailing_gap'] = isset($data['trailing_gap']) ? $data['trailing_gap'] : null;
+        $this->container['market_protection'] = isset($data['market_protection']) ? $data['market_protection'] : null;
     }
 
     /**
@@ -387,6 +393,30 @@ class GttRule implements ModelInterface, ArrayAccess
     public function setTrailingGap($trailing_gap)
     {
         $this->container['trailing_gap'] = $trailing_gap;
+
+        return $this;
+    }
+
+    /**
+     * Gets market_protection
+     *
+     * @return float
+     */
+    public function getMarketProtection()
+    {
+        return $this->container['market_protection'];
+    }
+
+    /**
+     * Sets market_protection
+     *
+     * @param float $market_protection Market price protection value (optional)
+     *
+     * @return $this
+     */
+    public function setMarketProtection($market_protection)
+    {
+        $this->container['market_protection'] = $market_protection;
 
         return $this;
     }

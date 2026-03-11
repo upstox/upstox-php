@@ -21,6 +21,7 @@ $entryRule = new \Upstox\Client\Model\GttRule();
 $entryRule->setStrategy("ENTRY");
 $entryRule->setTriggerType("IMMEDIATE");
 $entryRule->setTriggerPrice(6.9);
+$entryRule->setMarketProtection(0);
 $stopLoss = new \Upstox\Client\Model\GttRule();
 $stopLoss->setStrategy("STOPLOSS");
 $stopLoss->setTriggerType("IMMEDIATE");

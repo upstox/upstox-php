@@ -62,7 +62,8 @@ class ModifyOrderRequest implements ModelInterface, ArrayAccess
         'order_id' => 'string',
         'order_type' => 'string',
         'disclosed_quantity' => 'int',
-        'trigger_price' => 'float'
+        'trigger_price' => 'float',
+        'market_protection' => 'float'
     ];
 
     /**
@@ -77,7 +78,8 @@ class ModifyOrderRequest implements ModelInterface, ArrayAccess
         'order_id' => null,
         'order_type' => null,
         'disclosed_quantity' => 'int32',
-        'trigger_price' => 'float'
+        'trigger_price' => 'float',
+        'market_protection' => 'float'
     ];
 
     /**
@@ -113,7 +115,8 @@ class ModifyOrderRequest implements ModelInterface, ArrayAccess
         'order_id' => 'order_id',
         'order_type' => 'order_type',
         'disclosed_quantity' => 'disclosed_quantity',
-        'trigger_price' => 'trigger_price'
+        'trigger_price' => 'trigger_price',
+        'market_protection' => 'market_protection'
     ];
 
     /**
@@ -128,7 +131,8 @@ class ModifyOrderRequest implements ModelInterface, ArrayAccess
         'order_id' => 'setOrderId',
         'order_type' => 'setOrderType',
         'disclosed_quantity' => 'setDisclosedQuantity',
-        'trigger_price' => 'setTriggerPrice'
+        'trigger_price' => 'setTriggerPrice',
+        'market_protection' => 'setMarketProtection'
     ];
 
     /**
@@ -143,7 +147,8 @@ class ModifyOrderRequest implements ModelInterface, ArrayAccess
         'order_id' => 'getOrderId',
         'order_type' => 'getOrderType',
         'disclosed_quantity' => 'getDisclosedQuantity',
-        'trigger_price' => 'getTriggerPrice'
+        'trigger_price' => 'getTriggerPrice',
+        'market_protection' => 'getMarketProtection'
     ];
 
     /**
@@ -243,6 +248,7 @@ class ModifyOrderRequest implements ModelInterface, ArrayAccess
         $this->container['order_type'] = isset($data['order_type']) ? $data['order_type'] : null;
         $this->container['disclosed_quantity'] = isset($data['disclosed_quantity']) ? $data['disclosed_quantity'] : null;
         $this->container['trigger_price'] = isset($data['trigger_price']) ? $data['trigger_price'] : null;
+        $this->container['market_protection'] = isset($data['market_protection']) ? $data['market_protection'] : null;
     }
 
     /**
@@ -482,6 +488,30 @@ class ModifyOrderRequest implements ModelInterface, ArrayAccess
     public function setTriggerPrice($trigger_price)
     {
         $this->container['trigger_price'] = $trigger_price;
+
+        return $this;
+    }
+
+    /**
+     * Gets market_protection
+     *
+     * @return float
+     */
+    public function getMarketProtection()
+    {
+        return $this->container['market_protection'];
+    }
+
+    /**
+     * Sets market_protection
+     *
+     * @param float $market_protection Market price protection value (optional)
+     *
+     * @return $this
+     */
+    public function setMarketProtection($market_protection)
+    {
+        $this->container['market_protection'] = $market_protection;
 
         return $this;
     }
