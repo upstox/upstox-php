@@ -67,7 +67,8 @@ class PlaceOrderV3Request implements ModelInterface, ArrayAccess
         'transaction_type' => 'string',
         'disclosed_quantity' => 'int',
         'trigger_price' => 'float',
-        'is_amo' => 'bool'
+        'is_amo' => 'bool',
+        'market_protection' => 'float'
     ];
 
     /**
@@ -87,7 +88,8 @@ class PlaceOrderV3Request implements ModelInterface, ArrayAccess
         'transaction_type' => null,
         'disclosed_quantity' => 'int32',
         'trigger_price' => 'float',
-        'is_amo' => null
+        'is_amo' => null,
+        'market_protection' => 'float'
     ];
 
     /**
@@ -128,7 +130,8 @@ class PlaceOrderV3Request implements ModelInterface, ArrayAccess
         'transaction_type' => 'transaction_type',
         'disclosed_quantity' => 'disclosed_quantity',
         'trigger_price' => 'trigger_price',
-        'is_amo' => 'is_amo'
+        'is_amo' => 'is_amo',
+        'market_protection' => 'market_protection'
     ];
 
     /**
@@ -148,7 +151,8 @@ class PlaceOrderV3Request implements ModelInterface, ArrayAccess
         'transaction_type' => 'setTransactionType',
         'disclosed_quantity' => 'setDisclosedQuantity',
         'trigger_price' => 'setTriggerPrice',
-        'is_amo' => 'setIsAmo'
+        'is_amo' => 'setIsAmo',
+        'market_protection' => 'setMarketProtection'
     ];
 
     /**
@@ -168,7 +172,8 @@ class PlaceOrderV3Request implements ModelInterface, ArrayAccess
         'transaction_type' => 'getTransactionType',
         'disclosed_quantity' => 'getDisclosedQuantity',
         'trigger_price' => 'getTriggerPrice',
-        'is_amo' => 'getIsAmo'
+        'is_amo' => 'getIsAmo',
+        'market_protection' => 'getMarketProtection'
     ];
 
     /**
@@ -303,6 +308,7 @@ class PlaceOrderV3Request implements ModelInterface, ArrayAccess
         $this->container['disclosed_quantity'] = isset($data['disclosed_quantity']) ? $data['disclosed_quantity'] : null;
         $this->container['trigger_price'] = isset($data['trigger_price']) ? $data['trigger_price'] : null;
         $this->container['is_amo'] = isset($data['is_amo']) ? $data['is_amo'] : null;
+        $this->container['market_protection'] = isset($data['market_protection']) ? $data['market_protection'] : null;
     }
 
     /**
@@ -711,6 +717,30 @@ class PlaceOrderV3Request implements ModelInterface, ArrayAccess
     public function setIsAmo($is_amo)
     {
         $this->container['is_amo'] = $is_amo;
+
+        return $this;
+    }
+
+    /**
+     * Gets market_protection
+     *
+     * @return float
+     */
+    public function getMarketProtection()
+    {
+        return $this->container['market_protection'];
+    }
+
+    /**
+     * Sets market_protection
+     *
+     * @param float $market_protection Market price protection value (optional)
+     *
+     * @return $this
+     */
+    public function setMarketProtection($market_protection)
+    {
+        $this->container['market_protection'] = $market_protection;
 
         return $this;
     }

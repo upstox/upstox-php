@@ -24,6 +24,7 @@ $order1->setTriggerPrice(0);
 $order1->setIsAmo(true);
 $order1->setCorrelationId("cid1");
 $order1->setSlice(false);
+$order1->setMarketProtection(0);
 
 // Create second MultiOrderRequest object
 $order2 = new \Upstox\Client\Model\MultiOrderRequest();
@@ -40,6 +41,7 @@ $order2->setTriggerPrice(0);
 $order2->setIsAmo(true);
 $order2->setCorrelationId("cid2");
 $order2->setSlice(false);
+$order2->setMarketProtection(2);
 
 // Create an array of MultiOrderRequest objects
 $multiOrderRequests = [$order1, $order2];

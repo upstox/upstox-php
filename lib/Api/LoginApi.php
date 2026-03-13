@@ -1040,14 +1040,15 @@ class LoginApi
      * @param  string $client_secret client_secret (optional)
      * @param  string $redirect_uri redirect_uri (optional)
      * @param  string $grant_type grant_type (optional)
+     * @param  bool $refresh_extended_token refresh_extended_token (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\TokenResponse
      */
-    public function token($api_version, $code = null, $client_id = null, $client_secret = null, $redirect_uri = null, $grant_type = null)
+    public function token($api_version, $code = null, $client_id = null, $client_secret = null, $redirect_uri = null, $grant_type = null, $refresh_extended_token = null)
     {
-        list($response) = $this->tokenWithHttpInfo($api_version, $code, $client_id, $client_secret, $redirect_uri, $grant_type);
+        list($response) = $this->tokenWithHttpInfo($api_version, $code, $client_id, $client_secret, $redirect_uri, $grant_type, $refresh_extended_token);
         return $response;
     }
 
@@ -1062,15 +1063,16 @@ class LoginApi
      * @param  string $client_secret (optional)
      * @param  string $redirect_uri (optional)
      * @param  string $grant_type (optional)
+     * @param  bool $refresh_extended_token (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\TokenResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function tokenWithHttpInfo($api_version, $code = null, $client_id = null, $client_secret = null, $redirect_uri = null, $grant_type = null)
+    public function tokenWithHttpInfo($api_version, $code = null, $client_id = null, $client_secret = null, $redirect_uri = null, $grant_type = null, $refresh_extended_token = null)
     {
         $returnType = '\Upstox\Client\Model\TokenResponse';
-        $request = $this->tokenRequest($api_version, $code, $client_id, $client_secret, $redirect_uri, $grant_type);
+        $request = $this->tokenRequest($api_version, $code, $client_id, $client_secret, $redirect_uri, $grant_type, $refresh_extended_token);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1182,13 +1184,14 @@ class LoginApi
      * @param  string $client_secret (optional)
      * @param  string $redirect_uri (optional)
      * @param  string $grant_type (optional)
+     * @param  bool $refresh_extended_token (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function tokenAsync($api_version, $code = null, $client_id = null, $client_secret = null, $redirect_uri = null, $grant_type = null)
+    public function tokenAsync($api_version, $code = null, $client_id = null, $client_secret = null, $redirect_uri = null, $grant_type = null, $refresh_extended_token = null)
     {
-        return $this->tokenAsyncWithHttpInfo($api_version, $code, $client_id, $client_secret, $redirect_uri, $grant_type)
+        return $this->tokenAsyncWithHttpInfo($api_version, $code, $client_id, $client_secret, $redirect_uri, $grant_type, $refresh_extended_token)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1207,14 +1210,15 @@ class LoginApi
      * @param  string $client_secret (optional)
      * @param  string $redirect_uri (optional)
      * @param  string $grant_type (optional)
+     * @param  bool $refresh_extended_token (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function tokenAsyncWithHttpInfo($api_version, $code = null, $client_id = null, $client_secret = null, $redirect_uri = null, $grant_type = null)
+    public function tokenAsyncWithHttpInfo($api_version, $code = null, $client_id = null, $client_secret = null, $redirect_uri = null, $grant_type = null, $refresh_extended_token = null)
     {
         $returnType = '\Upstox\Client\Model\TokenResponse';
-        $request = $this->tokenRequest($api_version, $code, $client_id, $client_secret, $redirect_uri, $grant_type);
+        $request = $this->tokenRequest($api_version, $code, $client_id, $client_secret, $redirect_uri, $grant_type, $refresh_extended_token);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1262,11 +1266,12 @@ class LoginApi
      * @param  string $client_secret (optional)
      * @param  string $redirect_uri (optional)
      * @param  string $grant_type (optional)
+     * @param  bool $refresh_extended_token (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function tokenRequest($api_version, $code = null, $client_id = null, $client_secret = null, $redirect_uri = null, $grant_type = null)
+    protected function tokenRequest($api_version, $code = null, $client_id = null, $client_secret = null, $redirect_uri = null, $grant_type = null, $refresh_extended_token = null)
     {
         // verify the required parameter 'api_version' is set
         if ($api_version === null || (is_array($api_version) && count($api_version) === 0)) {
@@ -1307,6 +1312,10 @@ class LoginApi
         // form params
         if ($grant_type !== null) {
             $formParams['grant_type'] = ObjectSerializer::toFormValue($grant_type);
+        }
+        // form params
+        if ($refresh_extended_token !== null) {
+            $formParams['refresh_extended_token'] = ObjectSerializer::toFormValue($refresh_extended_token);
         }
         // body params
         $_tempBody = null;

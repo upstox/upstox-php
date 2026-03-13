@@ -19,6 +19,7 @@ $body->setPrice(9.0);
 $body->setQuantity(2);
 $body->setTriggerPrice(0);
 $body->setValidity("DAY");
+$body->setMarketProtection(0);
 
 try {
     $result = $apiInstance->modifyOrder($body);
