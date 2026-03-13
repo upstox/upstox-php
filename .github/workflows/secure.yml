@@ -1,14 +1,16 @@
 on:
   workflow_dispatch: {}
   pull_request:
-    branches: [main, master]
+    branches:
+      - main
     types: [opened, synchronize, reopened, labeled]
   push:
-    branches: [main, master]
+    branches:
+      - main
     paths:
       - .github/workflows/secure.yml
   schedule:
-    - cron: '43 22 * * *'
+    - cron: '21 11 * * *'
 
 name: Security Check Scan
 
@@ -162,4 +164,5 @@ jobs:
       - name: Approve PR
         run: gh pr review --approve "${{ github.event.pull_request.html_url }}"
         env:
+          GH_TOKEN: ${{ secrets.PAT_SECURITYREVIEWUSER }}
           GITHUB_TOKEN: ${{ secrets.PAT_SECURITYREVIEWUSER }}
