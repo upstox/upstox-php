@@ -60,8 +60,7 @@ class TokenRequest implements ModelInterface, ArrayAccess
         'client_id' => 'string',
         'client_secret' => 'string',
         'redirect_uri' => 'string',
-        'grant_type' => 'string',
-        'refresh_extended_token' => 'bool'
+        'grant_type' => 'string'
     ];
 
     /**
@@ -74,8 +73,7 @@ class TokenRequest implements ModelInterface, ArrayAccess
         'client_id' => null,
         'client_secret' => null,
         'redirect_uri' => null,
-        'grant_type' => null,
-        'refresh_extended_token' => null
+        'grant_type' => null
     ];
 
     /**
@@ -109,8 +107,7 @@ class TokenRequest implements ModelInterface, ArrayAccess
         'client_id' => 'client_id',
         'client_secret' => 'client_secret',
         'redirect_uri' => 'redirect_uri',
-        'grant_type' => 'grant_type',
-        'refresh_extended_token' => 'refresh_extended_token'
+        'grant_type' => 'grant_type'
     ];
 
     /**
@@ -123,8 +120,7 @@ class TokenRequest implements ModelInterface, ArrayAccess
         'client_id' => 'setClientId',
         'client_secret' => 'setClientSecret',
         'redirect_uri' => 'setRedirectUri',
-        'grant_type' => 'setGrantType',
-        'refresh_extended_token' => 'setRefreshExtendedToken'
+        'grant_type' => 'setGrantType'
     ];
 
     /**
@@ -137,8 +133,7 @@ class TokenRequest implements ModelInterface, ArrayAccess
         'client_id' => 'getClientId',
         'client_secret' => 'getClientSecret',
         'redirect_uri' => 'getRedirectUri',
-        'grant_type' => 'getGrantType',
-        'refresh_extended_token' => 'getRefreshExtendedToken'
+        'grant_type' => 'getGrantType'
     ];
 
     /**
@@ -204,7 +199,6 @@ class TokenRequest implements ModelInterface, ArrayAccess
         $this->container['client_secret'] = isset($data['client_secret']) ? $data['client_secret'] : null;
         $this->container['redirect_uri'] = isset($data['redirect_uri']) ? $data['redirect_uri'] : null;
         $this->container['grant_type'] = isset($data['grant_type']) ? $data['grant_type'] : null;
-        $this->container['refresh_extended_token'] = isset($data['refresh_extended_token']) ? $data['refresh_extended_token'] : null;
     }
 
     /**
@@ -362,30 +356,6 @@ class TokenRequest implements ModelInterface, ArrayAccess
     public function setGrantType($grant_type)
     {
         $this->container['grant_type'] = $grant_type;
-
-        return $this;
-    }
-
-    /**
-     * Gets refresh_extended_token
-     *
-     * @return bool
-     */
-    public function getRefreshExtendedToken()
-    {
-        return $this->container['refresh_extended_token'];
-    }
-
-    /**
-     * Sets refresh_extended_token
-     *
-     * @param bool $refresh_extended_token Whether to refresh extended token
-     *
-     * @return $this
-     */
-    public function setRefreshExtendedToken($refresh_extended_token)
-    {
-        $this->container['refresh_extended_token'] = $refresh_extended_token;
 
         return $this;
     }

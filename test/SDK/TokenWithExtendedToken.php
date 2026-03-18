@@ -9,10 +9,9 @@ $client_id = "client_id_here";
 $client_secret = "client_secret_here";
 $redirect_uri = "redirect_uri_here";
 $grant_type = "authorization_code";
-$refresh_extended_token = true;
 
 try {
-    $result = $apiInstance->token($api_version, $code, $client_id, $client_secret, $redirect_uri, $grant_type, $refresh_extended_token);
+    $result = $apiInstance->token($api_version, $code, $client_id, $client_secret, $redirect_uri, $grant_type);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling LoginApi->token: ', $e->getMessage(), PHP_EOL;
