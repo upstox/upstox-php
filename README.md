@@ -106,75 +106,30 @@ try {
 
 Other order methods (modify, cancel, etc.) follow the same pattern by accepting an optional `algo_name` as the last parameter.
 
-## Examples
+## Example Scripts
 
-[Sample Implementations](examples/) can be found within `/examples` folder.
+The [`examples/`](examples/) folder contains ready-to-run scripts covering common API use cases:
 
-- [Websocket Market data](examples/websocket/market_data/)
-- [Websocket Order updates](examples/websocket/order_updates/)
+| Folder | Description |
+|--------|-------------|
+| [`examples/login/`](examples/login/) | OAuth2 authorization flow and access token generation |
+| [`examples/orders/`](examples/orders/) | Place, modify, cancel, and retrieve orders |
+| [`examples/market-quote/`](examples/market-quote/) | Fetch live quotes, OHLC, and market depth |
+| [`examples/portfolio/`](examples/portfolio/) | View holdings, positions, and P&L |
+| [`examples/strategies/`](examples/strategies/) | 33 options trading strategies across four categories |
 
-## Documentation for API Endpoints
+### Options Strategy Examples
 
-All URIs are relative to *https://api.upstox.com/*
+The [`examples/strategies/`](examples/strategies/) folder is organized by market outlook:
 
-Class | Method | HTTP request | Description
------------- | ------------- | ------------- | -------------
-*ChargeApi* | [**getBrokerage**](docs/Api/ChargeApi.md#getbrokerage) | **GET** /v2/charges/brokerage | Brokerage details
-*ChargeApi* | [**postMargin**](docs/Api/ChargeApi.md#postmargin) | **POST** /v2/charges/margin | Calculate Margin
-*ExpiredInstrumentApi* | [**getExpiredFutureContracts**](docs/Api/ExpiredInstrumentApi.md#getexpiredfuturecontracts) | **GET** /v2/expired-instruments/future/contract | Expired instruments - Get future contracts
-*ExpiredInstrumentApi* | [**getExpiredHistoricalCandleData**](docs/Api/ExpiredInstrumentApi.md#getexpiredhistoricalcandledata) | **GET** /v2/expired-instruments/historical-candle/{expired_instrument_key}/{interval}/{to_date}/{from_date} | Expired Historical candle data
-*ExpiredInstrumentApi* | [**getExpiredOptionContracts**](docs/Api/ExpiredInstrumentApi.md#getexpiredoptioncontracts) | **GET** /v2/expired-instruments/option/contract | Get expired option contracts
-*ExpiredInstrumentApi* | [**getExpiries**](docs/Api/ExpiredInstrumentApi.md#getexpiriesresponse) | **GET** /v2/expired-instruments/expiries | Expired instruments - Get expiries
-*HistoryApi* | [**getHistoricalCandleData2**](docs/Api/HistoryApi.md#gethistoricalcandledata2) | **GET** /v2/historical-candle/{instrumentKey}/{interval}/{to_date} | Historical candle data
-*HistoryApi* | [**getHistoricalCandleData3**](docs/Api/HistoryApi.md#gethistoricalcandledata3) | **GET** /v2/historical-candle/{instrumentKey}/{interval}/{to_date}/{from_date} | Historical candle data
-*HistoryApi* | [**getIntraDayCandleData1**](docs/Api/HistoryApi.md#getintradaycandledata1) | **GET** /v2/historical-candle/intraday/{instrumentKey}/{interval} | Intra day candle data
-*HistoryV3Api* | [**getHistoricalCandleData**](docs/Api/HistoryV3Api.md#gethistoricalcandledata) | **GET** /v3/historical-candle/{instrumentKey}/{unit}/{interval}/{to_date} | Historical candle data
-*HistoryV3Api* | [**getHistoricalCandleData1**](docs/Api/HistoryV3Api.md#gethistoricalcandledata1) | **GET** /v3/historical-candle/{instrumentKey}/{unit}/{interval}/{to_date}/{from_date} | Historical candle data
-*HistoryV3Api* | [**getIntraDayCandleData**](docs/Api/HistoryV3Api.md#getintradaycandledata) | **GET** /v3/historical-candle/intraday/{instrumentKey}/{unit}/{interval} | Intra day candle data
-*LoginApi* | [**authorize**](docs/Api/LoginApi.md#authorize) | **GET** /v2/login/authorization/dialog | Authorize API
-*LoginApi* | [**initTokenRequestForIndieUser**](docs/Api/LoginApi.md#inittokenrequestforindieuser) | **POST** /v3/login/auth/token/request/{client_id} | Init token API
-*LoginApi* | [**logout**](docs/Api/LoginApi.md#logout) | **DELETE** /v2/logout | Logout
-*LoginApi* | [**token**](docs/Api/LoginApi.md#token) | **POST** /v2/login/authorization/token | Get token API
-*MarketHolidaysAndTimingsApi* | [**getExchangeTimings**](docs/Api/MarketHolidaysAndTimingsApi.md#getexchangetimings) | **GET** /v2/market/timings/{date} | Get Exchange Timings on particular date
-*MarketHolidaysAndTimingsApi* | [**getHoliday**](docs/Api/MarketHolidaysAndTimingsApi.md#getholiday) | **GET** /v2/market/holidays/{date} | Get Holiday on particular date
-*MarketHolidaysAndTimingsApi* | [**getHolidays**](docs/Api/MarketHolidaysAndTimingsApi.md#getholidays) | **GET** /v2/market/holidays | Get Holiday list of current year
-*MarketHolidaysAndTimingsApi* | [**getMarketStatus**](docs/Api/MarketHolidaysAndTimingsApi.md#getmarketstatus) | **GET** /v2/market/status/{exchange} | Get Market status for particular exchange
-*MarketQuoteApi* | [**getFullMarketQuote**](docs/Api/MarketQuoteApi.md#getfullmarketquote) | **GET** /v2/market-quote/quotes | Market quotes and instruments - Full market quotes
-*MarketQuoteApi* | [**getMarketQuoteOHLC**](docs/Api/MarketQuoteApi.md#getmarketquoteohlc) | **GET** /v2/market-quote/ohlc | Market quotes and instruments - OHLC quotes
-*MarketQuoteApi* | [**ltp**](docs/Api/MarketQuoteApi.md#ltp) | **GET** /v2/market-quote/ltp | Market quotes and instruments - LTP quotes.
-*MarketQuoteV3Api* | [**getLtp**](docs/Api/MarketQuoteV3Api.md#getltp) | **GET** /v3/market-quote/ltp | Market quotes and instruments - LTP quotes.
-*MarketQuoteV3Api* | [**getMarketQuoteOHLC**](docs/Api/MarketQuoteV3Api.md#getMarketQuoteOHLC) | **GET** /v3/market-quote/ohlc | Market quotes and instruments - OHLC quotes
-*MarketQuoteV3Api* | [**getMarketQuoteOptionGreek**](docs/Api/MarketQuoteV3Api.md#getmarketquoteoptiongreek) | **GET** /v3/market-quote/option-greek | Market quotes and instruments - Option Greek
-*OptionsApi* | [**getOptionContracts**](docs/Api/OptionsApi.md#getoptioncontracts) | **GET** /v2/option/contract | Get option contracts
-*OptionsApi* | [**getPutCallOptionChain**](docs/Api/OptionsApi.md#getputcalloptionchain) | **GET** /v2/option/chain | Get option chain
-*OrderApi* | [**cancelMultiOrder**](docs/Api/OrderApi.md#cancelmultiorder) | **DELETE** /v2/order/multi/cancel | Cancel multi order
-*OrderApi* | [**cancelOrder**](docs/Api/OrderApi.md#cancelorder) | **DELETE** /v2/order/cancel | Cancel order
-*OrderApi* | [**exitPositions**](docs/Api/OrderApi.md#exitpositions) | **POST** /v2/order/positions/exit | Exit all positions
-*OrderApi* | [**getOrderBook**](docs/Api/OrderApi.md#getorderbook) | **GET** /v2/order/retrieve-all | Get order book
-*OrderApi* | [**getOrderDetails**](docs/Api/OrderApi.md#getorderdetails) | **GET** /v2/order/history | Get order history
-*OrderApi* | [**getOrderStatus**](docs/Api/OrderApi.md#getorderstatus) | **GET** /v2/order/details | Get order details
-*OrderApi* | [**getTradeHistory**](docs/Api/OrderApi.md#gettradehistory) | **GET** /v2/order/trades/get-trades-for-day | Get trades
-*OrderApi* | [**getTradesByOrder**](docs/Api/OrderApi.md#gettradesbyorder) | **GET** /v2/order/trades | Get trades for order
-*OrderApi* | [**modifyOrder**](docs/Api/OrderApi.md#modifyorder) | **PUT** /v2/order/modify | Modify order
-*OrderApi* | [**placeMultiOrder**](docs/Api/OrderApi.md#placemultiorder) | **POST** /v2/order/multi/place | Place multi order
-*OrderApi* | [**placeOrder1**](docs/Api/OrderApi.md#placeorder1) | **POST** /v2/order/place | Place order
-*OrderApiV3* | [**cancelOrder**](docs/Api/OrderApiV3.md#cancelorder) | **DELETE** /v3/order/cancel | 
-*OrderApiV3* | [**modifyOrder**](docs/Api/OrderApiV3.md#modifyorder) | **PUT** /v3/order/modify | 
-*OrderApiV3* | [**placeOrder**](docs/Api/OrderApiV3.md#placeorder) | **POST** /v3/order/place | 
-*PortfolioApi* | [**convertPositions**](docs/Api/PortfolioApi.md#convertpositions) | **PUT** /v2/portfolio/convert-position | Convert Positions
-*PortfolioApi* | [**getHoldings**](docs/Api/PortfolioApi.md#getholdings) | **GET** /v2/portfolio/long-term-holdings | Get Holdings
-*PortfolioApi* | [**getMtfPositions**](docs/Api/PortfolioApi.md#getmtfpositions) | **GET** /v3/portfolio/mtf-positions | Get MTF positions
-*PortfolioApi* | [**getPositions**](docs/Api/PortfolioApi.md#getpositions) | **GET** /v2/portfolio/short-term-positions | Get Positions
-*PostTradeApi* | [**getTradesByDateRange**](docs/Api/PostTradeApi.md#gettradesbydaterange) | **GET** /v2/charges/historical-trades | Get historical trades
-*TradeProfitAndLossApi* | [**getProfitAndLossCharges**](docs/Api/TradeProfitAndLossApi.md#getprofitandlosscharges) | **GET** /v2/trade/profit-loss/charges | Get profit and loss on trades
-*TradeProfitAndLossApi* | [**getTradeWiseProfitAndLossData**](docs/Api/TradeProfitAndLossApi.md#gettradewiseprofitandlossdata) | **GET** /v2/trade/profit-loss/data | Get Trade-wise Profit and Loss Report Data
-*TradeProfitAndLossApi* | [**getTradeWiseProfitAndLossMetaData**](docs/Api/TradeProfitAndLossApi.md#gettradewiseprofitandlossmetadata) | **GET** /v2/trade/profit-loss/metadata | Get profit and loss meta data on trades
-*UserApi* | [**getProfile**](docs/Api/UserApi.md#getprofile) | **GET** /v2/user/profile | Get profile
-*UserApi* | [**getUserFundMargin**](docs/Api/UserApi.md#getuserfundmargin) | **GET** /v2/user/get-funds-and-margin | Get User Fund And Margin
-*WebsocketApi* | [**getMarketDataFeed**](docs/Api/WebsocketApi.md#getmarketdatafeed) | **GET** /v2/feed/market-data-feed | Market Data Feed
-*WebsocketApi* | [**getMarketDataFeedAuthorize**](docs/Api/WebsocketApi.md#getmarketdatafeedauthorize) | **GET** /v2/feed/market-data-feed/authorize | Market Data Feed Authorize
-*WebsocketApi* | [**getPortfolioStreamFeed**](docs/Api/WebsocketApi.md#getportfoliostreamfeed) | **GET** /v2/feed/portfolio-stream-feed | Portfolio Stream Feed
-*WebsocketApi* | [**getPortfolioStreamFeedAuthorize**](docs/Api/WebsocketApi.md#getportfoliostreamfeedauthorize) | **GET** /v2/feed/portfolio-stream-feed/authorize | Portfolio Stream Feed Authorize
+| Category | Strategies |
+|----------|------------|
+| [Bullish](examples/strategies/bullish/) | Buy Call, Sell Put, Bull Call Spread, Bull Put Spread, Bull Butterfly, Bull Condor, Long Calendar with Calls, Long Synthetic Future, Call Ratio Back Spread, Range Forward |
+| [Bearish](examples/strategies/bearish/) | Buy Put, Sell Call, Bear Call Spread, Bear Put Spread, Bear Butterfly, Bear Condor, Long Calendar with Puts, Short Synthetic Future, Put Ratio Back Spread, Risk Reversal |
+| [Neutral](examples/strategies/neutral/) | Short Straddle, Short Strangle, Iron Butterfly, Batman, Short Iron Condor |
+| [Others](examples/strategies/others/) | Long Straddle, Long Strangle, Call Ratio Spread, Put Ratio Spread, Long Iron Butterfly, Long Iron Condor, Strip, Strap |
+
+Each strategy script automatically selects the correct Nifty 50 strikes using `InstrumentsApi::searchInstrument()` and places orders via `OrderApiV3`. Just set your `ACCESS_TOKEN` and run.
 
 ## Documentation for Feeder Functions
 
