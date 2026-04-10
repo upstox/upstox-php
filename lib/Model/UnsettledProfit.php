@@ -56,8 +56,8 @@ class UnsettledProfit implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'todays_profit' => '',
-        'previous_days' => ''
+        'todays_profit' => 'float',
+        'previous_days' => 'float'
     ];
 
     /**

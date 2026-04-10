@@ -56,9 +56,9 @@ class MarginFromPledge implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'total' => '',
-        'equity' => '',
-        'mutual_funds' => ''
+        'total' => 'float',
+        'equity' => 'float',
+        'mutual_funds' => 'float'
     ];
 
     /**

@@ -56,7 +56,7 @@ class CashAvailableToTrade implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'total' => '',
+        'total' => 'float',
         'cash' => '\Upstox\Client\Model\CashBreakdown',
         'margin_used' => '\Upstox\Client\Model\CashMarginUsed'
     ];

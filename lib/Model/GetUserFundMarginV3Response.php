@@ -56,7 +56,7 @@ class GetUserFundMarginV3Response implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'status' => '',
+        'status' => 'string',
         'data' => '\Upstox\Client\Model\UserFundMarginV3Data'
     ];
 

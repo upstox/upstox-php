@@ -56,11 +56,11 @@ class CashBreakdown implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'opening_balance' => '',
-        'added_today' => '',
-        'withdrawn_today' => '',
-        'amount_from_stock_sale' => '',
-        'unpaid_charges' => ''
+        'opening_balance' => 'float',
+        'added_today' => 'float',
+        'withdrawn_today' => 'float',
+        'amount_from_stock_sale' => 'float',
+        'unpaid_charges' => 'float'
     ];
 
     /**

@@ -56,8 +56,8 @@ class KillSwitchResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'status' => '',
-        'data' => ''
+        'status' => 'string',
+        'data' => 'object'
     ];
 
     /**

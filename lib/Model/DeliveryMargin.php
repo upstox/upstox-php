@@ -56,9 +56,9 @@ class DeliveryMargin implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'total' => '',
-        'equity' => '',
-        'fo_settlement' => ''
+        'total' => 'float',
+        'equity' => 'float',
+        'fo_settlement' => 'float'
     ];
 
     /**

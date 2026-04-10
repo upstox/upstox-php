@@ -15,6 +15,8 @@ use Upstox\Client\Api\WebsocketApi;
 use Upstox\Client\Model\PlaceOrderRequest;
 use Upstox\Client\Model\ModifyOrderRequest;
 use Upstox\Client\Model\ConvertPositionRequest;
+use Upstox\Client\Model\UpdateUserIpRequest;
+use Upstox\Client\Model\KillSwitchSegmentUpdateRequest;
 
 function login_and_authorize($api_version, $configuration, $client_id, $client_secret, $redirect_uri, $auth_code)
 {
@@ -56,6 +58,62 @@ function get_funds_and_margin($api_version, $configuration)
         $configuration
     );
     $api_response = $api_instance->getUserFundMargin($api_version);
+    return $api_response;
+}
+
+function get_user_fund_margin_v3($configuration)
+{
+    $api_instance = new UserApi(
+        new GuzzleHttp\Client(),
+        $configuration
+    );
+    $api_response = $api_instance->getUserFundMarginV3();
+    return $api_response;
+}
+
+function get_user_ips($configuration)
+{
+    $api_instance = new UserApi(
+        new GuzzleHttp\Client(),
+        $configuration
+    );
+    $api_response = $api_instance->getUserIps();
+    return $api_response;
+}
+
+function update_user_ip($configuration, $primary_ip, $secondary_ip)
+{
+    $api_instance = new UserApi(
+        new GuzzleHttp\Client(),
+        $configuration
+    );
+    $body = new UpdateUserIpRequest();
+    $body->setPrimaryIp($primary_ip);
+    $body->setSecondaryIp($secondary_ip);
+    $api_response = $api_instance->updateUserIp($body);
+    return $api_response;
+}
+
+function get_kill_switch($configuration)
+{
+    $api_instance = new UserApi(
+        new GuzzleHttp\Client(),
+        $configuration
+    );
+    $api_response = $api_instance->getKillSwitch();
+    return $api_response;
+}
+
+function update_kill_switch($configuration, $segment, $action)
+{
+    $api_instance = new UserApi(
+        new GuzzleHttp\Client(),
+        $configuration
+    );
+    $body = new KillSwitchSegmentUpdateRequest();
+    $body->setSegment($segment);
+    $body->setAction($action);
+    $api_response = $api_instance->updateKillSwitch($body);
     return $api_response;
 }
 
@@ -340,6 +398,26 @@ function main()
     // Get funds and margin
     $funds_margin = get_funds_and_margin($api_version, $configuration);
     print_r($funds_margin);
+
+    // Get funds and margin v3
+    $user_fund_margin_v3 = get_user_fund_margin_v3($configuration);
+    print_r($user_fund_margin_v3);
+
+    // Get user IPs
+    $user_ips = get_user_ips($configuration);
+    print_r($user_ips);
+
+    // Update user IP
+    $updated_ip = update_user_ip($configuration, "192.168.1.1", "192.168.1.2");
+    print_r($updated_ip);
+
+    // Get kill switch status
+    $kill_switch = get_kill_switch($configuration);
+    print_r($kill_switch);
+
+    // Update kill switch
+    $updated_kill_switch = update_kill_switch($configuration, "EQ", "activate");
+    print_r($updated_kill_switch);
 
     // Get positions
     $positions = get_positions($api_version, $configuration);

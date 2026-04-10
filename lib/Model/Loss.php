@@ -56,9 +56,9 @@ class Loss implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'total' => '',
-        'realised' => '',
-        'unrealised' => ''
+        'total' => 'float',
+        'realised' => 'float',
+        'unrealised' => 'float'
     ];
 
     /**

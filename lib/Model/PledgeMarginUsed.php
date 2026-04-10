@@ -56,11 +56,11 @@ class PledgeMarginUsed implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'total' => '',
-        'mtf' => '',
-        'span_exposure' => '',
-        'cash_margin_var_elm' => '',
-        'premium_present' => '',
+        'total' => 'float',
+        'mtf' => 'float',
+        'span_exposure' => 'float',
+        'cash_margin_var_elm' => 'float',
+        'premium_present' => 'float',
         'delivery_margin' => '\Upstox\Client\Model\DeliveryMargin'
     ];
 

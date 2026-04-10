@@ -56,9 +56,9 @@ class KillSwitchSegmentData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'segment' => '',
-        'segment_status' => '',
-        'kill_switch_enabled' => ''
+        'segment' => 'string',
+        'segment_status' => 'string',
+        'kill_switch_enabled' => 'string'
     ];
 
     /**

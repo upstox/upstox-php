@@ -56,8 +56,8 @@ class PledgeUnavailableToTrade implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'equity' => '',
-        'mutual_funds' => ''
+        'equity' => 'float',
+        'mutual_funds' => 'float'
     ];
 
     /**

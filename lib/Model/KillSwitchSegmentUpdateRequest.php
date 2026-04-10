@@ -56,8 +56,8 @@ class KillSwitchSegmentUpdateRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'segment' => '',
-        'action' => ''
+        'segment' => 'string',
+        'action' => 'string'
     ];
 
     /**

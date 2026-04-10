@@ -56,12 +56,12 @@ class CashMarginUsed implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'total' => '',
-        'mtf' => '',
+        'total' => 'float',
+        'mtf' => 'float',
         'loss' => '\Upstox\Client\Model\Loss',
-        'span_exposure' => '',
-        'cash_margin_var_elm' => '',
-        'premium_present' => '',
+        'span_exposure' => 'float',
+        'cash_margin_var_elm' => 'float',
+        'premium_present' => 'float',
         'delivery_margin' => '\Upstox\Client\Model\DeliveryMargin'
     ];
 

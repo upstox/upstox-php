@@ -56,11 +56,11 @@ class UserIpResponseData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'primary_ip' => '',
-        'secondary_ip' => '',
-        'primary_ip_updated_at' => '',
-        'secondary_ip_updated_at' => '',
-        'access_tokens_invalidated' => ''
+        'primary_ip' => 'string',
+        'secondary_ip' => 'string',
+        'primary_ip_updated_at' => 'string',
+        'secondary_ip_updated_at' => 'string',
+        'access_tokens_invalidated' => 'string'
     ];
 
     /**

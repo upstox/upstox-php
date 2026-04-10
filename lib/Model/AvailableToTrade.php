@@ -56,7 +56,7 @@ class AvailableToTrade implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'total' => '',
+        'total' => 'float',
         'cash_available_to_trade' => '\Upstox\Client\Model\CashAvailableToTrade',
         'pledge_available_to_trade' => '\Upstox\Client\Model\PledgeAvailableToTrade'
     ];

@@ -56,8 +56,8 @@ class UpdateUserIpRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'primary_ip' => '',
-        'secondary_ip' => ''
+        'primary_ip' => 'string',
+        'secondary_ip' => 'string'
     ];
 
     /**
