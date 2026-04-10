@@ -37,7 +37,7 @@ $apiInstance = new Upstox\Client\Api\UserApi(
 );
 
 $body = new \Upstox\Client\Model\UpdateUserIpRequest();
-$body->setPrimaryIp('127.0.0.1');
+$body->setPrimaryIp('1.2.3.4');
 
 try {
     $result = $apiInstance->updateUserIp($body);
