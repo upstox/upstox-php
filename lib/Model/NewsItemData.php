@@ -60,7 +60,7 @@ class NewsItemData implements ModelInterface, ArrayAccess
         'summary' => 'string',
         'thumbnail' => 'string',
         'article_link' => 'string',
-        'published_time' => 'string'
+        'published_time' => 'int'
     ];
 
     /**
