@@ -56,11 +56,11 @@ class NewsItemData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'heading' => '',
-        'summary' => '',
-        'thumbnail' => '',
-        'article_link' => '',
-        'published_time' => ''
+        'heading' => 'string',
+        'summary' => 'string',
+        'thumbnail' => 'string',
+        'article_link' => 'string',
+        'published_time' => 'string'
     ];
 
     /**

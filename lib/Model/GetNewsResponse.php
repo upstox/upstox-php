@@ -56,8 +56,8 @@ class GetNewsResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'status' => '',
-        'data' => '',
+        'status' => 'string',
+        'data' => '\Upstox\Client\Model\NewsItemData[]',
         'metadata' => '\Upstox\Client\Model\NewsResponseMetaData'
     ];
 

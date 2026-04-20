@@ -56,10 +56,10 @@ class NewsResponsePageData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'page_number' => '',
-        'page_size' => '',
-        'total_records' => '',
-        'total_pages' => ''
+        'page_number' => 'int',
+        'page_size' => 'int',
+        'total_records' => 'int',
+        'total_pages' => 'int'
     ];
 
     /**
