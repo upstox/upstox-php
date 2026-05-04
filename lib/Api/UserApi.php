@@ -968,14 +968,15 @@ class UserApi
      *
      * Get profile
      *
+     * @param  string $api_version API Version Header (required)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\GetProfileResponse
      */
-    public function getProfile()
+    public function getProfile($api_version)
     {
-        list($response) = $this->getProfileWithHttpInfo();
+        list($response) = $this->getProfileWithHttpInfo($api_version);
         return $response;
     }
 
@@ -984,15 +985,16 @@ class UserApi
      *
      * Get profile
      *
+     * @param  string $api_version API Version Header (required)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\GetProfileResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getProfileWithHttpInfo()
+    public function getProfileWithHttpInfo($api_version)
     {
         $returnType = '\Upstox\Client\Model\GetProfileResponse';
-        $request = $this->getProfileRequest();
+        $request = $this->getProfileRequest($api_version);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1106,13 +1108,14 @@ class UserApi
      *
      * Get profile
      *
+     * @param  string $api_version API Version Header (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getProfileAsync()
+    public function getProfileAsync($api_version)
     {
-        return $this->getProfileAsyncWithHttpInfo()
+        return $this->getProfileAsyncWithHttpInfo($api_version)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1125,14 +1128,15 @@ class UserApi
      *
      * Get profile
      *
+     * @param  string $api_version API Version Header (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getProfileAsyncWithHttpInfo()
+    public function getProfileAsyncWithHttpInfo($api_version)
     {
         $returnType = '\Upstox\Client\Model\GetProfileResponse';
-        $request = $this->getProfileRequest();
+        $request = $this->getProfileRequest($api_version);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1174,12 +1178,19 @@ class UserApi
     /**
      * Create request for operation 'getProfile'
      *
+     * @param  string $api_version API Version Header (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getProfileRequest()
+    protected function getProfileRequest($api_version)
     {
+        // verify the required parameter 'api_version' is set
+        if ($api_version === null || (is_array($api_version) && count($api_version) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $api_version when calling getProfile'
+            );
+        }
 
         $resourcePath = '/v2/user/profile';
         $formParams = [];
@@ -1188,7 +1199,10 @@ class UserApi
         $httpBody = '';
         $multipart = false;
 
-
+        // header params
+        if ($api_version !== null) {
+            $headerParams['Api-Version'] = ObjectSerializer::toHeaderValue($api_version);
+        }
 
         // body params
         $_tempBody = null;
@@ -1263,15 +1277,16 @@ class UserApi
      *
      * Get User Fund And Margin
      *
-     * @param   $segment segment (optional)
+     * @param  string $api_version API Version Header (required)
+     * @param  string $segment (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\GetUserFundMarginResponse
      */
-    public function getUserFundMargin($segment = null)
+    public function getUserFundMargin($api_version, $segment = null)
     {
-        list($response) = $this->getUserFundMarginWithHttpInfo($segment);
+        list($response) = $this->getUserFundMarginWithHttpInfo($api_version, $segment);
         return $response;
     }
 
@@ -1280,16 +1295,17 @@ class UserApi
      *
      * Get User Fund And Margin
      *
-     * @param   $segment (optional)
+     * @param  string $api_version API Version Header (required)
+     * @param  string $segment (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\GetUserFundMarginResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getUserFundMarginWithHttpInfo($segment = null)
+    public function getUserFundMarginWithHttpInfo($api_version, $segment = null)
     {
         $returnType = '\Upstox\Client\Model\GetUserFundMarginResponse';
-        $request = $this->getUserFundMarginRequest($segment);
+        $request = $this->getUserFundMarginRequest($api_version, $segment);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1403,14 +1419,15 @@ class UserApi
      *
      * Get User Fund And Margin
      *
-     * @param   $segment (optional)
+     * @param  string $api_version API Version Header (required)
+     * @param  string $segment (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserFundMarginAsync($segment = null)
+    public function getUserFundMarginAsync($api_version, $segment = null)
     {
-        return $this->getUserFundMarginAsyncWithHttpInfo($segment)
+        return $this->getUserFundMarginAsyncWithHttpInfo($api_version, $segment)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1423,15 +1440,16 @@ class UserApi
      *
      * Get User Fund And Margin
      *
-     * @param   $segment (optional)
+     * @param  string $api_version API Version Header (required)
+     * @param  string $segment (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserFundMarginAsyncWithHttpInfo($segment = null)
+    public function getUserFundMarginAsyncWithHttpInfo($api_version, $segment = null)
     {
         $returnType = '\Upstox\Client\Model\GetUserFundMarginResponse';
-        $request = $this->getUserFundMarginRequest($segment);
+        $request = $this->getUserFundMarginRequest($api_version, $segment);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1473,13 +1491,20 @@ class UserApi
     /**
      * Create request for operation 'getUserFundMargin'
      *
-     * @param   $segment (optional)
+     * @param  string $api_version API Version Header (required)
+     * @param  string $segment (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getUserFundMarginRequest($segment = null)
+    protected function getUserFundMarginRequest($api_version, $segment = null)
     {
+        // verify the required parameter 'api_version' is set
+        if ($api_version === null || (is_array($api_version) && count($api_version) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $api_version when calling getUserFundMargin'
+            );
+        }
 
         $resourcePath = '/v2/user/get-funds-and-margin';
         $formParams = [];
@@ -1492,7 +1517,10 @@ class UserApi
         if ($segment !== null) {
             $queryParams['segment'] = ObjectSerializer::toQueryValue($segment, null);
         }
-
+        // header params
+        if ($api_version !== null) {
+            $headerParams['Api-Version'] = ObjectSerializer::toHeaderValue($api_version);
+        }
 
         // body params
         $_tempBody = null;
@@ -1567,14 +1595,15 @@ class UserApi
      *
      * Get User Fund And Margin
      *
+     * @param  string $api_version API Version Header (required)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\GetUserFundMarginV3Response
      */
-    public function getUserFundMarginV3()
+    public function getUserFundMarginV3($api_version)
     {
-        list($response) = $this->getUserFundMarginV3WithHttpInfo();
+        list($response) = $this->getUserFundMarginV3WithHttpInfo($api_version);
         return $response;
     }
 
@@ -1583,15 +1612,16 @@ class UserApi
      *
      * Get User Fund And Margin
      *
+     * @param  string $api_version API Version Header (required)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\GetUserFundMarginV3Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getUserFundMarginV3WithHttpInfo()
+    public function getUserFundMarginV3WithHttpInfo($api_version)
     {
         $returnType = '\Upstox\Client\Model\GetUserFundMarginV3Response';
-        $request = $this->getUserFundMarginV3Request();
+        $request = $this->getUserFundMarginV3Request($api_version);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1705,13 +1735,14 @@ class UserApi
      *
      * Get User Fund And Margin
      *
+     * @param  string $api_version API Version Header (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserFundMarginV3Async()
+    public function getUserFundMarginV3Async($api_version)
     {
-        return $this->getUserFundMarginV3AsyncWithHttpInfo()
+        return $this->getUserFundMarginV3AsyncWithHttpInfo($api_version)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1724,14 +1755,15 @@ class UserApi
      *
      * Get User Fund And Margin
      *
+     * @param  string $api_version API Version Header (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserFundMarginV3AsyncWithHttpInfo()
+    public function getUserFundMarginV3AsyncWithHttpInfo($api_version)
     {
         $returnType = '\Upstox\Client\Model\GetUserFundMarginV3Response';
-        $request = $this->getUserFundMarginV3Request();
+        $request = $this->getUserFundMarginV3Request($api_version);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1773,12 +1805,19 @@ class UserApi
     /**
      * Create request for operation 'getUserFundMarginV3'
      *
+     * @param  string $api_version API Version Header (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getUserFundMarginV3Request()
+    protected function getUserFundMarginV3Request($api_version)
     {
+        // verify the required parameter 'api_version' is set
+        if ($api_version === null || (is_array($api_version) && count($api_version) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $api_version when calling getUserFundMarginV3'
+            );
+        }
 
         $resourcePath = '/v3/user/get-funds-and-margin';
         $formParams = [];
@@ -1787,7 +1826,10 @@ class UserApi
         $httpBody = '';
         $multipart = false;
 
-
+        // header params
+        if ($api_version !== null) {
+            $headerParams['Api-Version'] = ObjectSerializer::toHeaderValue($api_version);
+        }
 
         // body params
         $_tempBody = null;
