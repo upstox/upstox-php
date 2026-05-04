@@ -1232,4 +1232,50 @@ echo "\n🏁 Algo name tests completed!\n";
 echo "========================================================================\n\n";
 
 
+// ============================================
+// PAYMENTS API TESTS
+// ============================================
+
+$userApiInstance = new Upstox\Client\Api\UserApi(
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $userApiInstance->getPayinHistory();
+    if ($result->getStatus() != "success") {
+        print_r("error in getPayinHistory API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling UserApi->getPayinHistory: ' . $e->getMessage() . PHP_EOL;
+}
+
+try {
+    $result = $userApiInstance->getPayoutHistory();
+    if ($result->getStatus() != "success") {
+        print_r("error in getPayoutHistory API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling UserApi->getPayoutHistory: ' . $e->getMessage() . PHP_EOL;
+}
+
+// Model smoke checks
+$paymentHistoryData = new Upstox\Client\Model\PaymentHistoryData();
+$paymentHistoryData->setAmount(5000.0);
+$paymentHistoryData->setMode('UPI');
+$paymentHistoryData->setStatus('SUCCESS');
+$paymentHistoryData->setBankName('HDFC');
+$paymentHistoryData->setTransactionId('TXN12345');
+$paymentHistoryData->setTotalCharges(0.0);
+if ($paymentHistoryData->getAmount() != 5000.0) {
+    print_r("error: PaymentHistoryData amount not set correctly");
+}
+
+$paymentHistoryResponse = new Upstox\Client\Model\PaymentHistoryResponse();
+$paymentHistoryResponse->setStatus('success');
+$paymentHistoryResponse->setData(array($paymentHistoryData));
+if ($paymentHistoryResponse->getStatus() != 'success') {
+    print_r("error: PaymentHistoryResponse status not set correctly");
+}
+
 ?>
