@@ -90,4 +90,24 @@ class UserApiTest extends TestCase
     public function testGetUserFundMargin()
     {
     }
+
+    /**
+     * Test case for getPayinHistory
+     *
+     * Get Payin History.
+     *
+     */
+    public function testGetPayinHistory()
+    {
+    }
+
+    /**
+     * Test case for getPayoutHistory
+     *
+     * Get Payout History.
+     *
+     */
+    public function testGetPayoutHistory()
+    {
+    }
 }
