@@ -41,6 +41,8 @@ Samples are grouped by API area. Each `.md` file contains one or more PHP snippe
 | [**mutual-funds-api/**](mutual-funds-api/) | Mutual fund holdings, orders, order details, and SIPs. |
 | [**payments-api/**](payments-api/) | Payin (deposit) and payout (withdrawal) history. |
 | [**strategies/**](strategies/) | Ready-to-run options strategy examples for Nifty 50 (bullish, bearish, neutral, others). |
+| [**fundamentals/**](fundamentals/) | Company financials: balance sheet, cash flow, income statement, company profile, competitors, corporate actions, key ratios, share holdings. |
+| [**market-analytics/**](market-analytics/) | Market analytics: change in OI, DII data, FII data, max pain, OI data, PCR data. |
 
 ### Options Strategies
 
