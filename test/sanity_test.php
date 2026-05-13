@@ -564,6 +564,128 @@ function main()
     // Get market data feed authorize
     $market_data_feed_authorize = get_market_data_feed_authorize($api_version, $configuration);
     print_r($market_data_feed_authorize);
+
+    // FundamentalsApi
+    $fundamentals_api = new \Upstox\Client\Api\FundamentalsApi(new GuzzleHttp\Client(), $configuration);
+    $isin = 'INE002A01018'; // Reliance Industries
+
+    try {
+        $result = $fundamentals_api->getCompanyProfile($isin);
+        if ($result->getStatus() != "success") print_r("error in getCompanyProfile\n");
+        else print_r("getCompanyProfile => OK\n");
+    } catch (\Upstox\Client\ApiException $e) {
+        print("Exception FundamentalsApi->getCompanyProfile: " . $e->getMessage() . "\n");
+    }
+
+    try {
+        $result = $fundamentals_api->getBalanceSheet($isin, 'consolidated', false);
+        if ($result->getStatus() != "success") print_r("error in getBalanceSheet\n");
+        else print_r("getBalanceSheet => OK\n");
+    } catch (\Upstox\Client\ApiException $e) {
+        print("Exception FundamentalsApi->getBalanceSheet: " . $e->getMessage() . "\n");
+    }
+
+    try {
+        $result = $fundamentals_api->getCashFlow($isin, 'consolidated', false);
+        if ($result->getStatus() != "success") print_r("error in getCashFlow\n");
+        else print_r("getCashFlow => OK\n");
+    } catch (\Upstox\Client\ApiException $e) {
+        print("Exception FundamentalsApi->getCashFlow: " . $e->getMessage() . "\n");
+    }
+
+    try {
+        $result = $fundamentals_api->getIncomeStatement($isin, 'consolidated', 'annual', false);
+        if ($result->getStatus() != "success") print_r("error in getIncomeStatement\n");
+        else print_r("getIncomeStatement => OK\n");
+    } catch (\Upstox\Client\ApiException $e) {
+        print("Exception FundamentalsApi->getIncomeStatement: " . $e->getMessage() . "\n");
+    }
+
+    try {
+        $result = $fundamentals_api->getKeyRatios($isin);
+        if ($result->getStatus() != "success") print_r("error in getKeyRatios\n");
+        else print_r("getKeyRatios => OK\n");
+    } catch (\Upstox\Client\ApiException $e) {
+        print("Exception FundamentalsApi->getKeyRatios: " . $e->getMessage() . "\n");
+    }
+
+    try {
+        $result = $fundamentals_api->getShareHoldings($isin);
+        if ($result->getStatus() != "success") print_r("error in getShareHoldings\n");
+        else print_r("getShareHoldings => OK\n");
+    } catch (\Upstox\Client\ApiException $e) {
+        print("Exception FundamentalsApi->getShareHoldings: " . $e->getMessage() . "\n");
+    }
+
+    try {
+        $result = $fundamentals_api->getCorporateActions($isin);
+        if ($result->getStatus() != "success") print_r("error in getCorporateActions\n");
+        else print_r("getCorporateActions => OK\n");
+    } catch (\Upstox\Client\ApiException $e) {
+        print("Exception FundamentalsApi->getCorporateActions: " . $e->getMessage() . "\n");
+    }
+
+    try {
+        $result = $fundamentals_api->getCompetitors('NSE_EQ|INE002A01018');
+        if ($result->getStatus() != "success") print_r("error in getCompetitors\n");
+        else print_r("getCompetitors => OK\n");
+    } catch (\Upstox\Client\ApiException $e) {
+        print("Exception FundamentalsApi->getCompetitors: " . $e->getMessage() . "\n");
+    }
+
+    // MarketApi
+    $market_api = new \Upstox\Client\Api\MarketApi(new GuzzleHttp\Client(), $configuration);
+    $mkt_instrument_key = 'NSE_INDEX|Nifty 50';
+    $mkt_expiry = '2025-06-26';
+    $mkt_date = '2025-06-12';
+
+    try {
+        $result = $market_api->getOiData($mkt_instrument_key, $mkt_expiry, $mkt_date);
+        if ($result->getStatus() != "success") print_r("error in getOiData\n");
+        else print_r("getOiData => OK\n");
+    } catch (\Upstox\Client\ApiException $e) {
+        print("Exception MarketApi->getOiData: " . $e->getMessage() . "\n");
+    }
+
+    try {
+        $result = $market_api->getChangeOiData($mkt_instrument_key, $mkt_expiry, $mkt_date, 5);
+        if ($result->getStatus() != "success") print_r("error in getChangeOiData\n");
+        else print_r("getChangeOiData => OK\n");
+    } catch (\Upstox\Client\ApiException $e) {
+        print("Exception MarketApi->getChangeOiData: " . $e->getMessage() . "\n");
+    }
+
+    try {
+        $result = $market_api->getPcrData($mkt_instrument_key, $mkt_expiry, $mkt_date, 30);
+        if ($result->getStatus() != "success") print_r("error in getPcrData\n");
+        else print_r("getPcrData => OK\n");
+    } catch (\Upstox\Client\ApiException $e) {
+        print("Exception MarketApi->getPcrData: " . $e->getMessage() . "\n");
+    }
+
+    try {
+        $result = $market_api->getMaxPainData($mkt_instrument_key, $mkt_expiry, $mkt_date, 30);
+        if ($result->getStatus() != "success") print_r("error in getMaxPainData\n");
+        else print_r("getMaxPainData => OK\n");
+    } catch (\Upstox\Client\ApiException $e) {
+        print("Exception MarketApi->getMaxPainData: " . $e->getMessage() . "\n");
+    }
+
+    try {
+        $result = $market_api->getFiiData('NSE_EQ|CASH', '1D');
+        if ($result->getStatus() != "success") print_r("error in getFiiData\n");
+        else print_r("getFiiData => OK\n");
+    } catch (\Upstox\Client\ApiException $e) {
+        print("Exception MarketApi->getFiiData: " . $e->getMessage() . "\n");
+    }
+
+    try {
+        $result = $market_api->getDiiData('NSE_EQ|CASH', '1D');
+        if ($result->getStatus() != "success") print_r("error in getDiiData\n");
+        else print_r("getDiiData => OK\n");
+    } catch (\Upstox\Client\ApiException $e) {
+        print("Exception MarketApi->getDiiData: " . $e->getMessage() . "\n");
+    }
 }
 
 main();
