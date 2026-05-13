@@ -33,7 +33,7 @@ Samples are grouped by API area. Each `.md` file contains one or more PHP snippe
 | [**historical-data/**](historical-data/) | Historical and intraday candle data (v2 & v3). |
 | [**option-chain/**](option-chain/) | Option contracts, put-call option chain. |
 | [**expired-instruments/**](expired-instruments/) | Expiries, expired future/option contracts, expired historical candle data. |
-| [**market-information/**](market-information/) | Exchange status, market timings, market holidays. |
+| [**market-information/**](market-information/) | Exchange status, market timings, market holidays, OI, change in OI, PCR, max pain, FII, and DII. |
 | [**gtt-orders/**](gtt-orders/) | Place, modify, cancel, and get details for GTT (Good Till Triggered) orders. |
 | [**margins/**](margins/) | Margin details. |
 | [**charges/**](charges/) | Brokerage details. |
@@ -42,7 +42,7 @@ Samples are grouped by API area. Each `.md` file contains one or more PHP snippe
 | [**payments-api/**](payments-api/) | Payin (deposit) and payout (withdrawal) history. |
 | [**strategies/**](strategies/) | Ready-to-run options strategy examples for Nifty 50 (bullish, bearish, neutral, others). |
 | [**fundamentals/**](fundamentals/) | Company financials: balance sheet, cash flow, income statement, company profile, competitors, corporate actions, key ratios, share holdings. |
-| [**market-analytics/**](market-analytics/) | Market analytics: change in OI, DII data, FII data, max pain, OI data, PCR data. |
+
 
 ### Options Strategies
 
