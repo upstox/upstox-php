@@ -2208,6 +2208,1006 @@ class MarketApi
     }
 
     /**
+     * Operation getSmartlistFutures
+     *
+     * Get Smartlist Futures
+     *
+     * @param   $asset_type Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param   $category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, PREMIUM, DISCOUNT (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param   $page_number Page number (optional, 1-indexed) (optional)
+     * @param   $page_size Page size (optional, max 50) (optional)
+     *
+     * @throws \Upstox\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Upstox\Client\Model\AnalyticsResponse
+     */
+    public function getSmartlistFutures($asset_type = null, $category = null, $page_number = null, $page_size = null)
+    {
+        list($response) = $this->getSmartlistFuturesWithHttpInfo($asset_type, $category, $page_number, $page_size);
+        return $response;
+    }
+
+    /**
+     * Operation getSmartlistFuturesWithHttpInfo
+     *
+     * Get Smartlist Futures
+     *
+     * @param   $asset_type Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param   $category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, PREMIUM, DISCOUNT (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param   $page_number Page number (optional, 1-indexed) (optional)
+     * @param   $page_size Page size (optional, max 50) (optional)
+     *
+     * @throws \Upstox\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Upstox\Client\Model\AnalyticsResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getSmartlistFuturesWithHttpInfo($asset_type = null, $category = null, $page_number = null, $page_size = null)
+    {
+        $returnType = '\Upstox\Client\Model\AnalyticsResponse';
+        $request = $this->getSmartlistFuturesRequest($asset_type, $category, $page_number, $page_size);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+                if (!in_array($returnType, ['string','integer','bool'])) {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 405:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 423:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\AnalyticsResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getSmartlistFuturesAsync
+     *
+     * Get Smartlist Futures
+     *
+     * @param   $asset_type Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param   $category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, PREMIUM, DISCOUNT (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param   $page_number Page number (optional, 1-indexed) (optional)
+     * @param   $page_size Page size (optional, max 50) (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSmartlistFuturesAsync($asset_type = null, $category = null, $page_number = null, $page_size = null)
+    {
+        return $this->getSmartlistFuturesAsyncWithHttpInfo($asset_type, $category, $page_number, $page_size)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getSmartlistFuturesAsyncWithHttpInfo
+     *
+     * Get Smartlist Futures
+     *
+     * @param   $asset_type Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param   $category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, PREMIUM, DISCOUNT (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param   $page_number Page number (optional, 1-indexed) (optional)
+     * @param   $page_size Page size (optional, max 50) (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSmartlistFuturesAsyncWithHttpInfo($asset_type = null, $category = null, $page_number = null, $page_size = null)
+    {
+        $returnType = '\Upstox\Client\Model\AnalyticsResponse';
+        $request = $this->getSmartlistFuturesRequest($asset_type, $category, $page_number, $page_size);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getSmartlistFutures'
+     *
+     * @param   $asset_type Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param   $category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, PREMIUM, DISCOUNT (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param   $page_number Page number (optional, 1-indexed) (optional)
+     * @param   $page_size Page size (optional, max 50) (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function getSmartlistFuturesRequest($asset_type = null, $category = null, $page_number = null, $page_size = null)
+    {
+
+        $resourcePath = '/v2/market/smartlist/futures';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        if ($asset_type !== null) {
+            $queryParams['asset_type'] = ObjectSerializer::toQueryValue($asset_type, null);
+        }
+        // query params
+        if ($category !== null) {
+            $queryParams['category'] = ObjectSerializer::toQueryValue($category, null);
+        }
+        // query params
+        if ($page_number !== null) {
+            $queryParams['page_number'] = ObjectSerializer::toQueryValue($page_number, 'int32');
+        }
+        // query params
+        if ($page_size !== null) {
+            $queryParams['page_size'] = ObjectSerializer::toQueryValue($page_size, 'int32');
+        }
+
+
+        // body params
+        $_tempBody = null;
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['*/*', 'application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['*/*', 'application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            $httpBody = $_tempBody;
+            // \stdClass has no __toString(), so we should encode it manually
+            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($httpBody);
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if ($this->config->getAccessToken() !== null) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getSmartlistMtf
+     *
+     * Get Smartlist MTF
+     *
+     * @param   $page_number Page number (optional, 1-indexed) (optional)
+     * @param   $page_size Page size (optional, max 50) (optional)
+     *
+     * @throws \Upstox\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Upstox\Client\Model\AnalyticsResponse
+     */
+    public function getSmartlistMtf($page_number = null, $page_size = null)
+    {
+        list($response) = $this->getSmartlistMtfWithHttpInfo($page_number, $page_size);
+        return $response;
+    }
+
+    /**
+     * Operation getSmartlistMtfWithHttpInfo
+     *
+     * Get Smartlist MTF
+     *
+     * @param   $page_number Page number (optional, 1-indexed) (optional)
+     * @param   $page_size Page size (optional, max 50) (optional)
+     *
+     * @throws \Upstox\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Upstox\Client\Model\AnalyticsResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getSmartlistMtfWithHttpInfo($page_number = null, $page_size = null)
+    {
+        $returnType = '\Upstox\Client\Model\AnalyticsResponse';
+        $request = $this->getSmartlistMtfRequest($page_number, $page_size);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+                if (!in_array($returnType, ['string','integer','bool'])) {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 405:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 423:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\AnalyticsResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getSmartlistMtfAsync
+     *
+     * Get Smartlist MTF
+     *
+     * @param   $page_number Page number (optional, 1-indexed) (optional)
+     * @param   $page_size Page size (optional, max 50) (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSmartlistMtfAsync($page_number = null, $page_size = null)
+    {
+        return $this->getSmartlistMtfAsyncWithHttpInfo($page_number, $page_size)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getSmartlistMtfAsyncWithHttpInfo
+     *
+     * Get Smartlist MTF
+     *
+     * @param   $page_number Page number (optional, 1-indexed) (optional)
+     * @param   $page_size Page size (optional, max 50) (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSmartlistMtfAsyncWithHttpInfo($page_number = null, $page_size = null)
+    {
+        $returnType = '\Upstox\Client\Model\AnalyticsResponse';
+        $request = $this->getSmartlistMtfRequest($page_number, $page_size);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getSmartlistMtf'
+     *
+     * @param   $page_number Page number (optional, 1-indexed) (optional)
+     * @param   $page_size Page size (optional, max 50) (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function getSmartlistMtfRequest($page_number = null, $page_size = null)
+    {
+
+        $resourcePath = '/v2/market/smartlist/mtf';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        if ($page_number !== null) {
+            $queryParams['page_number'] = ObjectSerializer::toQueryValue($page_number, 'int32');
+        }
+        // query params
+        if ($page_size !== null) {
+            $queryParams['page_size'] = ObjectSerializer::toQueryValue($page_size, 'int32');
+        }
+
+
+        // body params
+        $_tempBody = null;
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['*/*', 'application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['*/*', 'application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            $httpBody = $_tempBody;
+            // \stdClass has no __toString(), so we should encode it manually
+            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($httpBody);
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if ($this->config->getAccessToken() !== null) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getSmartlistOptions
+     *
+     * Get Smartlist Options
+     *
+     * @param   $asset_type Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param   $category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, IV_GAINERS, IV_LOSERS, UNDER_5000, UNDER_10000 (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param   $page_number Page number (optional, 1-indexed) (optional)
+     * @param   $page_size Page size (optional, max 50) (optional)
+     *
+     * @throws \Upstox\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Upstox\Client\Model\AnalyticsResponse
+     */
+    public function getSmartlistOptions($asset_type = null, $category = null, $page_number = null, $page_size = null)
+    {
+        list($response) = $this->getSmartlistOptionsWithHttpInfo($asset_type, $category, $page_number, $page_size);
+        return $response;
+    }
+
+    /**
+     * Operation getSmartlistOptionsWithHttpInfo
+     *
+     * Get Smartlist Options
+     *
+     * @param   $asset_type Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param   $category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, IV_GAINERS, IV_LOSERS, UNDER_5000, UNDER_10000 (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param   $page_number Page number (optional, 1-indexed) (optional)
+     * @param   $page_size Page size (optional, max 50) (optional)
+     *
+     * @throws \Upstox\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Upstox\Client\Model\AnalyticsResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getSmartlistOptionsWithHttpInfo($asset_type = null, $category = null, $page_number = null, $page_size = null)
+    {
+        $returnType = '\Upstox\Client\Model\AnalyticsResponse';
+        $request = $this->getSmartlistOptionsRequest($asset_type, $category, $page_number, $page_size);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+                if (!in_array($returnType, ['string','integer','bool'])) {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 405:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 423:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\AnalyticsResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getSmartlistOptionsAsync
+     *
+     * Get Smartlist Options
+     *
+     * @param   $asset_type Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param   $category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, IV_GAINERS, IV_LOSERS, UNDER_5000, UNDER_10000 (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param   $page_number Page number (optional, 1-indexed) (optional)
+     * @param   $page_size Page size (optional, max 50) (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSmartlistOptionsAsync($asset_type = null, $category = null, $page_number = null, $page_size = null)
+    {
+        return $this->getSmartlistOptionsAsyncWithHttpInfo($asset_type, $category, $page_number, $page_size)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getSmartlistOptionsAsyncWithHttpInfo
+     *
+     * Get Smartlist Options
+     *
+     * @param   $asset_type Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param   $category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, IV_GAINERS, IV_LOSERS, UNDER_5000, UNDER_10000 (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param   $page_number Page number (optional, 1-indexed) (optional)
+     * @param   $page_size Page size (optional, max 50) (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSmartlistOptionsAsyncWithHttpInfo($asset_type = null, $category = null, $page_number = null, $page_size = null)
+    {
+        $returnType = '\Upstox\Client\Model\AnalyticsResponse';
+        $request = $this->getSmartlistOptionsRequest($asset_type, $category, $page_number, $page_size);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getSmartlistOptions'
+     *
+     * @param   $asset_type Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param   $category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, IV_GAINERS, IV_LOSERS, UNDER_5000, UNDER_10000 (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param   $page_number Page number (optional, 1-indexed) (optional)
+     * @param   $page_size Page size (optional, max 50) (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function getSmartlistOptionsRequest($asset_type = null, $category = null, $page_number = null, $page_size = null)
+    {
+
+        $resourcePath = '/v2/market/smartlist/options';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        if ($asset_type !== null) {
+            $queryParams['asset_type'] = ObjectSerializer::toQueryValue($asset_type, null);
+        }
+        // query params
+        if ($category !== null) {
+            $queryParams['category'] = ObjectSerializer::toQueryValue($category, null);
+        }
+        // query params
+        if ($page_number !== null) {
+            $queryParams['page_number'] = ObjectSerializer::toQueryValue($page_number, 'int32');
+        }
+        // query params
+        if ($page_size !== null) {
+            $queryParams['page_size'] = ObjectSerializer::toQueryValue($page_size, 'int32');
+        }
+
+
+        // body params
+        $_tempBody = null;
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['*/*', 'application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['*/*', 'application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            $httpBody = $_tempBody;
+            // \stdClass has no __toString(), so we should encode it manually
+            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($httpBody);
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if ($this->config->getAccessToken() !== null) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+
+    /**
      * Create http client option
      *
      * @throws \RuntimeException on file opening failure
