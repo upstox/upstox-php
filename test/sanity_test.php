@@ -61,13 +61,13 @@ function get_funds_and_margin($api_version, $configuration)
     return $api_response;
 }
 
-function get_user_fund_margin_v3($configuration)
+function get_user_fund_margin_v3($api_version, $configuration)
 {
     $api_instance = new UserApi(
         new GuzzleHttp\Client(),
         $configuration
     );
-    $api_response = $api_instance->getUserFundMarginV3();
+    $api_response = $api_instance->getUserFundMarginV3($api_version);
     return $api_response;
 }
 
@@ -381,15 +381,15 @@ function main()
     $instrument_key = "NSE_EQ|INE848E01016";
 
     // Login and authorization
-    $access_token = login_and_authorize(
-        $api_version,
-        $configuration,
-        $client_id,
-        $client_secret,
-        $redirect_uri,
-        $auth_code
-    );
-    $configuration->setAccessToken($access_token);
+    // $access_token = login_and_authorize(
+    //     $api_version,
+    //     $configuration,
+    //     $client_id,
+    //     $client_secret,
+    //     $redirect_uri,
+    //     $auth_code
+    // );
+    $configuration->setAccessToken("eyJ0eXAiOiJKV1QiLCJrZXlfaWQiOiJza192MS4wIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiI4NTg2NDQiLCJqdGkiOiI2YTNkNGU5ZTNkZmE2NTYzZTA2NzI4YzkiLCJpc011bHRpQ2xpZW50IjpmYWxzZSwiaXNQbHVzUGxhbiI6ZmFsc2UsImlhdCI6MTc4MjQwMjcxOCwiaXNzIjoidWRhcGktZ2F0ZXdheS1zZXJ2aWNlIiwiZXhwIjoxNzgyNDI0ODAwfQ.GtLS1vihqCxrKKu4AdrRvtFoRDGwDQaRLBSWrwKJVRA");
 
     // Get user profile
     $profile = get_profile($api_version, $configuration);
@@ -400,7 +400,7 @@ function main()
     print_r($funds_margin);
 
     // Get funds and margin v3
-    $user_fund_margin_v3 = get_user_fund_margin_v3($configuration);
+    $user_fund_margin_v3 = get_user_fund_margin_v3($api_version, $configuration);
     print_r($user_fund_margin_v3);
 
     // Get user IPs
@@ -690,21 +690,24 @@ function main()
     // Smartlist APIs (MarketApi)
     try {
         $result = $market_api->getSmartlistFutures('STOCK', 'TOP_TRADED', 1, 20);
-        print_r("getSmartlistFutures => OK\n");
+        if ($result->getStatus() != "success") print_r("error in getSmartlistFutures\n");
+        else print_r("getSmartlistFutures => OK\n");
     } catch (\Upstox\Client\ApiException $e) {
         print("Exception MarketApi->getSmartlistFutures: " . $e->getMessage() . "\n");
     }
 
     try {
         $result = $market_api->getSmartlistMtf(1, 20);
-        print_r("getSmartlistMtf => OK\n");
+        if ($result->getStatus() != "success") print_r("error in getSmartlistMtf\n");
+        else print_r("getSmartlistMtf => OK\n");
     } catch (\Upstox\Client\ApiException $e) {
         print("Exception MarketApi->getSmartlistMtf: " . $e->getMessage() . "\n");
     }
 
     try {
         $result = $market_api->getSmartlistOptions('STOCK', 'TOP_TRADED', 1, 20);
-        print_r("getSmartlistOptions => OK\n");
+        if ($result->getStatus() != "success") print_r("error in getSmartlistOptions\n");
+        else print_r("getSmartlistOptions => OK\n");
     } catch (\Upstox\Client\ApiException $e) {
         print("Exception MarketApi->getSmartlistOptions: " . $e->getMessage() . "\n");
     }
@@ -714,14 +717,16 @@ function main()
     $ipo_slug = "<IPO_SLUG_ID>";
     try {
         $result = $ipo_api->getIpoListing('open', null, 1, 20);
-        print_r("getIpoListing => OK\n");
+        if ($result->getStatus() != "success") print_r("error in getIpoListing\n");
+        else print_r("getIpoListing => OK\n");
     } catch (\Upstox\Client\ApiException $e) {
         print("Exception IPOApi->getIpoListing: " . $e->getMessage() . "\n");
     }
 
     try {
         $result = $ipo_api->getIpoDetails($ipo_slug);
-        print_r("getIpoDetails => OK\n");
+        if ($result->getStatus() != "success") print_r("error in getIpoDetails\n");
+        else print_r("getIpoDetails => OK\n");
     } catch (\Upstox\Client\ApiException $e) {
         print("Exception IPOApi->getIpoDetails: " . $e->getMessage() . "\n");
     }
@@ -731,7 +736,8 @@ function main()
     $payout_transaction_id = "<PAYOUT_TRANSACTION_ID>";
     try {
         $result = $payout_user_api->getPayoutModes();
-        print_r("getPayoutModes => OK\n");
+        if ($result->getStatus() != "success") print_r("error in getPayoutModes\n");
+        else print_r("getPayoutModes => OK\n");
     } catch (\Upstox\Client\ApiException $e) {
         print("Exception UserApi->getPayoutModes: " . $e->getMessage() . "\n");
     }
@@ -741,7 +747,8 @@ function main()
         $initiate_payout_request->setMode('NEFT');
         $initiate_payout_request->setAmount(1000);
         $result = $payout_user_api->initiatePayout($initiate_payout_request);
-        print_r("initiatePayout => OK\n");
+        if ($result->getStatus() != "success") print_r("error in initiatePayout\n");
+        else print_r("initiatePayout => OK\n");
     } catch (\Upstox\Client\ApiException $e) {
         print("Exception UserApi->initiatePayout: " . $e->getMessage() . "\n");
     }
@@ -750,28 +757,32 @@ function main()
         $modify_payout_request = new \Upstox\Client\Model\ModifyPayoutRequest();
         $modify_payout_request->setAmount(2000);
         $result = $payout_user_api->modifyPayout($modify_payout_request, $payout_transaction_id);
-        print_r("modifyPayout => OK\n");
+        if ($result->getStatus() != "success") print_r("error in modifyPayout\n");
+        else print_r("modifyPayout => OK\n");
     } catch (\Upstox\Client\ApiException $e) {
         print("Exception UserApi->modifyPayout: " . $e->getMessage() . "\n");
     }
 
     try {
         $result = $payout_user_api->cancelPayout($payout_transaction_id);
-        print_r("cancelPayout => OK\n");
+        if ($result->getStatus() != "success") print_r("error in cancelPayout\n");
+        else print_r("cancelPayout => OK\n");
     } catch (\Upstox\Client\ApiException $e) {
         print("Exception UserApi->cancelPayout: " . $e->getMessage() . "\n");
     }
 
     try {
         $result = $payout_user_api->getPayoutHistory();
-        print_r("getPayoutHistory => OK\n");
+        if ($result->getStatus() != "success") print_r("error in getPayoutHistory\n");
+        else print_r("getPayoutHistory => OK\n");
     } catch (\Upstox\Client\ApiException $e) {
         print("Exception UserApi->getPayoutHistory: " . $e->getMessage() . "\n");
     }
 
     try {
         $result = $payout_user_api->getPayinHistory();
-        print_r("getPayinHistory => OK\n");
+        if ($result->getStatus() != "success") print_r("error in getPayinHistory\n");
+        else print_r("getPayinHistory => OK\n");
     } catch (\Upstox\Client\ApiException $e) {
         print("Exception UserApi->getPayinHistory: " . $e->getMessage() . "\n");
     }
