@@ -761,6 +761,20 @@ function main()
     } catch (\Upstox\Client\ApiException $e) {
         print("Exception UserApi->cancelPayout: " . $e->getMessage() . "\n");
     }
+
+    try {
+        $result = $payout_user_api->getPayoutHistory();
+        print_r("getPayoutHistory => OK\n");
+    } catch (\Upstox\Client\ApiException $e) {
+        print("Exception UserApi->getPayoutHistory: " . $e->getMessage() . "\n");
+    }
+
+    try {
+        $result = $payout_user_api->getPayinHistory();
+        print_r("getPayinHistory => OK\n");
+    } catch (\Upstox\Client\ApiException $e) {
+        print("Exception UserApi->getPayinHistory: " . $e->getMessage() . "\n");
+    }
 }
 
 main();
