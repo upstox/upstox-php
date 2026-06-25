@@ -1,6 +1,6 @@
 <?php
 /**
- * PaymentHistoryData
+ * IpoListingData
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Upstox\Client\ObjectSerializer;
 
 /**
- * PaymentHistoryData Class Doc Comment
+ * IpoListingData Class Doc Comment
  *
  * @category Class
  * @package  Upstox\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class PaymentHistoryData implements ModelInterface, ArrayAccess
+class IpoListingData implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PaymentHistoryData';
+    protected static $swaggerModelName = 'IpoListingData';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,18 +56,19 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'amount' => 'float',
-        'mode' => 'string',
+        'id' => 'string',
+        'symbol' => 'string',
+        'name' => 'string',
         'status' => 'string',
-        'reason' => 'string',
-        'currency' => 'string',
-        'eta' => 'string',
-        'last_updated_at' => 'string',
-        'bank_name' => 'string',
-        'transaction_id' => 'string',
-        'total_charges' => 'float',
-        'charges_category' => 'string',
-        'created_at' => 'string'
+        'isin' => 'string',
+        'issue_type' => 'string',
+        'issue_size' => 'float',
+        'industry' => 'string',
+        'minimum_price' => 'float',
+        'maximum_price' => 'float',
+        'bidding_start_date' => 'string',
+        'bidding_end_date' => 'string',
+        'total_subscription' => 'object'
     ];
 
     /**
@@ -76,18 +77,19 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'amount' => 'double',
-        'mode' => null,
+        'id' => null,
+        'symbol' => null,
+        'name' => null,
         'status' => null,
-        'reason' => null,
-        'currency' => null,
-        'eta' => null,
-        'last_updated_at' => null,
-        'bank_name' => null,
-        'transaction_id' => null,
-        'total_charges' => 'double',
-        'charges_category' => null,
-        'created_at' => null
+        'isin' => null,
+        'issue_type' => null,
+        'issue_size' => 'double',
+        'industry' => null,
+        'minimum_price' => 'double',
+        'maximum_price' => 'double',
+        'bidding_start_date' => null,
+        'bidding_end_date' => null,
+        'total_subscription' => null
     ];
 
     /**
@@ -117,18 +119,19 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'amount' => 'amount',
-        'mode' => 'mode',
+        'id' => 'id',
+        'symbol' => 'symbol',
+        'name' => 'name',
         'status' => 'status',
-        'reason' => 'reason',
-        'currency' => 'currency',
-        'eta' => 'eta',
-        'last_updated_at' => 'last_updated_at',
-        'bank_name' => 'bank_name',
-        'transaction_id' => 'transaction_id',
-        'total_charges' => 'total_charges',
-        'charges_category' => 'charges_category',
-        'created_at' => 'created_at'
+        'isin' => 'isin',
+        'issue_type' => 'issue_type',
+        'issue_size' => 'issue_size',
+        'industry' => 'industry',
+        'minimum_price' => 'minimum_price',
+        'maximum_price' => 'maximum_price',
+        'bidding_start_date' => 'bidding_start_date',
+        'bidding_end_date' => 'bidding_end_date',
+        'total_subscription' => 'total_subscription'
     ];
 
     /**
@@ -137,18 +140,19 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'amount' => 'setAmount',
-        'mode' => 'setMode',
+        'id' => 'setId',
+        'symbol' => 'setSymbol',
+        'name' => 'setName',
         'status' => 'setStatus',
-        'reason' => 'setReason',
-        'currency' => 'setCurrency',
-        'eta' => 'setEta',
-        'last_updated_at' => 'setLastUpdatedAt',
-        'bank_name' => 'setBankName',
-        'transaction_id' => 'setTransactionId',
-        'total_charges' => 'setTotalCharges',
-        'charges_category' => 'setChargesCategory',
-        'created_at' => 'setCreatedAt'
+        'isin' => 'setIsin',
+        'issue_type' => 'setIssueType',
+        'issue_size' => 'setIssueSize',
+        'industry' => 'setIndustry',
+        'minimum_price' => 'setMinimumPrice',
+        'maximum_price' => 'setMaximumPrice',
+        'bidding_start_date' => 'setBiddingStartDate',
+        'bidding_end_date' => 'setBiddingEndDate',
+        'total_subscription' => 'setTotalSubscription'
     ];
 
     /**
@@ -157,18 +161,19 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'amount' => 'getAmount',
-        'mode' => 'getMode',
+        'id' => 'getId',
+        'symbol' => 'getSymbol',
+        'name' => 'getName',
         'status' => 'getStatus',
-        'reason' => 'getReason',
-        'currency' => 'getCurrency',
-        'eta' => 'getEta',
-        'last_updated_at' => 'getLastUpdatedAt',
-        'bank_name' => 'getBankName',
-        'transaction_id' => 'getTransactionId',
-        'total_charges' => 'getTotalCharges',
-        'charges_category' => 'getChargesCategory',
-        'created_at' => 'getCreatedAt'
+        'isin' => 'getIsin',
+        'issue_type' => 'getIssueType',
+        'issue_size' => 'getIssueSize',
+        'industry' => 'getIndustry',
+        'minimum_price' => 'getMinimumPrice',
+        'maximum_price' => 'getMaximumPrice',
+        'bidding_start_date' => 'getBiddingStartDate',
+        'bidding_end_date' => 'getBiddingEndDate',
+        'total_subscription' => 'getTotalSubscription'
     ];
 
     /**
@@ -229,18 +234,19 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
-        $this->container['mode'] = isset($data['mode']) ? $data['mode'] : null;
+        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['symbol'] = isset($data['symbol']) ? $data['symbol'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
-        $this->container['reason'] = isset($data['reason']) ? $data['reason'] : null;
-        $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
-        $this->container['eta'] = isset($data['eta']) ? $data['eta'] : null;
-        $this->container['last_updated_at'] = isset($data['last_updated_at']) ? $data['last_updated_at'] : null;
-        $this->container['bank_name'] = isset($data['bank_name']) ? $data['bank_name'] : null;
-        $this->container['transaction_id'] = isset($data['transaction_id']) ? $data['transaction_id'] : null;
-        $this->container['total_charges'] = isset($data['total_charges']) ? $data['total_charges'] : null;
-        $this->container['charges_category'] = isset($data['charges_category']) ? $data['charges_category'] : null;
-        $this->container['created_at'] = isset($data['created_at']) ? $data['created_at'] : null;
+        $this->container['isin'] = isset($data['isin']) ? $data['isin'] : null;
+        $this->container['issue_type'] = isset($data['issue_type']) ? $data['issue_type'] : null;
+        $this->container['issue_size'] = isset($data['issue_size']) ? $data['issue_size'] : null;
+        $this->container['industry'] = isset($data['industry']) ? $data['industry'] : null;
+        $this->container['minimum_price'] = isset($data['minimum_price']) ? $data['minimum_price'] : null;
+        $this->container['maximum_price'] = isset($data['maximum_price']) ? $data['maximum_price'] : null;
+        $this->container['bidding_start_date'] = isset($data['bidding_start_date']) ? $data['bidding_start_date'] : null;
+        $this->container['bidding_end_date'] = isset($data['bidding_end_date']) ? $data['bidding_end_date'] : null;
+        $this->container['total_subscription'] = isset($data['total_subscription']) ? $data['total_subscription'] : null;
     }
 
     /**
@@ -268,49 +274,73 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets amount
+     * Gets id
      *
      * @return 
      */
-    public function getAmount()
+    public function getId()
     {
-        return $this->container['amount'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets amount
+     * Sets id
      *
-     * @param  $amount amount
+     * @param  $id id
      *
      * @return $this
      */
-    public function setAmount($amount)
+    public function setId($id)
     {
-        $this->container['amount'] = $amount;
+        $this->container['id'] = $id;
 
         return $this;
     }
 
     /**
-     * Gets mode
+     * Gets symbol
      *
      * @return 
      */
-    public function getMode()
+    public function getSymbol()
     {
-        return $this->container['mode'];
+        return $this->container['symbol'];
     }
 
     /**
-     * Sets mode
+     * Sets symbol
      *
-     * @param  $mode mode
+     * @param  $symbol symbol
      *
      * @return $this
      */
-    public function setMode($mode)
+    public function setSymbol($symbol)
     {
-        $this->container['mode'] = $mode;
+        $this->container['symbol'] = $symbol;
+
+        return $this;
+    }
+
+    /**
+     * Gets name
+     *
+     * @return 
+     */
+    public function getName()
+    {
+        return $this->container['name'];
+    }
+
+    /**
+     * Sets name
+     *
+     * @param  $name name
+     *
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->container['name'] = $name;
 
         return $this;
     }
@@ -340,217 +370,217 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets reason
+     * Gets isin
      *
      * @return 
      */
-    public function getReason()
+    public function getIsin()
     {
-        return $this->container['reason'];
+        return $this->container['isin'];
     }
 
     /**
-     * Sets reason
+     * Sets isin
      *
-     * @param  $reason reason
+     * @param  $isin isin
      *
      * @return $this
      */
-    public function setReason($reason)
+    public function setIsin($isin)
     {
-        $this->container['reason'] = $reason;
+        $this->container['isin'] = $isin;
 
         return $this;
     }
 
     /**
-     * Gets currency
+     * Gets issue_type
      *
      * @return 
      */
-    public function getCurrency()
+    public function getIssueType()
     {
-        return $this->container['currency'];
+        return $this->container['issue_type'];
     }
 
     /**
-     * Sets currency
+     * Sets issue_type
      *
-     * @param  $currency currency
+     * @param  $issue_type issue_type
      *
      * @return $this
      */
-    public function setCurrency($currency)
+    public function setIssueType($issue_type)
     {
-        $this->container['currency'] = $currency;
+        $this->container['issue_type'] = $issue_type;
 
         return $this;
     }
 
     /**
-     * Gets eta
+     * Gets issue_size
      *
      * @return 
      */
-    public function getEta()
+    public function getIssueSize()
     {
-        return $this->container['eta'];
+        return $this->container['issue_size'];
     }
 
     /**
-     * Sets eta
+     * Sets issue_size
      *
-     * @param  $eta eta
+     * @param  $issue_size issue_size
      *
      * @return $this
      */
-    public function setEta($eta)
+    public function setIssueSize($issue_size)
     {
-        $this->container['eta'] = $eta;
+        $this->container['issue_size'] = $issue_size;
 
         return $this;
     }
 
     /**
-     * Gets last_updated_at
+     * Gets industry
      *
      * @return 
      */
-    public function getLastUpdatedAt()
+    public function getIndustry()
     {
-        return $this->container['last_updated_at'];
+        return $this->container['industry'];
     }
 
     /**
-     * Sets last_updated_at
+     * Sets industry
      *
-     * @param  $last_updated_at last_updated_at
+     * @param  $industry industry
      *
      * @return $this
      */
-    public function setLastUpdatedAt($last_updated_at)
+    public function setIndustry($industry)
     {
-        $this->container['last_updated_at'] = $last_updated_at;
+        $this->container['industry'] = $industry;
 
         return $this;
     }
 
     /**
-     * Gets bank_name
+     * Gets minimum_price
      *
      * @return 
      */
-    public function getBankName()
+    public function getMinimumPrice()
     {
-        return $this->container['bank_name'];
+        return $this->container['minimum_price'];
     }
 
     /**
-     * Sets bank_name
+     * Sets minimum_price
      *
-     * @param  $bank_name bank_name
+     * @param  $minimum_price minimum_price
      *
      * @return $this
      */
-    public function setBankName($bank_name)
+    public function setMinimumPrice($minimum_price)
     {
-        $this->container['bank_name'] = $bank_name;
+        $this->container['minimum_price'] = $minimum_price;
 
         return $this;
     }
 
     /**
-     * Gets transaction_id
+     * Gets maximum_price
      *
      * @return 
      */
-    public function getTransactionId()
+    public function getMaximumPrice()
     {
-        return $this->container['transaction_id'];
+        return $this->container['maximum_price'];
     }
 
     /**
-     * Sets transaction_id
+     * Sets maximum_price
      *
-     * @param  $transaction_id transaction_id
+     * @param  $maximum_price maximum_price
      *
      * @return $this
      */
-    public function setTransactionId($transaction_id)
+    public function setMaximumPrice($maximum_price)
     {
-        $this->container['transaction_id'] = $transaction_id;
+        $this->container['maximum_price'] = $maximum_price;
 
         return $this;
     }
 
     /**
-     * Gets total_charges
+     * Gets bidding_start_date
      *
      * @return 
      */
-    public function getTotalCharges()
+    public function getBiddingStartDate()
     {
-        return $this->container['total_charges'];
+        return $this->container['bidding_start_date'];
     }
 
     /**
-     * Sets total_charges
+     * Sets bidding_start_date
      *
-     * @param  $total_charges total_charges
+     * @param  $bidding_start_date bidding_start_date
      *
      * @return $this
      */
-    public function setTotalCharges($total_charges)
+    public function setBiddingStartDate($bidding_start_date)
     {
-        $this->container['total_charges'] = $total_charges;
+        $this->container['bidding_start_date'] = $bidding_start_date;
 
         return $this;
     }
 
     /**
-     * Gets charges_category
+     * Gets bidding_end_date
      *
      * @return 
      */
-    public function getChargesCategory()
+    public function getBiddingEndDate()
     {
-        return $this->container['charges_category'];
+        return $this->container['bidding_end_date'];
     }
 
     /**
-     * Sets charges_category
+     * Sets bidding_end_date
      *
-     * @param  $charges_category charges_category
+     * @param  $bidding_end_date bidding_end_date
      *
      * @return $this
      */
-    public function setChargesCategory($charges_category)
+    public function setBiddingEndDate($bidding_end_date)
     {
-        $this->container['charges_category'] = $charges_category;
+        $this->container['bidding_end_date'] = $bidding_end_date;
 
         return $this;
     }
 
     /**
-     * Gets created_at
+     * Gets total_subscription
      *
      * @return 
      */
-    public function getCreatedAt()
+    public function getTotalSubscription()
     {
-        return $this->container['created_at'];
+        return $this->container['total_subscription'];
     }
 
     /**
-     * Sets created_at
+     * Sets total_subscription
      *
-     * @param  $created_at created_at
+     * @param  $total_subscription total_subscription
      *
      * @return $this
      */
-    public function setCreatedAt($created_at)
+    public function setTotalSubscription($total_subscription)
     {
-        $this->container['created_at'] = $created_at;
+        $this->container['total_subscription'] = $total_subscription;
 
         return $this;
     }

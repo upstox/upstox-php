@@ -766,7 +766,7 @@ catch (Exception $e) {
 }
 
 try{
-    $result = $apiInstance->logout("2.0");
+    // $result = $apiInstance->logout("2.0");
     print("All good log out");
 
 }
@@ -1276,6 +1276,120 @@ $paymentHistoryResponse->setStatus('success');
 $paymentHistoryResponse->setData(array($paymentHistoryData));
 if ($paymentHistoryResponse->getStatus() != 'success') {
     print_r("error: PaymentHistoryResponse status not set correctly");
+}
+
+
+// ============================================
+// IPO API TESTS
+// ============================================
+
+$ipoApiInstance = new Upstox\Client\Api\IPOApi(
+    new GuzzleHttp\Client(),
+    $config
+);
+$ipoSlugId = "<IPO_SLUG_ID>";
+
+try {
+    $result = $ipoApiInstance->getIpoListing('open', null, 1, 20);
+    if ($result->getStatus() != "success") {
+        print_r("error in getIpoListing API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling IPOApi->getIpoListing: ' . $e->getMessage() . PHP_EOL;
+}
+
+try {
+    $result = $ipoApiInstance->getIpoDetails($ipoSlugId);
+    if ($result->getStatus() != "success") {
+        print_r("error in getIpoDetails API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling IPOApi->getIpoDetails: ' . $e->getMessage() . PHP_EOL;
+}
+
+
+// ============================================
+// SMARTLIST API TESTS
+// ============================================
+
+$marketApiInstance = new Upstox\Client\Api\MarketApi(
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $marketApiInstance->getSmartlistFutures('STOCK', 'TOP_TRADED', 1, 20);
+    if ($result->getStatus() != "success") {
+        print_r("error in getSmartlistFutures API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling MarketApi->getSmartlistFutures: ' . $e->getMessage() . PHP_EOL;
+}
+
+try {
+    $result = $marketApiInstance->getSmartlistMtf(1, 20);
+    if ($result->getStatus() != "success") {
+        print_r("error in getSmartlistMtf API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling MarketApi->getSmartlistMtf: ' . $e->getMessage() . PHP_EOL;
+}
+
+try {
+    $result = $marketApiInstance->getSmartlistOptions('STOCK', 'TOP_TRADED', 1, 20);
+    if ($result->getStatus() != "success") {
+        print_r("error in getSmartlistOptions API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling MarketApi->getSmartlistOptions: ' . $e->getMessage() . PHP_EOL;
+}
+
+
+// ============================================
+// PAYOUT MANAGEMENT API TESTS
+// ============================================
+
+$payoutTransactionId = "<PAYOUT_TRANSACTION_ID>";
+
+try {
+    $result = $userApiInstance->getPayoutModes();
+    if ($result->getStatus() != "success") {
+        print_r("error in getPayoutModes API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling UserApi->getPayoutModes: ' . $e->getMessage() . PHP_EOL;
+}
+
+try {
+    $initiatePayoutRequest = new Upstox\Client\Model\InitiatePayoutRequest();
+    $initiatePayoutRequest->setMode('NEFT');
+    $initiatePayoutRequest->setAmount(1000);
+    $result = $userApiInstance->initiatePayout($initiatePayoutRequest);
+    if ($result->getStatus() != "success") {
+        print_r("error in initiatePayout API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling UserApi->initiatePayout: ' . $e->getMessage() . PHP_EOL;
+}
+
+try {
+    $modifyPayoutRequest = new Upstox\Client\Model\ModifyPayoutRequest();
+    $modifyPayoutRequest->setAmount(2000);
+    $result = $userApiInstance->modifyPayout($modifyPayoutRequest, $payoutTransactionId);
+    if ($result->getStatus() != "success") {
+        print_r("error in modifyPayout API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling UserApi->modifyPayout: ' . $e->getMessage() . PHP_EOL;
+}
+
+try {
+    $result = $userApiInstance->cancelPayout($payoutTransactionId);
+    if ($result->getStatus() != "success") {
+        print_r("error in cancelPayout API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling UserApi->cancelPayout: ' . $e->getMessage() . PHP_EOL;
 }
 
 ?>

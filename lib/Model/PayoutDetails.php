@@ -1,6 +1,6 @@
 <?php
 /**
- * PaymentHistoryData
+ * PayoutDetails
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Upstox\Client\ObjectSerializer;
 
 /**
- * PaymentHistoryData Class Doc Comment
+ * PayoutDetails Class Doc Comment
  *
  * @category Class
  * @package  Upstox\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class PaymentHistoryData implements ModelInterface, ArrayAccess
+class PayoutDetails implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PaymentHistoryData';
+    protected static $swaggerModelName = 'PayoutDetails';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,18 +56,16 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'amount' => 'float',
-        'mode' => 'string',
         'status' => 'string',
-        'reason' => 'string',
+        'mode' => 'string',
+        'amount' => 'float',
         'currency' => 'string',
         'eta' => 'string',
-        'last_updated_at' => 'string',
-        'bank_name' => 'string',
+        'message' => 'string',
         'transaction_id' => 'string',
-        'total_charges' => 'float',
-        'charges_category' => 'string',
-        'created_at' => 'string'
+        'created_at' => 'string',
+        'bank_name' => 'string',
+        'transaction_fee' => 'float'
     ];
 
     /**
@@ -76,18 +74,16 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'amount' => 'double',
-        'mode' => null,
         'status' => null,
-        'reason' => null,
+        'mode' => null,
+        'amount' => 'double',
         'currency' => null,
         'eta' => null,
-        'last_updated_at' => null,
-        'bank_name' => null,
+        'message' => null,
         'transaction_id' => null,
-        'total_charges' => 'double',
-        'charges_category' => null,
-        'created_at' => null
+        'created_at' => null,
+        'bank_name' => null,
+        'transaction_fee' => null
     ];
 
     /**
@@ -117,18 +113,16 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'amount' => 'amount',
-        'mode' => 'mode',
         'status' => 'status',
-        'reason' => 'reason',
+        'mode' => 'mode',
+        'amount' => 'amount',
         'currency' => 'currency',
         'eta' => 'eta',
-        'last_updated_at' => 'last_updated_at',
-        'bank_name' => 'bank_name',
+        'message' => 'message',
         'transaction_id' => 'transaction_id',
-        'total_charges' => 'total_charges',
-        'charges_category' => 'charges_category',
-        'created_at' => 'created_at'
+        'created_at' => 'created_at',
+        'bank_name' => 'bank_name',
+        'transaction_fee' => 'transaction_fee'
     ];
 
     /**
@@ -137,18 +131,16 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'amount' => 'setAmount',
-        'mode' => 'setMode',
         'status' => 'setStatus',
-        'reason' => 'setReason',
+        'mode' => 'setMode',
+        'amount' => 'setAmount',
         'currency' => 'setCurrency',
         'eta' => 'setEta',
-        'last_updated_at' => 'setLastUpdatedAt',
-        'bank_name' => 'setBankName',
+        'message' => 'setMessage',
         'transaction_id' => 'setTransactionId',
-        'total_charges' => 'setTotalCharges',
-        'charges_category' => 'setChargesCategory',
-        'created_at' => 'setCreatedAt'
+        'created_at' => 'setCreatedAt',
+        'bank_name' => 'setBankName',
+        'transaction_fee' => 'setTransactionFee'
     ];
 
     /**
@@ -157,18 +149,16 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'amount' => 'getAmount',
-        'mode' => 'getMode',
         'status' => 'getStatus',
-        'reason' => 'getReason',
+        'mode' => 'getMode',
+        'amount' => 'getAmount',
         'currency' => 'getCurrency',
         'eta' => 'getEta',
-        'last_updated_at' => 'getLastUpdatedAt',
-        'bank_name' => 'getBankName',
+        'message' => 'getMessage',
         'transaction_id' => 'getTransactionId',
-        'total_charges' => 'getTotalCharges',
-        'charges_category' => 'getChargesCategory',
-        'created_at' => 'getCreatedAt'
+        'created_at' => 'getCreatedAt',
+        'bank_name' => 'getBankName',
+        'transaction_fee' => 'getTransactionFee'
     ];
 
     /**
@@ -229,18 +219,16 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
-        $this->container['mode'] = isset($data['mode']) ? $data['mode'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
-        $this->container['reason'] = isset($data['reason']) ? $data['reason'] : null;
+        $this->container['mode'] = isset($data['mode']) ? $data['mode'] : null;
+        $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['eta'] = isset($data['eta']) ? $data['eta'] : null;
-        $this->container['last_updated_at'] = isset($data['last_updated_at']) ? $data['last_updated_at'] : null;
-        $this->container['bank_name'] = isset($data['bank_name']) ? $data['bank_name'] : null;
+        $this->container['message'] = isset($data['message']) ? $data['message'] : null;
         $this->container['transaction_id'] = isset($data['transaction_id']) ? $data['transaction_id'] : null;
-        $this->container['total_charges'] = isset($data['total_charges']) ? $data['total_charges'] : null;
-        $this->container['charges_category'] = isset($data['charges_category']) ? $data['charges_category'] : null;
         $this->container['created_at'] = isset($data['created_at']) ? $data['created_at'] : null;
+        $this->container['bank_name'] = isset($data['bank_name']) ? $data['bank_name'] : null;
+        $this->container['transaction_fee'] = isset($data['transaction_fee']) ? $data['transaction_fee'] : null;
     }
 
     /**
@@ -268,25 +256,25 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets amount
+     * Gets status
      *
      * @return 
      */
-    public function getAmount()
+    public function getStatus()
     {
-        return $this->container['amount'];
+        return $this->container['status'];
     }
 
     /**
-     * Sets amount
+     * Sets status
      *
-     * @param  $amount amount
+     * @param  $status status
      *
      * @return $this
      */
-    public function setAmount($amount)
+    public function setStatus($status)
     {
-        $this->container['amount'] = $amount;
+        $this->container['status'] = $status;
 
         return $this;
     }
@@ -316,49 +304,25 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets status
+     * Gets amount
      *
      * @return 
      */
-    public function getStatus()
+    public function getAmount()
     {
-        return $this->container['status'];
+        return $this->container['amount'];
     }
 
     /**
-     * Sets status
+     * Sets amount
      *
-     * @param  $status status
+     * @param  $amount amount
      *
      * @return $this
      */
-    public function setStatus($status)
+    public function setAmount($amount)
     {
-        $this->container['status'] = $status;
-
-        return $this;
-    }
-
-    /**
-     * Gets reason
-     *
-     * @return 
-     */
-    public function getReason()
-    {
-        return $this->container['reason'];
-    }
-
-    /**
-     * Sets reason
-     *
-     * @param  $reason reason
-     *
-     * @return $this
-     */
-    public function setReason($reason)
-    {
-        $this->container['reason'] = $reason;
+        $this->container['amount'] = $amount;
 
         return $this;
     }
@@ -412,49 +376,25 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets last_updated_at
+     * Gets message
      *
      * @return 
      */
-    public function getLastUpdatedAt()
+    public function getMessage()
     {
-        return $this->container['last_updated_at'];
+        return $this->container['message'];
     }
 
     /**
-     * Sets last_updated_at
+     * Sets message
      *
-     * @param  $last_updated_at last_updated_at
+     * @param  $message message
      *
      * @return $this
      */
-    public function setLastUpdatedAt($last_updated_at)
+    public function setMessage($message)
     {
-        $this->container['last_updated_at'] = $last_updated_at;
-
-        return $this;
-    }
-
-    /**
-     * Gets bank_name
-     *
-     * @return 
-     */
-    public function getBankName()
-    {
-        return $this->container['bank_name'];
-    }
-
-    /**
-     * Sets bank_name
-     *
-     * @param  $bank_name bank_name
-     *
-     * @return $this
-     */
-    public function setBankName($bank_name)
-    {
-        $this->container['bank_name'] = $bank_name;
+        $this->container['message'] = $message;
 
         return $this;
     }
@@ -484,54 +424,6 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets total_charges
-     *
-     * @return 
-     */
-    public function getTotalCharges()
-    {
-        return $this->container['total_charges'];
-    }
-
-    /**
-     * Sets total_charges
-     *
-     * @param  $total_charges total_charges
-     *
-     * @return $this
-     */
-    public function setTotalCharges($total_charges)
-    {
-        $this->container['total_charges'] = $total_charges;
-
-        return $this;
-    }
-
-    /**
-     * Gets charges_category
-     *
-     * @return 
-     */
-    public function getChargesCategory()
-    {
-        return $this->container['charges_category'];
-    }
-
-    /**
-     * Sets charges_category
-     *
-     * @param  $charges_category charges_category
-     *
-     * @return $this
-     */
-    public function setChargesCategory($charges_category)
-    {
-        $this->container['charges_category'] = $charges_category;
-
-        return $this;
-    }
-
-    /**
      * Gets created_at
      *
      * @return 
@@ -551,6 +443,54 @@ class PaymentHistoryData implements ModelInterface, ArrayAccess
     public function setCreatedAt($created_at)
     {
         $this->container['created_at'] = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets bank_name
+     *
+     * @return 
+     */
+    public function getBankName()
+    {
+        return $this->container['bank_name'];
+    }
+
+    /**
+     * Sets bank_name
+     *
+     * @param  $bank_name bank_name
+     *
+     * @return $this
+     */
+    public function setBankName($bank_name)
+    {
+        $this->container['bank_name'] = $bank_name;
+
+        return $this;
+    }
+
+    /**
+     * Gets transaction_fee
+     *
+     * @return 
+     */
+    public function getTransactionFee()
+    {
+        return $this->container['transaction_fee'];
+    }
+
+    /**
+     * Sets transaction_fee
+     *
+     * @param  $transaction_fee transaction_fee
+     *
+     * @return $this
+     */
+    public function setTransactionFee($transaction_fee)
+    {
+        $this->container['transaction_fee'] = $transaction_fee;
 
         return $this;
     }
