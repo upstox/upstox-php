@@ -61,13 +61,13 @@ function get_funds_and_margin($api_version, $configuration)
     return $api_response;
 }
 
-function get_user_fund_margin_v3($api_version, $configuration)
+function get_user_fund_margin_v3($configuration)
 {
     $api_instance = new UserApi(
         new GuzzleHttp\Client(),
         $configuration
     );
-    $api_response = $api_instance->getUserFundMarginV3($api_version);
+    $api_response = $api_instance->getUserFundMarginV3();
     return $api_response;
 }
 
@@ -381,15 +381,15 @@ function main()
     $instrument_key = "NSE_EQ|INE848E01016";
 
     // Login and authorization
-    // $access_token = login_and_authorize(
-    //     $api_version,
-    //     $configuration,
-    //     $client_id,
-    //     $client_secret,
-    //     $redirect_uri,
-    //     $auth_code
-    // );
-    $configuration->setAccessToken("eyJ0eXAiOiJKV1QiLCJrZXlfaWQiOiJza192MS4wIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiI4NTg2NDQiLCJqdGkiOiI2YTNkNGU5ZTNkZmE2NTYzZTA2NzI4YzkiLCJpc011bHRpQ2xpZW50IjpmYWxzZSwiaXNQbHVzUGxhbiI6ZmFsc2UsImlhdCI6MTc4MjQwMjcxOCwiaXNzIjoidWRhcGktZ2F0ZXdheS1zZXJ2aWNlIiwiZXhwIjoxNzgyNDI0ODAwfQ.GtLS1vihqCxrKKu4AdrRvtFoRDGwDQaRLBSWrwKJVRA");
+    $access_token = login_and_authorize(
+        $api_version,
+        $configuration,
+        $client_id,
+        $client_secret,
+        $redirect_uri,
+        $auth_code
+    );
+    $configuration->setAccessToken($access_token);
 
     // Get user profile
     $profile = get_profile($api_version, $configuration);
@@ -400,7 +400,7 @@ function main()
     print_r($funds_margin);
 
     // Get funds and margin v3
-    $user_fund_margin_v3 = get_user_fund_margin_v3($api_version, $configuration);
+    $user_fund_margin_v3 = get_user_fund_margin_v3($configuration);
     print_r($user_fund_margin_v3);
 
     // Get user IPs
@@ -773,16 +773,14 @@ function main()
 
     try {
         $result = $payout_user_api->getPayoutHistory();
-        if ($result->getStatus() != "success") print_r("error in getPayoutHistory\n");
-        else print_r("getPayoutHistory => OK\n");
+        print_r("getPayoutHistory => OK\n");
     } catch (\Upstox\Client\ApiException $e) {
         print("Exception UserApi->getPayoutHistory: " . $e->getMessage() . "\n");
     }
 
     try {
         $result = $payout_user_api->getPayinHistory();
-        if ($result->getStatus() != "success") print_r("error in getPayinHistory\n");
-        else print_r("getPayinHistory => OK\n");
+        print_r("getPayinHistory => OK\n");
     } catch (\Upstox\Client\ApiException $e) {
         print("Exception UserApi->getPayinHistory: " . $e->getMessage() . "\n");
     }
