@@ -68,7 +68,8 @@ class IpoListingData implements ModelInterface, ArrayAccess
         'maximum_price' => 'float',
         'bidding_start_date' => 'string',
         'bidding_end_date' => 'string',
-        'total_subscription' => 'object'
+        'total_subscription' => 'object',
+        'investors' => '\Upstox\Client\Model\IpoInvestorType[]'
     ];
 
     /**
@@ -89,7 +90,8 @@ class IpoListingData implements ModelInterface, ArrayAccess
         'maximum_price' => 'double',
         'bidding_start_date' => null,
         'bidding_end_date' => null,
-        'total_subscription' => null
+        'total_subscription' => null,
+        'investors' => null
     ];
 
     /**
@@ -131,7 +133,8 @@ class IpoListingData implements ModelInterface, ArrayAccess
         'maximum_price' => 'maximum_price',
         'bidding_start_date' => 'bidding_start_date',
         'bidding_end_date' => 'bidding_end_date',
-        'total_subscription' => 'total_subscription'
+        'total_subscription' => 'total_subscription',
+        'investors' => 'investors'
     ];
 
     /**
@@ -152,7 +155,8 @@ class IpoListingData implements ModelInterface, ArrayAccess
         'maximum_price' => 'setMaximumPrice',
         'bidding_start_date' => 'setBiddingStartDate',
         'bidding_end_date' => 'setBiddingEndDate',
-        'total_subscription' => 'setTotalSubscription'
+        'total_subscription' => 'setTotalSubscription',
+        'investors' => 'setInvestors'
     ];
 
     /**
@@ -173,7 +177,8 @@ class IpoListingData implements ModelInterface, ArrayAccess
         'maximum_price' => 'getMaximumPrice',
         'bidding_start_date' => 'getBiddingStartDate',
         'bidding_end_date' => 'getBiddingEndDate',
-        'total_subscription' => 'getTotalSubscription'
+        'total_subscription' => 'getTotalSubscription',
+        'investors' => 'getInvestors'
     ];
 
     /**
@@ -247,6 +252,7 @@ class IpoListingData implements ModelInterface, ArrayAccess
         $this->container['bidding_start_date'] = isset($data['bidding_start_date']) ? $data['bidding_start_date'] : null;
         $this->container['bidding_end_date'] = isset($data['bidding_end_date']) ? $data['bidding_end_date'] : null;
         $this->container['total_subscription'] = isset($data['total_subscription']) ? $data['total_subscription'] : null;
+        $this->container['investors'] = isset($data['investors']) ? $data['investors'] : null;
     }
 
     /**
@@ -581,6 +587,30 @@ class IpoListingData implements ModelInterface, ArrayAccess
     public function setTotalSubscription($total_subscription)
     {
         $this->container['total_subscription'] = $total_subscription;
+
+        return $this;
+    }
+
+    /**
+     * Gets investors
+     *
+     * @return \Upstox\Client\Model\IpoInvestorType[]
+     */
+    public function getInvestors()
+    {
+        return $this->container['investors'];
+    }
+
+    /**
+     * Sets investors
+     *
+     * @param \Upstox\Client\Model\IpoInvestorType[] $investors investors
+     *
+     * @return $this
+     */
+    public function setInvestors($investors)
+    {
+        $this->container['investors'] = $investors;
 
         return $this;
     }
