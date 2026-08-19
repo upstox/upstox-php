@@ -39,6 +39,10 @@ class IPOApiTest extends TestCase
         $this->assertInstanceOf(IPOApi::class, $api);
         $this->assertTrue(method_exists($api, 'getIpoListing'));
         $this->assertTrue(method_exists($api, 'getIpoDetails'));
+        $this->assertTrue(method_exists($api, 'applyForIpo'));
+        $this->assertTrue(method_exists($api, 'getIpoOrders'));
+        $this->assertTrue(method_exists($api, 'getIpoOrderById'));
+        $this->assertTrue(method_exists($api, 'cancelIpoOrder'));
     }
 
     /**
@@ -67,5 +71,91 @@ class IPOApiTest extends TestCase
         $this->assertTrue(method_exists($api, 'getIpoDetailsWithHttpInfo'));
         $this->assertTrue(method_exists($api, 'getIpoDetailsAsync'));
         $this->assertTrue(method_exists($api, 'getIpoDetailsAsyncWithHttpInfo'));
+    }
+
+    /**
+     * Test case for applyForIpo
+     *
+     * Apply for IPO.
+     *
+     */
+    public function testApplyForIpo()
+    {
+        $api = new IPOApi();
+        $this->assertTrue(method_exists($api, 'applyForIpoWithHttpInfo'));
+        $this->assertTrue(method_exists($api, 'applyForIpoAsync'));
+        $this->assertTrue(method_exists($api, 'applyForIpoAsyncWithHttpInfo'));
+    }
+
+    /**
+     * Test that applyForIpo rejects a missing request body.
+     */
+    public function testApplyForIpoRequiresBody()
+    {
+        $api = new IPOApi();
+        $this->expectException(\InvalidArgumentException::class);
+        $api->applyForIpo(null);
+    }
+
+    /**
+     * Test case for getIpoOrders
+     *
+     * Get IPO Orders.
+     *
+     */
+    public function testGetIpoOrders()
+    {
+        $api = new IPOApi();
+        $this->assertTrue(method_exists($api, 'getIpoOrdersWithHttpInfo'));
+        $this->assertTrue(method_exists($api, 'getIpoOrdersAsync'));
+        $this->assertTrue(method_exists($api, 'getIpoOrdersAsyncWithHttpInfo'));
+    }
+
+    /**
+     * Test case for getIpoOrderById
+     *
+     * Get IPO Order Details.
+     *
+     */
+    public function testGetIpoOrderById()
+    {
+        $api = new IPOApi();
+        $this->assertTrue(method_exists($api, 'getIpoOrderByIdWithHttpInfo'));
+        $this->assertTrue(method_exists($api, 'getIpoOrderByIdAsync'));
+        $this->assertTrue(method_exists($api, 'getIpoOrderByIdAsyncWithHttpInfo'));
+    }
+
+    /**
+     * Test that getIpoOrderById rejects a missing order_id.
+     */
+    public function testGetIpoOrderByIdRequiresOrderId()
+    {
+        $api = new IPOApi();
+        $this->expectException(\InvalidArgumentException::class);
+        $api->getIpoOrderById(null);
+    }
+
+    /**
+     * Test case for cancelIpoOrder
+     *
+     * Cancel IPO Order.
+     *
+     */
+    public function testCancelIpoOrder()
+    {
+        $api = new IPOApi();
+        $this->assertTrue(method_exists($api, 'cancelIpoOrderWithHttpInfo'));
+        $this->assertTrue(method_exists($api, 'cancelIpoOrderAsync'));
+        $this->assertTrue(method_exists($api, 'cancelIpoOrderAsyncWithHttpInfo'));
+    }
+
+    /**
+     * Test that cancelIpoOrder rejects a missing order_id.
+     */
+    public function testCancelIpoOrderRequiresOrderId()
+    {
+        $api = new IPOApi();
+        $this->expectException(\InvalidArgumentException::class);
+        $api->cancelIpoOrder(null);
     }
 }

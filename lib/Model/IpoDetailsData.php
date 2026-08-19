@@ -81,7 +81,8 @@ class IpoDetailsData implements ModelInterface, ArrayAccess
         'drhp_url' => 'string',
         'timeline' => '\Upstox\Client\Model\IpoTimeline',
         'registrar_info' => '\Upstox\Client\Model\IpoRegistrarInfo',
-        'total_subscription' => 'object'
+        'total_subscription' => 'object',
+        'investors' => '\Upstox\Client\Model\IpoInvestorType[]'
     ];
 
     /**
@@ -115,7 +116,8 @@ class IpoDetailsData implements ModelInterface, ArrayAccess
         'drhp_url' => null,
         'timeline' => null,
         'registrar_info' => null,
-        'total_subscription' => null
+        'total_subscription' => null,
+        'investors' => null
     ];
 
     /**
@@ -170,7 +172,8 @@ class IpoDetailsData implements ModelInterface, ArrayAccess
         'drhp_url' => 'drhp_url',
         'timeline' => 'timeline',
         'registrar_info' => 'registrar_info',
-        'total_subscription' => 'total_subscription'
+        'total_subscription' => 'total_subscription',
+        'investors' => 'investors'
     ];
 
     /**
@@ -204,7 +207,8 @@ class IpoDetailsData implements ModelInterface, ArrayAccess
         'drhp_url' => 'setDrhpUrl',
         'timeline' => 'setTimeline',
         'registrar_info' => 'setRegistrarInfo',
-        'total_subscription' => 'setTotalSubscription'
+        'total_subscription' => 'setTotalSubscription',
+        'investors' => 'setInvestors'
     ];
 
     /**
@@ -238,7 +242,8 @@ class IpoDetailsData implements ModelInterface, ArrayAccess
         'drhp_url' => 'getDrhpUrl',
         'timeline' => 'getTimeline',
         'registrar_info' => 'getRegistrarInfo',
-        'total_subscription' => 'getTotalSubscription'
+        'total_subscription' => 'getTotalSubscription',
+        'investors' => 'getInvestors'
     ];
 
     /**
@@ -325,6 +330,7 @@ class IpoDetailsData implements ModelInterface, ArrayAccess
         $this->container['timeline'] = isset($data['timeline']) ? $data['timeline'] : null;
         $this->container['registrar_info'] = isset($data['registrar_info']) ? $data['registrar_info'] : null;
         $this->container['total_subscription'] = isset($data['total_subscription']) ? $data['total_subscription'] : null;
+        $this->container['investors'] = isset($data['investors']) ? $data['investors'] : null;
     }
 
     /**
@@ -971,6 +977,30 @@ class IpoDetailsData implements ModelInterface, ArrayAccess
     public function setTotalSubscription($total_subscription)
     {
         $this->container['total_subscription'] = $total_subscription;
+
+        return $this;
+    }
+
+    /**
+     * Gets investors
+     *
+     * @return \Upstox\Client\Model\IpoInvestorType[]
+     */
+    public function getInvestors()
+    {
+        return $this->container['investors'];
+    }
+
+    /**
+     * Sets investors
+     *
+     * @param \Upstox\Client\Model\IpoInvestorType[] $investors investors
+     *
+     * @return $this
+     */
+    public function setInvestors($investors)
+    {
+        $this->container['investors'] = $investors;
 
         return $this;
     }

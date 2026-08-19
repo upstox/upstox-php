@@ -134,4 +134,24 @@ class IpoListingDataTest extends TestCase
     public function testPropertyTotalSubscription()
     {
     }
+
+    /**
+     * Test attribute "investors"
+     */
+    public function testPropertyInvestors()
+    {
+        $instance = new IpoListingData([
+            'investors' => [new \Upstox\Client\Model\IpoInvestorType([
+                'category' => 'IND',
+                'description' => 'Individual Investor',
+            ])],
+        ]);
+
+        $this->assertSame(
+            '\Upstox\Client\Model\IpoInvestorType[]',
+            IpoListingData::swaggerTypes()['investors']
+        );
+        $this->assertCount(1, $instance->getInvestors());
+        $this->assertSame('IND', $instance->getInvestors()[0]->getCategory());
+    }
 }

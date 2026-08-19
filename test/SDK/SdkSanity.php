@@ -1307,6 +1307,33 @@ try {
     echo 'Exception when calling IPOApi->getIpoDetails: ' . $e->getMessage() . PHP_EOL;
 }
 
+try {
+    $result = $ipoApiInstance->getIpoOrders();
+    if ($result->getStatus() != "success") {
+        print_r("error in getIpoOrders API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling IPOApi->getIpoOrders: ' . $e->getMessage() . PHP_EOL;
+}
+
+try {
+    $result = $ipoApiInstance->getIpoOrders(1, 20);
+    if ($result->getStatus() != "success") {
+        print_r("error in getIpoOrders (pagination) API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling IPOApi->getIpoOrders (pagination): ' . $e->getMessage() . PHP_EOL;
+}
+
+try {
+    $result = $ipoApiInstance->getIpoOrderById("<IPO_ORDER_ID>");
+    if ($result->getStatus() != "success") {
+        print_r("error in getIpoOrderById API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling IPOApi->getIpoOrderById: ' . $e->getMessage() . PHP_EOL;
+}
+
 
 // ============================================
 // SMARTLIST API TESTS
