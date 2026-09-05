@@ -17,6 +17,14 @@ class MarketInfo extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>map<string, .com.upstox.marketdatafeederv3udapi.rpc.proto.MarketStatus> segmentStatus = 1;</code>
      */
     private $segmentStatus;
+    /**
+     * Generated from protobuf field <code>map<string, .com.upstox.marketdatafeederv3udapi.rpc.proto.StatusInfo> casMarketStatus = 2;</code>
+     */
+    private $casMarketStatus;
+    /**
+     * Generated from protobuf field <code>map<string, .com.upstox.marketdatafeederv3udapi.rpc.proto.StatusInfo> preOpenSessionStatus = 3;</code>
+     */
+    private $preOpenSessionStatus;
 
     /**
      * Constructor.
@@ -25,6 +33,8 @@ class MarketInfo extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array|\Google\Protobuf\Internal\MapField $segmentStatus
+     *     @type array|\Google\Protobuf\Internal\MapField $casMarketStatus
+     *     @type array|\Google\Protobuf\Internal\MapField $preOpenSessionStatus
      * }
      */
     public function __construct($data = NULL) {
@@ -50,6 +60,50 @@ class MarketInfo extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::ENUM, \Com\Upstox\Marketdatafeederv3udapi\Rpc\Proto\MarketStatus::class);
         $this->segmentStatus = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>map<string, .com.upstox.marketdatafeederv3udapi.rpc.proto.StatusInfo> casMarketStatus = 2;</code>
+     * @return \Google\Protobuf\Internal\MapField
+     */
+    public function getCasMarketStatus()
+    {
+        return $this->casMarketStatus;
+    }
+
+    /**
+     * Generated from protobuf field <code>map<string, .com.upstox.marketdatafeederv3udapi.rpc.proto.StatusInfo> casMarketStatus = 2;</code>
+     * @param array|\Google\Protobuf\Internal\MapField $var
+     * @return $this
+     */
+    public function setCasMarketStatus($var)
+    {
+        $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::MESSAGE, \Com\Upstox\Marketdatafeederv3udapi\Rpc\Proto\StatusInfo::class);
+        $this->casMarketStatus = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>map<string, .com.upstox.marketdatafeederv3udapi.rpc.proto.StatusInfo> preOpenSessionStatus = 3;</code>
+     * @return \Google\Protobuf\Internal\MapField
+     */
+    public function getPreOpenSessionStatus()
+    {
+        return $this->preOpenSessionStatus;
+    }
+
+    /**
+     * Generated from protobuf field <code>map<string, .com.upstox.marketdatafeederv3udapi.rpc.proto.StatusInfo> preOpenSessionStatus = 3;</code>
+     * @param array|\Google\Protobuf\Internal\MapField $var
+     * @return $this
+     */
+    public function setPreOpenSessionStatus($var)
+    {
+        $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::MESSAGE, \Com\Upstox\Marketdatafeederv3udapi\Rpc\Proto\StatusInfo::class);
+        $this->preOpenSessionStatus = $arr;
 
         return $this;
     }

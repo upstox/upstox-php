@@ -29,6 +29,10 @@ class LTPC extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>double cp = 4;</code>
      */
     protected $cp = 0.0;
+    /**
+     * Generated from protobuf field <code>.google.protobuf.DoubleValue iep = 5;</code>
+     */
+    protected $iep = null;
 
     /**
      * Constructor.
@@ -40,6 +44,7 @@ class LTPC extends \Google\Protobuf\Internal\Message
      *     @type int|string $ltt
      *     @type int|string $ltq
      *     @type float $cp
+     *     @type \Google\Protobuf\DoubleValue $iep
      * }
      */
     public function __construct($data = NULL) {
@@ -134,6 +139,61 @@ class LTPC extends \Google\Protobuf\Internal\Message
 
         return $this;
     }
+
+    /**
+     * Generated from protobuf field <code>.google.protobuf.DoubleValue iep = 5;</code>
+     * @return \Google\Protobuf\DoubleValue|null
+     */
+    public function getIep()
+    {
+        return $this->iep;
+    }
+
+    public function hasIep()
+    {
+        return isset($this->iep);
+    }
+
+    public function clearIep()
+    {
+        unset($this->iep);
+    }
+
+    /**
+     * Returns the unboxed value from <code>getIep()</code>
+
+     * Generated from protobuf field <code>.google.protobuf.DoubleValue iep = 5;</code>
+     * @return float|null
+     */
+    public function getIepUnwrapped()
+    {
+        return $this->readWrapperValue("iep");
+    }
+
+    /**
+     * Generated from protobuf field <code>.google.protobuf.DoubleValue iep = 5;</code>
+     * @param \Google\Protobuf\DoubleValue $var
+     * @return $this
+     */
+    public function setIep($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\DoubleValue::class);
+        $this->iep = $var;
+
+        return $this;
+    }
+
+    /**
+     * Sets the field by wrapping a primitive type in a Google\Protobuf\DoubleValue object.
+
+     * Generated from protobuf field <code>.google.protobuf.DoubleValue iep = 5;</code>
+     * @param float|null $var
+     * @return $this
+     */
+    public function setIepUnwrapped($var)
+    {
+        $this->writeWrapperValue("iep", $var);
+        return $this;}
 
 }
 
