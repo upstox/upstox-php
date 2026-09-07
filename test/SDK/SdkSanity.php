@@ -1419,4 +1419,32 @@ try {
     echo 'Exception when calling UserApi->cancelPayout: ' . $e->getMessage() . PHP_EOL;
 }
 
+
+// ============================================
+// MARKET QUOTE V3 API TESTS
+// ============================================
+
+$marketQuoteV3ApiInstance = new Upstox\Client\Api\MarketQuoteV3Api(
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $marketQuoteV3ApiInstance->getFullMarketQuoteV3("NSE_EQ|INE669E01016");
+    if ($result->getStatus() != "success") {
+        print_r("error in getFullMarketQuoteV3 API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling MarketQuoteV3Api->getFullMarketQuoteV3: ' . $e->getMessage() . PHP_EOL;
+}
+
+try {
+    $result = $marketQuoteV3ApiInstance->getFullMarketQuoteV3("NSE_EQ|INE669E01016,NSE_EQ|INE848E01016");
+    if ($result->getStatus() != "success") {
+        print_r("error in getFullMarketQuoteV3 (multiple instrument keys) API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling MarketQuoteV3Api->getFullMarketQuoteV3: ' . $e->getMessage() . PHP_EOL;
+}
+
 ?>

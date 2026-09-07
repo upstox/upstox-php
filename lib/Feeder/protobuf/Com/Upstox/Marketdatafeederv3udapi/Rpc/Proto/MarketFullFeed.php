@@ -65,6 +65,30 @@ class MarketFullFeed extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>double tsq = 10;</code>
      */
     protected $tsq = 0.0;
+    /**
+     * Generated from protobuf field <code>double iep = 11;</code>
+     */
+    protected $iep = 0.0;
+    /**
+     * Generated from protobuf field <code>double rp = 12;</code>
+     */
+    protected $rp = 0.0;
+    /**
+     * Generated from protobuf field <code>int64 ieq = 13;</code>
+     */
+    protected $ieq = 0;
+    /**
+     * Generated from protobuf field <code>int64 iiqTotal = 14;</code>
+     */
+    protected $iiqTotal = 0;
+    /**
+     * Generated from protobuf field <code>int64 iiqM = 15;</code>
+     */
+    protected $iiqM = 0;
+    /**
+     * Generated from protobuf field <code>bool casEligible = 16;</code>
+     */
+    protected $casEligible = false;
 
     /**
      * Constructor.
@@ -88,6 +112,12 @@ class MarketFullFeed extends \Google\Protobuf\Internal\Message
      *          total buy quantity
      *     @type float $tsq
      *          total sell quantity
+     *     @type float $iep
+     *     @type float $rp
+     *     @type int|string $ieq
+     *     @type int|string $iiqTotal
+     *     @type int|string $iiqM
+     *     @type bool $casEligible
      * }
      */
     public function __construct($data = NULL) {
@@ -375,6 +405,138 @@ class MarketFullFeed extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkDouble($var);
         $this->tsq = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>double iep = 11;</code>
+     * @return float
+     */
+    public function getIep()
+    {
+        return $this->iep;
+    }
+
+    /**
+     * Generated from protobuf field <code>double iep = 11;</code>
+     * @param float $var
+     * @return $this
+     */
+    public function setIep($var)
+    {
+        GPBUtil::checkDouble($var);
+        $this->iep = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>double rp = 12;</code>
+     * @return float
+     */
+    public function getRp()
+    {
+        return $this->rp;
+    }
+
+    /**
+     * Generated from protobuf field <code>double rp = 12;</code>
+     * @param float $var
+     * @return $this
+     */
+    public function setRp($var)
+    {
+        GPBUtil::checkDouble($var);
+        $this->rp = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>int64 ieq = 13;</code>
+     * @return int|string
+     */
+    public function getIeq()
+    {
+        return $this->ieq;
+    }
+
+    /**
+     * Generated from protobuf field <code>int64 ieq = 13;</code>
+     * @param int|string $var
+     * @return $this
+     */
+    public function setIeq($var)
+    {
+        GPBUtil::checkInt64($var);
+        $this->ieq = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>int64 iiqTotal = 14;</code>
+     * @return int|string
+     */
+    public function getIiqTotal()
+    {
+        return $this->iiqTotal;
+    }
+
+    /**
+     * Generated from protobuf field <code>int64 iiqTotal = 14;</code>
+     * @param int|string $var
+     * @return $this
+     */
+    public function setIiqTotal($var)
+    {
+        GPBUtil::checkInt64($var);
+        $this->iiqTotal = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>int64 iiqM = 15;</code>
+     * @return int|string
+     */
+    public function getIiqM()
+    {
+        return $this->iiqM;
+    }
+
+    /**
+     * Generated from protobuf field <code>int64 iiqM = 15;</code>
+     * @param int|string $var
+     * @return $this
+     */
+    public function setIiqM($var)
+    {
+        GPBUtil::checkInt64($var);
+        $this->iiqM = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool casEligible = 16;</code>
+     * @return bool
+     */
+    public function getCasEligible()
+    {
+        return $this->casEligible;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool casEligible = 16;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setCasEligible($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->casEligible = $var;
 
         return $this;
     }
