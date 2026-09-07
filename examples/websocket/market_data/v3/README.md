@@ -20,6 +20,63 @@ composer install
 
 in your terminal. This command will automatically install all the necessary PHP packages specified in the composer.json file, including `amphp/websocket-client`, and `guzzlehttp/guzzle`. These dependencies will be installed in a new `/vendor` folder, which will be created on the same level as the composer.json file. This streamlined process facilitates a quick and efficient setup of the project environment with all the required dependencies.
 
+### Protocol Buffers (Protobuf) Classes Generation
+
+The generated PHP classes are already checked in under `protobuf/`, so you only need this section if you want to regenerate them from an updated `.proto` file.
+
+Before you can generate the Protobuf classes, you need to download the [proto file](https://assets.upstox.com/feed/market-data-feed/v3/MarketDataFeed.proto) and install the Protocol Buffers compiler (protoc).
+
+To download the Protocol Buffers compiler, go to the [Google Protocol Buffers GitHub repository](https://github.com/protocolbuffers/protobuf/releases) and download the appropriate `protoc-<version>-<os>.zip` file for your operating system. Extract the ZIP file and add the `bin` directory to your system PATH.
+
+For example, on a Unix-like system, you can add the directory to your PATH like this:
+
+```bash
+export PATH=$PATH:/path/to/protoc/bin
+```
+
+You can confirm that the compiler is correctly installed by opening a new terminal window and running the following command:
+
+```
+protoc --version
+```
+
+This should print the protoc version.
+
+> **Use a protoc whose version matches the `google/protobuf` runtime pinned in `composer.json` (`^3.25`).**
+> A much newer protoc emits code against a newer runtime layout (for example importing
+> `Google\Protobuf\RepeatedField` instead of `Google\Protobuf\Internal\RepeatedField`), which will
+> not load against the installed runtime.
+
+#### Generate Protobuf classes
+
+Save the downloaded proto file as `MarketDataFeedV3.proto` — the generated `GPBMetadata` class name is derived from the file name. Navigate to the `protobuf/` directory containing it and run:
+
+```
+protoc --proto_path=. --php_out=. MarketDataFeedV3.proto
+```
+
+This writes one PHP class file per proto message under
+`Com/Upstox/Marketdatafeederv3udapi/Rpc/Proto/`, plus the descriptor file `GPBMetadata/MarketDataFeedV3.php`.
+
+If the proto imports a well-known type (such as `google/protobuf/wrappers.proto`) and your protoc
+build does not bundle the well-known type definitions, add the include directory that ships with
+protoc:
+
+```
+protoc --proto_path=. --proto_path=/path/to/protoc/include --php_out=. MarketDataFeedV3.proto
+```
+
+Do not commit any generated `GPBMetadata/Google/Protobuf/` output — the `google/protobuf`
+runtime classes come from the Composer package, not from this tree.
+
+The generated classes are autoloaded through the PSR-4 mapping, so you can use them directly:
+
+```php
+use Com\Upstox\Marketdatafeederv3udapi\Rpc\Proto\FeedResponse;
+```
+
+Sample generated classes are included as part of this repo.
+
 ### Configuration
 
 The script requires an Upstox API access token for authorization. You will need to specify your Upstox API access token in the PHP script. Look for the line below and replace 'ACCESS_TOKEN' with your actual access token.
