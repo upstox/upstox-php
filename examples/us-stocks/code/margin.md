@@ -15,14 +15,14 @@ $apiInstance = new Upstox\Client\Api\USStocksChargesApi(
 );
 
 $first = new Upstox\Client\Model\UsOrderEstimateRequest();
-$first->setInstrumentKey('{us_instrument_key}');
+$first->setInstrumentKey('US_EQ|AAPL');
 $first->setQuantity(1);
 $first->setPrice(150.0);
 $first->setTransactionType('BUY');
 $first->setOrderType('LIMIT');
 
 $second = new Upstox\Client\Model\UsOrderEstimateRequest();
-$second->setInstrumentKey('{another_us_instrument_key}');
+$second->setInstrumentKey('US_EQ|MSFT');
 $second->setQuantity(1);
 $second->setTransactionType('BUY');
 $second->setOrderType('MARKET');

@@ -88,7 +88,7 @@ class USStocksOrderApiTest extends TestCase
     {
         $history = [];
         $api = $this->apiWithMock('{"status":"success","data":{"order_id":"US-1"}}', $history);
-        $result = $api->placeUsOrder(new UsPlaceOrderRequest(['quantity' => 1, 'price' => 150.5, 'validity' => 'DAY', 'instrument_key' => 'NASDAQ_EQ|AAPL', 'transaction_type' => 'BUY', 'order_type' => 'LIMIT']));
+        $result = $api->placeUsOrder(new UsPlaceOrderRequest(['quantity' => 1, 'price' => 150.5, 'validity' => 'DAY', 'instrument_key' => 'US_EQ|AAPL', 'transaction_type' => 'BUY', 'order_type' => 'LIMIT']));
 
         $request = $history[0]['request'];
         $this->assertSame('POST', $request->getMethod());
@@ -131,7 +131,7 @@ class USStocksOrderApiTest extends TestCase
     {
         $history = [];
         $api = $this->apiWithMock('{"status":"success","data":{"order_id":"US-2"}}', $history);
-        $result = $api->modifyUsOrder(new UsModifyOrderRequest(['order_id' => 'US-1', 'quantity' => 2, 'price' => 151.0, 'validity' => 'DAY', 'instrument_key' => 'NASDAQ_EQ|AAPL', 'transaction_type' => 'BUY', 'order_type' => 'LIMIT']));
+        $result = $api->modifyUsOrder(new UsModifyOrderRequest(['order_id' => 'US-1', 'quantity' => 2, 'price' => 151.0, 'validity' => 'DAY', 'instrument_key' => 'US_EQ|AAPL', 'transaction_type' => 'BUY', 'order_type' => 'LIMIT']));
 
         $request = $history[0]['request'];
         $this->assertSame('PUT', $request->getMethod());
@@ -293,7 +293,7 @@ class USStocksOrderApiTest extends TestCase
     {
         $history = [];
         $api = $this->apiWithMock('{"status":"success","data":{"brokerage":0.5,"total_charges":1.25,"estimated_total":151.75}}', $history);
-        $result = $api->estimateUsOrder(new UsOrderEstimateRequest(['quantity' => 1, 'price' => 150.5, 'instrument_key' => 'NASDAQ_EQ|AAPL', 'transaction_type' => 'BUY', 'order_type' => 'LIMIT']));
+        $result = $api->estimateUsOrder(new UsOrderEstimateRequest(['quantity' => 1, 'price' => 150.5, 'instrument_key' => 'US_EQ|AAPL', 'transaction_type' => 'BUY', 'order_type' => 'LIMIT']));
 
         $request = $history[0]['request'];
         $this->assertSame('POST', $request->getMethod());

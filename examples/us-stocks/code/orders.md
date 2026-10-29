@@ -15,7 +15,7 @@ $apiInstance = new Upstox\Client\Api\USStocksOrderApi(
 );
 
 $body = new Upstox\Client\Model\UsPlaceOrderRequest();
-$body->setInstrumentKey('{us_instrument_key}');
+$body->setInstrumentKey('US_EQ|AAPL');
 $body->setQuantity(1);
 $body->setPrice(150.0);
 $body->setValidity('DAY');
@@ -49,7 +49,7 @@ $apiInstance = new Upstox\Client\Api\USStocksOrderApi(
 
 // Invest a USD amount instead of a share quantity.
 $body = new Upstox\Client\Model\UsPlaceOrderRequest();
-$body->setInstrumentKey('{us_instrument_key}');
+$body->setInstrumentKey('US_EQ|AAPL');
 $body->setAmount(25.0);
 $body->setValidity('DAY');
 $body->setTransactionType('BUY');
@@ -82,7 +82,7 @@ $apiInstance = new Upstox\Client\Api\USStocksOrderApi(
 // Modify returns a new order id; use it for any further action.
 $body = new Upstox\Client\Model\UsModifyOrderRequest();
 $body->setOrderId('{your_order_id}');
-$body->setInstrumentKey('{us_instrument_key}');
+$body->setInstrumentKey('US_EQ|AAPL');
 $body->setQuantity(2);
 $body->setPrice(149.5);
 $body->setValidity('DAY');
@@ -186,7 +186,7 @@ $apiInstance = new Upstox\Client\Api\USStocksOrderApi(
 );
 
 $body = new Upstox\Client\Model\UsOrderEstimateRequest();
-$body->setInstrumentKey('{us_instrument_key}');
+$body->setInstrumentKey('US_EQ|AAPL');
 $body->setQuantity(1);
 $body->setPrice(150.0);
 $body->setTransactionType('BUY');

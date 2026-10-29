@@ -81,8 +81,8 @@ class USStocksChargesApiTest extends TestCase
     public function testCalculateUsMarginRequest()
     {
         $history = [];
-        $api = $this->apiWithMock('{"status":"success","data":{"margins":[{"instrument_key":"NASDAQ_EQ|AAPL","required_margin":150.5}],"sufficient":true,"required_margin":150.5}}', $history);
-        $result = $api->calculateUsMargin(new UsMarginRequest(['instruments' => [new UsOrderEstimateRequest(['quantity' => 1, 'price' => 150.5, 'instrument_key' => 'NASDAQ_EQ|AAPL', 'transaction_type' => 'BUY', 'order_type' => 'LIMIT'])]]));
+        $api = $this->apiWithMock('{"status":"success","data":{"margins":[{"instrument_key":"US_EQ|AAPL","required_margin":150.5}],"sufficient":true,"required_margin":150.5}}', $history);
+        $result = $api->calculateUsMargin(new UsMarginRequest(['instruments' => [new UsOrderEstimateRequest(['quantity' => 1, 'price' => 150.5, 'instrument_key' => 'US_EQ|AAPL', 'transaction_type' => 'BUY', 'order_type' => 'LIMIT'])]]));
 
         $request = $history[0]['request'];
         $this->assertSame('POST', $request->getMethod());

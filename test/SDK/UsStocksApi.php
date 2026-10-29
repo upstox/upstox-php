@@ -14,7 +14,7 @@ $portfolioApi = new Upstox\Client\Api\USStocksPortfolioApi(new GuzzleHttp\Client
 $fundsApi = new Upstox\Client\Api\USStocksFundsApi(new GuzzleHttp\Client(), $config);
 $marketApi = new Upstox\Client\Api\USMarketHolidaysAndTimingsApi(new GuzzleHttp\Client(), $config);
 
-$instrumentKey = "NASDAQ_EQ|AAPL";
+$instrumentKey = "US_EQ|AAPL";
 $date = date('Y-m-d');
 
 // ---------- Market holidays, timings and status ----------

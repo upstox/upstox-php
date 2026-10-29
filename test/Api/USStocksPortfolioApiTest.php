@@ -79,7 +79,7 @@ class USStocksPortfolioApiTest extends TestCase
     public function testGetUsHoldingsRequest()
     {
         $history = [];
-        $api = $this->apiWithMock('{"status":"success","data":[{"instrument_key":"NASDAQ_EQ|AAPL","trading_symbol":"AAPL","quantity":0.25}]}', $history);
+        $api = $this->apiWithMock('{"status":"success","data":[{"instrument_key":"US_EQ|AAPL","trading_symbol":"AAPL","quantity":0.25}]}', $history);
         $result = $api->getUsHoldings();
 
         $request = $history[0]['request'];
