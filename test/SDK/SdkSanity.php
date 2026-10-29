@@ -1447,4 +1447,86 @@ try {
     echo 'Exception when calling MarketQuoteV3Api->getFullMarketQuoteV3: ' . $e->getMessage() . PHP_EOL;
 }
 
+// ============================================
+// US STOCKS API TESTS (UAT only: https://uat-api.upstox.com)
+// ============================================
+
+$usConfig = (new Upstox\Client\Configuration())
+    ->setAccessToken($accessToken)
+    ->setHost('https://uat-api.upstox.com');
+
+$usMarketApiInstance = new Upstox\Client\Api\USMarketHolidaysAndTimingsApi(new GuzzleHttp\Client(), $usConfig);
+$usFundsApiInstance = new Upstox\Client\Api\USStocksFundsApi(new GuzzleHttp\Client(), $usConfig);
+$usPortfolioApiInstance = new Upstox\Client\Api\USStocksPortfolioApi(new GuzzleHttp\Client(), $usConfig);
+$usOrderApiInstance = new Upstox\Client\Api\USStocksOrderApi(new GuzzleHttp\Client(), $usConfig);
+
+try {
+    $result = $usMarketApiInstance->getUsHolidays();
+    if ($result->getStatus() != "success") {
+        print_r("error in getUsHolidays API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling USMarketHolidaysAndTimingsApi->getUsHolidays: ' . $e->getMessage() . PHP_EOL;
+}
+
+try {
+    $result = $usMarketApiInstance->getUsExchangeTimings(date('Y-m-d'));
+    if ($result->getStatus() != "success") {
+        print_r("error in getUsExchangeTimings API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling USMarketHolidaysAndTimingsApi->getUsExchangeTimings: ' . $e->getMessage() . PHP_EOL;
+}
+
+try {
+    $result = $usMarketApiInstance->getUsMarketStatus();
+    if ($result->getStatus() != "success") {
+        print_r("error in getUsMarketStatus API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling USMarketHolidaysAndTimingsApi->getUsMarketStatus: ' . $e->getMessage() . PHP_EOL;
+}
+
+try {
+    $result = $usFundsApiInstance->getUsFunds();
+    if ($result->getStatus() != "success") {
+        print_r("error in getUsFunds API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling USStocksFundsApi->getUsFunds: ' . $e->getMessage() . PHP_EOL;
+}
+
+try {
+    $result = $usPortfolioApiInstance->getUsHoldings();
+    if ($result->getStatus() != "success") {
+        print_r("error in getUsHoldings API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling USStocksPortfolioApi->getUsHoldings: ' . $e->getMessage() . PHP_EOL;
+}
+
+try {
+    $result = $usOrderApiInstance->getUsOrderBook();
+    if ($result->getStatus() != "success") {
+        print_r("error in getUsOrderBook API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling USStocksOrderApi->getUsOrderBook: ' . $e->getMessage() . PHP_EOL;
+}
+
+try {
+    $usEstimateRequest = new Upstox\Client\Model\UsOrderEstimateRequest();
+    $usEstimateRequest->setInstrumentKey("NASDAQ_EQ|AAPL");
+    $usEstimateRequest->setQuantity(1);
+    $usEstimateRequest->setPrice(150.0);
+    $usEstimateRequest->setTransactionType("BUY");
+    $usEstimateRequest->setOrderType("LIMIT");
+    $result = $usOrderApiInstance->estimateUsOrder($usEstimateRequest);
+    if ($result->getStatus() != "success") {
+        print_r("error in estimateUsOrder API");
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling USStocksOrderApi->estimateUsOrder: ' . $e->getMessage() . PHP_EOL;
+}
+
 ?>
