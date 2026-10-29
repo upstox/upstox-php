@@ -4,10 +4,8 @@
 <?php
 
 $accessToken = '{your_access_token}';
-// US stocks APIs are currently available on UAT only.
 $config = (new Upstox\Client\Configuration())
-    ->setAccessToken($accessToken)
-    ->setHost('https://uat-api.upstox.com');
+    ->setAccessToken($accessToken);
 
 $apiInstance = new Upstox\Client\Api\USStocksPortfolioApi(
     new GuzzleHttp\Client(),

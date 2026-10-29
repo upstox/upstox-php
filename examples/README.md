@@ -42,7 +42,7 @@ Samples are grouped by API area. Each `.md` file contains one or more PHP snippe
 | [**payments-api/**](payments-api/) | Payin (deposit) and payout (withdrawal) history. |
 | [**strategies/**](strategies/) | Ready-to-run options strategy examples for Nifty 50 (bullish, bearish, neutral, others). |
 | [**fundamentals/**](fundamentals/) | Company financials: balance sheet, cash flow, income statement, company profile, competitors, corporate actions, key ratios, share holdings. |
-| [**us-stocks/**](us-stocks/) | US stocks (UAT only): place, modify, cancel, order book, order details, charge estimate, margin, holdings, funds, market holidays, timings, and status. |
+| [**us-stocks/**](us-stocks/) | US stocks: place, modify, cancel, order book, order details, charge estimate, margin, holdings, funds, market holidays, timings, and status. |
 
 
 ### Options Strategies

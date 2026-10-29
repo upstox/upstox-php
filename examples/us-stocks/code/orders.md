@@ -4,10 +4,8 @@
 <?php
 
 $accessToken = '{your_access_token}';
-// US stocks APIs are currently available on UAT only.
 $config = (new Upstox\Client\Configuration())
-    ->setAccessToken($accessToken)
-    ->setHost('https://uat-api.upstox.com');
+    ->setAccessToken($accessToken);
 
 $apiInstance = new Upstox\Client\Api\USStocksOrderApi(
     new GuzzleHttp\Client(),
@@ -37,10 +35,8 @@ try {
 <?php
 
 $accessToken = '{your_access_token}';
-// US stocks APIs are currently available on UAT only.
 $config = (new Upstox\Client\Configuration())
-    ->setAccessToken($accessToken)
-    ->setHost('https://uat-api.upstox.com');
+    ->setAccessToken($accessToken);
 
 $apiInstance = new Upstox\Client\Api\USStocksOrderApi(
     new GuzzleHttp\Client(),
@@ -69,10 +65,8 @@ try {
 <?php
 
 $accessToken = '{your_access_token}';
-// US stocks APIs are currently available on UAT only.
 $config = (new Upstox\Client\Configuration())
-    ->setAccessToken($accessToken)
-    ->setHost('https://uat-api.upstox.com');
+    ->setAccessToken($accessToken);
 
 $apiInstance = new Upstox\Client\Api\USStocksOrderApi(
     new GuzzleHttp\Client(),
@@ -103,10 +97,8 @@ try {
 <?php
 
 $accessToken = '{your_access_token}';
-// US stocks APIs are currently available on UAT only.
 $config = (new Upstox\Client\Configuration())
-    ->setAccessToken($accessToken)
-    ->setHost('https://uat-api.upstox.com');
+    ->setAccessToken($accessToken);
 
 $apiInstance = new Upstox\Client\Api\USStocksOrderApi(
     new GuzzleHttp\Client(),
@@ -127,10 +119,8 @@ try {
 <?php
 
 $accessToken = '{your_access_token}';
-// US stocks APIs are currently available on UAT only.
 $config = (new Upstox\Client\Configuration())
-    ->setAccessToken($accessToken)
-    ->setHost('https://uat-api.upstox.com');
+    ->setAccessToken($accessToken);
 
 $apiInstance = new Upstox\Client\Api\USStocksOrderApi(
     new GuzzleHttp\Client(),
@@ -151,10 +141,8 @@ try {
 <?php
 
 $accessToken = '{your_access_token}';
-// US stocks APIs are currently available on UAT only.
 $config = (new Upstox\Client\Configuration())
-    ->setAccessToken($accessToken)
-    ->setHost('https://uat-api.upstox.com');
+    ->setAccessToken($accessToken);
 
 $apiInstance = new Upstox\Client\Api\USStocksOrderApi(
     new GuzzleHttp\Client(),
@@ -175,10 +163,8 @@ try {
 <?php
 
 $accessToken = '{your_access_token}';
-// US stocks APIs are currently available on UAT only.
 $config = (new Upstox\Client\Configuration())
-    ->setAccessToken($accessToken)
-    ->setHost('https://uat-api.upstox.com');
+    ->setAccessToken($accessToken);
 
 $apiInstance = new Upstox\Client\Api\USStocksOrderApi(
     new GuzzleHttp\Client(),

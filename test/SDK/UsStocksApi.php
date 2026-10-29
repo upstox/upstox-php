@@ -3,10 +3,8 @@ require_once(__DIR__ . '/../../vendor/autoload.php');
 require_once(__DIR__. '/DataAcessToken.php');
 error_reporting(E_ALL & ~E_DEPRECATED);
 
-// US stocks endpoints are currently live only on UAT, not prod.
 $config = (new Upstox\Client\Configuration())
-    ->setAccessToken($accessToken)
-    ->setHost('https://uat-api.upstox.com');
+    ->setAccessToken($accessToken);
 
 $orderApi = new Upstox\Client\Api\USStocksOrderApi(new GuzzleHttp\Client(), $config);
 $chargesApi = new Upstox\Client\Api\USStocksChargesApi(new GuzzleHttp\Client(), $config);
@@ -118,7 +116,7 @@ try {
     echo 'Exception when calling USStocksOrderApi order book/details: ' . $e->getMessage() . PHP_EOL;
 }
 
-// Place/modify/cancel hit a real UAT account; disabled by default.
+// Place/modify/cancel hit a real account; disabled by default.
 $RUN_DESTRUCTIVE_US_ORDER_TESTS = false;
 if ($RUN_DESTRUCTIVE_US_ORDER_TESTS) {
     try {

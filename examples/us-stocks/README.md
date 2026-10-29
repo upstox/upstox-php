@@ -2,8 +2,6 @@
 
 Links to all US stocks examples in the `code/` folder.
 
-> US stocks APIs are currently available on UAT only (`https://uat-api.upstox.com`), so each snippet sets that host on its `Configuration`.
-
 ## 1. Orders
 
 - 1.1 [Place a limit order](code/orders.md#place-a-limit-order)

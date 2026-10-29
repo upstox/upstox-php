@@ -22,8 +22,6 @@ use Upstox\Client\Api\USStocksFundsApi;
 /**
  * USStocksFundsApiTest Class Doc Comment
  *
- * US stocks endpoints are currently served only on UAT, so requests are mocked here.
- *
  * @category Class
  * @package  Upstox\Client
  * @author   Swagger Codegen team
@@ -31,7 +29,7 @@ use Upstox\Client\Api\USStocksFundsApi;
  */
 class USStocksFundsApiTest extends TestCase
 {
-    const UAT_HOST = 'https://uat-api.upstox.com';
+    const API_HOST = 'https://api.upstox.com';
 
     public static function setUpBeforeClass(): void {}
     public function setUp(): void {}
@@ -45,7 +43,7 @@ class USStocksFundsApiTest extends TestCase
     {
         $stack = HandlerStack::create(new MockHandler([new Response(200, ['Content-Type' => 'application/json'], $json)]));
         $stack->push(Middleware::history($history));
-        $config = (new Configuration())->setAccessToken('test-token')->setHost(self::UAT_HOST);
+        $config = (new Configuration())->setAccessToken('test-token')->setHost(self::API_HOST);
         return new USStocksFundsApi(new Client(['handler' => $stack]), $config);
     }
 
@@ -84,7 +82,7 @@ class USStocksFundsApiTest extends TestCase
 
         $request = $history[0]['request'];
         $this->assertSame('GET', $request->getMethod());
-        $this->assertSame(self::UAT_HOST, $request->getUri()->getScheme() . '://' . $request->getUri()->getHost());
+        $this->assertSame(self::API_HOST, $request->getUri()->getScheme() . '://' . $request->getUri()->getHost());
         $this->assertSame('/v2/us/funds', $request->getUri()->getPath());
         $this->assertSame('', $request->getUri()->getQuery());
         $this->assertSame('Bearer test-token', $request->getHeaderLine('Authorization'));

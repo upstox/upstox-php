@@ -3,9 +3,7 @@
 ```php
 <?php
 
-// US stocks APIs are currently available on UAT only.
-$config = (new Upstox\Client\Configuration())
-    ->setHost('https://uat-api.upstox.com');
+$config = (new Upstox\Client\Configuration());
 
 $apiInstance = new Upstox\Client\Api\USMarketHolidaysAndTimingsApi(
     new GuzzleHttp\Client(),
@@ -25,9 +23,7 @@ try {
 ```php
 <?php
 
-// US stocks APIs are currently available on UAT only.
-$config = (new Upstox\Client\Configuration())
-    ->setHost('https://uat-api.upstox.com');
+$config = (new Upstox\Client\Configuration());
 
 $apiInstance = new Upstox\Client\Api\USMarketHolidaysAndTimingsApi(
     new GuzzleHttp\Client(),
@@ -47,9 +43,7 @@ try {
 ```php
 <?php
 
-// US stocks APIs are currently available on UAT only.
-$config = (new Upstox\Client\Configuration())
-    ->setHost('https://uat-api.upstox.com');
+$config = (new Upstox\Client\Configuration());
 
 $apiInstance = new Upstox\Client\Api\USMarketHolidaysAndTimingsApi(
     new GuzzleHttp\Client(),
@@ -70,10 +64,8 @@ try {
 <?php
 
 $accessToken = '{your_access_token}';
-// US stocks APIs are currently available on UAT only.
 $config = (new Upstox\Client\Configuration())
-    ->setAccessToken($accessToken)
-    ->setHost('https://uat-api.upstox.com');
+    ->setAccessToken($accessToken);
 
 $apiInstance = new Upstox\Client\Api\USMarketHolidaysAndTimingsApi(
     new GuzzleHttp\Client(),

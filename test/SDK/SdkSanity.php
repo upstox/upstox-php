@@ -1448,12 +1448,11 @@ try {
 }
 
 // ============================================
-// US STOCKS API TESTS (UAT only: https://uat-api.upstox.com)
+// US STOCKS API TESTS
 // ============================================
 
 $usConfig = (new Upstox\Client\Configuration())
-    ->setAccessToken($accessToken)
-    ->setHost('https://uat-api.upstox.com');
+    ->setAccessToken($accessToken);
 
 $usMarketApiInstance = new Upstox\Client\Api\USMarketHolidaysAndTimingsApi(new GuzzleHttp\Client(), $usConfig);
 $usFundsApiInstance = new Upstox\Client\Api\USStocksFundsApi(new GuzzleHttp\Client(), $usConfig);
