@@ -59,38 +59,6 @@ try {
 }
 ```
 
-## Modify an order
-
-```php
-<?php
-
-$accessToken = '{your_access_token}';
-$config = (new Upstox\Client\Configuration())
-    ->setAccessToken($accessToken);
-
-$apiInstance = new Upstox\Client\Api\USStocksOrderApi(
-    new GuzzleHttp\Client(),
-    $config
-);
-
-// Modify returns a new order id; use it for any further action.
-$body = new Upstox\Client\Model\UsModifyOrderRequest();
-$body->setOrderId('{your_order_id}');
-$body->setInstrumentKey('US_EQ|AAPL');
-$body->setQuantity(2);
-$body->setPrice(149.5);
-$body->setValidity('DAY');
-$body->setTransactionType('BUY');
-$body->setOrderType('LIMIT');
-
-try {
-    $result = $apiInstance->modifyUsOrder($body);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling USStocksOrderApi->modifyUsOrder: ' . $e->getMessage();
-}
-```
-
 ## Cancel an order
 
 ```php
@@ -127,8 +95,11 @@ $apiInstance = new Upstox\Client\Api\USStocksOrderApi(
     $config
 );
 
+// Optional: pass a tag to return only orders placed with that tag.
+$tag = null;
+
 try {
-    $result = $apiInstance->getUsOrderBook();
+    $result = $apiInstance->getUsOrderBook($tag);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling USStocksOrderApi->getUsOrderBook: ' . $e->getMessage();

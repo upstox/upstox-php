@@ -6,11 +6,10 @@ Links to all US stocks examples in the `code/` folder.
 
 - 1.1 [Place a limit order](code/orders.md#place-a-limit-order)
 - 1.2 [Place a fractional market order by amount](code/orders.md#place-a-fractional-market-order-by-amount)
-- 1.3 [Modify an order](code/orders.md#modify-an-order)
-- 1.4 [Cancel an order](code/orders.md#cancel-an-order)
-- 1.5 [Get order book](code/orders.md#get-order-book)
-- 1.6 [Get order details](code/orders.md#get-order-details)
-- 1.7 [Estimate order charges](code/orders.md#estimate-order-charges)
+- 1.3 [Cancel an order](code/orders.md#cancel-an-order)
+- 1.4 [Get order book](code/orders.md#get-order-book)
+- 1.5 [Get order details](code/orders.md#get-order-details)
+- 1.6 [Estimate order charges](code/orders.md#estimate-order-charges)
 
 ## 2. Margin
 
