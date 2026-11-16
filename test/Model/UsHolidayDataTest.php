@@ -68,7 +68,7 @@ class UsHolidayDataTest extends TestCase
     {
         $types = UsHolidayData::swaggerTypes();
         $this->assertSame('string', $types['date']);
-        $this->assertSame('string', $types['description']);
+        $this->assertArrayNotHasKey('description', $types);
         $this->assertSame('string', $types['holiday_type']);
     }
 
@@ -88,13 +88,6 @@ class UsHolidayDataTest extends TestCase
      * Test attribute "date"
      */
     public function testPropertyDate()
-    {
-    }
-
-    /**
-     * Test attribute "description"
-     */
-    public function testPropertyDescription()
     {
     }
 

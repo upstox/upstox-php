@@ -18,7 +18,6 @@ use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Upstox\Client\Api\USStocksOrderApi;
-use Upstox\Client\Model\UsModifyOrderRequest;
 use Upstox\Client\Model\UsOrderEstimateRequest;
 use Upstox\Client\Model\UsPlaceOrderRequest;
 
@@ -58,7 +57,6 @@ class USStocksOrderApiTest extends TestCase
         $api = new USStocksOrderApi();
         $this->assertInstanceOf(USStocksOrderApi::class, $api);
         $this->assertTrue(method_exists($api, 'placeUsOrder'));
-        $this->assertTrue(method_exists($api, 'modifyUsOrder'));
         $this->assertTrue(method_exists($api, 'cancelUsOrder'));
         $this->assertTrue(method_exists($api, 'getUsOrderBook'));
         $this->assertTrue(method_exists($api, 'getUsOrderDetails'));
@@ -106,49 +104,6 @@ class USStocksOrderApiTest extends TestCase
         $api = new USStocksOrderApi();
         $this->expectException(\InvalidArgumentException::class);
         $api->placeUsOrder(null);
-    }
-
-    /**
-     * Test case for modifyUsOrder
-     *
-     * Modify a US stocks order.
-     *
-     */
-    public function testModifyUsOrder()
-    {
-        $api = new USStocksOrderApi();
-        $this->assertTrue(method_exists($api, 'modifyUsOrderWithHttpInfo'));
-        $this->assertTrue(method_exists($api, 'modifyUsOrderAsync'));
-        $this->assertTrue(method_exists($api, 'modifyUsOrderAsyncWithHttpInfo'));
-    }
-
-    /**
-     * Test that modifyUsOrder sends PUT /v2/us/order/modify and deserializes the response.
-     */
-    public function testModifyUsOrderRequest()
-    {
-        $history = [];
-        $api = $this->apiWithMock('{"status":"success","data":{"order_id":"US-2"}}', $history);
-        $result = $api->modifyUsOrder(new UsModifyOrderRequest(['order_id' => 'US-1', 'quantity' => 2, 'price' => 151.0, 'validity' => 'DAY', 'instrument_key' => 'US_EQ|AAPL', 'transaction_type' => 'BUY', 'order_type' => 'LIMIT']));
-
-        $request = $history[0]['request'];
-        $this->assertSame('PUT', $request->getMethod());
-        $this->assertSame(self::API_HOST, $request->getUri()->getScheme() . '://' . $request->getUri()->getHost());
-        $this->assertSame('/v2/us/order/modify', $request->getUri()->getPath());
-        $this->assertSame('', $request->getUri()->getQuery());
-        $this->assertSame('Bearer test-token', $request->getHeaderLine('Authorization'));
-        $this->assertSame('success', $result->getStatus());
-        $this->assertSame('US-2', $result->getData()->getOrderId());
-    }
-
-    /**
-     * Test that modifyUsOrder rejects a missing required parameter.
-     */
-    public function testModifyUsOrderRequiresParam()
-    {
-        $api = new USStocksOrderApi();
-        $this->expectException(\InvalidArgumentException::class);
-        $api->modifyUsOrder(null);
     }
 
     /**
@@ -225,6 +180,20 @@ class USStocksOrderApiTest extends TestCase
         $this->assertSame('Bearer test-token', $request->getHeaderLine('Authorization'));
         $this->assertSame('success', $result->getStatus());
         $this->assertSame(0.5, $result->getData()[0]->getQuantity());
+    }
+
+    /**
+     * Test that getUsOrderBook sends the optional tag as a query param.
+     */
+    public function testGetUsOrderBookWithTag()
+    {
+        $history = [];
+        $api = $this->apiWithMock('{"status":"success","data":[]}', $history);
+        $api->getUsOrderBook('my-tag');
+
+        $request = $history[0]['request'];
+        $this->assertSame('/v2/us/order/retrieve-all', $request->getUri()->getPath());
+        $this->assertSame('tag=my-tag', $request->getUri()->getQuery());
     }
 
     /**

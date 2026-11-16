@@ -69,7 +69,7 @@ class UsOrderBookDataTest extends TestCase
         $types = UsOrderBookData::swaggerTypes();
         $this->assertSame('string', $types['name']);
         $this->assertSame('string', $types['exchange']);
-        $this->assertSame('string', $types['product']);
+        $this->assertArrayNotHasKey('product', $types);
         $this->assertSame('string', $types['validity']);
         $this->assertSame('float', $types['price']);
         $this->assertSame('float', $types['quantity']);
@@ -128,13 +128,6 @@ class UsOrderBookDataTest extends TestCase
      * Test attribute "exchange"
      */
     public function testPropertyExchange()
-    {
-    }
-
-    /**
-     * Test attribute "product"
-     */
-    public function testPropertyProduct()
     {
     }
 

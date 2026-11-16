@@ -112,11 +112,15 @@ try {
             print_r("error in USStocksOrderApi->getUsOrderDetails");
         }
     }
+    $tagged = $orderApi->getUsOrderBook("sdk-test");
+    if ($tagged->getStatus() != "success") {
+        print_r("error in USStocksOrderApi->getUsOrderBook with tag");
+    }
 } catch (Exception $e) {
     echo 'Exception when calling USStocksOrderApi order book/details: ' . $e->getMessage() . PHP_EOL;
 }
 
-// Place/modify/cancel hit a real account; disabled by default.
+// Place/cancel hit a real account; disabled by default.
 $RUN_DESTRUCTIVE_US_ORDER_TESTS = false;
 if ($RUN_DESTRUCTIVE_US_ORDER_TESTS) {
     try {
@@ -130,19 +134,8 @@ if ($RUN_DESTRUCTIVE_US_ORDER_TESTS) {
         $placeRequest->setTag("sdk-test");
         $orderId = $orderApi->placeUsOrder($placeRequest)->getData()->getOrderId();
 
-        $modifyRequest = new Upstox\Client\Model\UsModifyOrderRequest();
-        $modifyRequest->setOrderId($orderId);
-        $modifyRequest->setInstrumentKey($instrumentKey);
-        $modifyRequest->setQuantity(1);
-        $modifyRequest->setPrice(101.0);
-        $modifyRequest->setValidity("DAY");
-        $modifyRequest->setTransactionType("BUY");
-        $modifyRequest->setOrderType("LIMIT");
-        // Modify returns a new order id.
-        $orderId = $orderApi->modifyUsOrder($modifyRequest)->getData()->getOrderId();
-
         $result = $orderApi->cancelUsOrder($orderId);
-        print_r("us order place/modify/cancel cycle: " . $result->getStatus());
+        print_r("us order place/cancel cycle: " . $result->getStatus());
     } catch (Exception $e) {
         echo 'Exception when calling USStocksOrderApi write ops: ' . $e->getMessage() . PHP_EOL;
     }
