@@ -58,7 +58,6 @@ class UsOrderBookData implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'name' => 'string',
         'exchange' => 'string',
-        'product' => 'string',
         'validity' => 'string',
         'price' => 'float',
         'quantity' => 'float',
@@ -90,7 +89,6 @@ class UsOrderBookData implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'name' => null,
         'exchange' => null,
-        'product' => null,
         'validity' => null,
         'price' => null,
         'quantity' => null,
@@ -143,7 +141,6 @@ class UsOrderBookData implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'name' => 'name',
         'exchange' => 'exchange',
-        'product' => 'product',
         'validity' => 'validity',
         'price' => 'price',
         'quantity' => 'quantity',
@@ -175,7 +172,6 @@ class UsOrderBookData implements ModelInterface, ArrayAccess
     protected static $setters = [
         'name' => 'setName',
         'exchange' => 'setExchange',
-        'product' => 'setProduct',
         'validity' => 'setValidity',
         'price' => 'setPrice',
         'quantity' => 'setQuantity',
@@ -207,7 +203,6 @@ class UsOrderBookData implements ModelInterface, ArrayAccess
     protected static $getters = [
         'name' => 'getName',
         'exchange' => 'getExchange',
-        'product' => 'getProduct',
         'validity' => 'getValidity',
         'price' => 'getPrice',
         'quantity' => 'getQuantity',
@@ -335,7 +330,6 @@ class UsOrderBookData implements ModelInterface, ArrayAccess
     {
         $this->container['name'] = isset($data['name']) ? $data['name'] : null;
         $this->container['exchange'] = isset($data['exchange']) ? $data['exchange'] : null;
-        $this->container['product'] = isset($data['product']) ? $data['product'] : null;
         $this->container['validity'] = isset($data['validity']) ? $data['validity'] : null;
         $this->container['price'] = isset($data['price']) ? $data['price'] : null;
         $this->container['quantity'] = isset($data['quantity']) ? $data['quantity'] : null;
@@ -443,30 +437,6 @@ class UsOrderBookData implements ModelInterface, ArrayAccess
     public function setExchange($exchange)
     {
         $this->container['exchange'] = $exchange;
-
-        return $this;
-    }
-
-    /**
-     * Gets product
-     *
-     * @return string
-     */
-    public function getProduct()
-    {
-        return $this->container['product'];
-    }
-
-    /**
-     * Sets product
-     *
-     * @param string $product product
-     *
-     * @return $this
-     */
-    public function setProduct($product)
-    {
-        $this->container['product'] = $product;
 
         return $this;
     }

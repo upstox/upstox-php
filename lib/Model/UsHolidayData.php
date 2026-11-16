@@ -57,7 +57,6 @@ class UsHolidayData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'date' => 'string',
-        'description' => 'string',
         'holiday_type' => 'string'
     ];
 
@@ -68,7 +67,6 @@ class UsHolidayData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'date' => null,
-        'description' => null,
         'holiday_type' => null
     ];
 
@@ -100,7 +98,6 @@ class UsHolidayData implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'date' => 'date',
-        'description' => 'description',
         'holiday_type' => 'holiday_type'
     ];
 
@@ -111,7 +108,6 @@ class UsHolidayData implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'date' => 'setDate',
-        'description' => 'setDescription',
         'holiday_type' => 'setHolidayType'
     ];
 
@@ -122,7 +118,6 @@ class UsHolidayData implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'date' => 'getDate',
-        'description' => 'getDescription',
         'holiday_type' => 'getHolidayType'
     ];
 
@@ -203,7 +198,6 @@ class UsHolidayData implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['date'] = isset($data['date']) ? $data['date'] : null;
-        $this->container['description'] = isset($data['description']) ? $data['description'] : null;
         $this->container['holiday_type'] = isset($data['holiday_type']) ? $data['holiday_type'] : null;
     }
 
@@ -259,30 +253,6 @@ class UsHolidayData implements ModelInterface, ArrayAccess
     public function setDate($date)
     {
         $this->container['date'] = $date;
-
-        return $this;
-    }
-
-    /**
-     * Gets description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->container['description'];
-    }
-
-    /**
-     * Sets description
-     *
-     * @param string $description description
-     *
-     * @return $this
-     */
-    public function setDescription($description)
-    {
-        $this->container['description'] = $description;
 
         return $this;
     }
