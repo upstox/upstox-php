@@ -1515,7 +1515,7 @@ try {
 
 try {
     $usEstimateRequest = new Upstox\Client\Model\UsOrderEstimateRequest();
-    $usEstimateRequest->setInstrumentKey("US_EQ|AAPL");
+    $usEstimateRequest->setInstrumentKey("US_EQ|COUR");
     $usEstimateRequest->setQuantity(1);
     $usEstimateRequest->setPrice(150.0);
     $usEstimateRequest->setTransactionType("BUY");

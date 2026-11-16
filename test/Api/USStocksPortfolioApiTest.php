@@ -77,7 +77,7 @@ class USStocksPortfolioApiTest extends TestCase
     public function testGetUsHoldingsRequest()
     {
         $history = [];
-        $api = $this->apiWithMock('{"status":"success","data":[{"instrument_key":"US_EQ|AAPL","trading_symbol":"AAPL","quantity":0.25}]}', $history);
+        $api = $this->apiWithMock('{"status":"success","data":[{"instrument_key":"US_EQ|COUR","trading_symbol":"COUR","quantity":0.25}]}', $history);
         $result = $api->getUsHoldings();
 
         $request = $history[0]['request'];
@@ -87,6 +87,6 @@ class USStocksPortfolioApiTest extends TestCase
         $this->assertSame('', $request->getUri()->getQuery());
         $this->assertSame('Bearer test-token', $request->getHeaderLine('Authorization'));
         $this->assertSame('success', $result->getStatus());
-        $this->assertSame('AAPL', $result->getData()[0]->getTradingSymbol());
+        $this->assertSame('COUR', $result->getData()[0]->getTradingSymbol());
     }
 }

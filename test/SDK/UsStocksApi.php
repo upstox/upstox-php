@@ -12,7 +12,7 @@ $portfolioApi = new Upstox\Client\Api\USStocksPortfolioApi(new GuzzleHttp\Client
 $fundsApi = new Upstox\Client\Api\USStocksFundsApi(new GuzzleHttp\Client(), $config);
 $marketApi = new Upstox\Client\Api\USMarketHolidaysAndTimingsApi(new GuzzleHttp\Client(), $config);
 
-$instrumentKey = "US_EQ|AAPL";
+$instrumentKey = "US_EQ|COUR";
 $date = date('Y-m-d');
 
 // ---------- Market holidays, timings and status ----------
@@ -75,7 +75,7 @@ try {
 $estimateRequest = new Upstox\Client\Model\UsOrderEstimateRequest();
 $estimateRequest->setInstrumentKey($instrumentKey);
 $estimateRequest->setQuantity(1);
-$estimateRequest->setPrice(150.0);
+$estimateRequest->setPrice(4.0);
 $estimateRequest->setTransactionType("BUY");
 $estimateRequest->setOrderType("LIMIT");
 
@@ -127,7 +127,7 @@ if ($RUN_DESTRUCTIVE_US_ORDER_TESTS) {
         $placeRequest = new Upstox\Client\Model\UsPlaceOrderRequest();
         $placeRequest->setInstrumentKey($instrumentKey);
         $placeRequest->setQuantity(1);
-        $placeRequest->setPrice(100.0);
+        $placeRequest->setPrice(1.0);
         $placeRequest->setValidity("DAY");
         $placeRequest->setTransactionType("BUY");
         $placeRequest->setOrderType("LIMIT");
