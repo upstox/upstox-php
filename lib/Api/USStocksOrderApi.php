@@ -758,14 +758,15 @@ class USStocksOrderApi
      *
      * Get US stocks order book
      *
+     * @param  string $tag Return only orders placed with this tag; exact, case-sensitive match (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Upstox\Client\Model\UsOrderBookResponse
      */
-    public function getUsOrderBook()
+    public function getUsOrderBook($tag = null)
     {
-        list($response) = $this->getUsOrderBookWithHttpInfo();
+        list($response) = $this->getUsOrderBookWithHttpInfo($tag);
         return $response;
     }
 
@@ -774,15 +775,16 @@ class USStocksOrderApi
      *
      * Get US stocks order book
      *
+     * @param  string $tag Return only orders placed with this tag; exact, case-sensitive match (optional)
      *
      * @throws \Upstox\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Upstox\Client\Model\UsOrderBookResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getUsOrderBookWithHttpInfo()
+    public function getUsOrderBookWithHttpInfo($tag = null)
     {
         $returnType = '\Upstox\Client\Model\UsOrderBookResponse';
-        $request = $this->getUsOrderBookRequest();
+        $request = $this->getUsOrderBookRequest($tag);
 
         try {
             $options = $this->createHttpClientOption();
@@ -920,13 +922,14 @@ class USStocksOrderApi
      *
      * Get US stocks order book
      *
+     * @param  string $tag Return only orders placed with this tag; exact, case-sensitive match (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUsOrderBookAsync()
+    public function getUsOrderBookAsync($tag = null)
     {
-        return $this->getUsOrderBookAsyncWithHttpInfo()
+        return $this->getUsOrderBookAsyncWithHttpInfo($tag)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -939,14 +942,15 @@ class USStocksOrderApi
      *
      * Get US stocks order book
      *
+     * @param  string $tag Return only orders placed with this tag; exact, case-sensitive match (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUsOrderBookAsyncWithHttpInfo()
+    public function getUsOrderBookAsyncWithHttpInfo($tag = null)
     {
         $returnType = '\Upstox\Client\Model\UsOrderBookResponse';
-        $request = $this->getUsOrderBookRequest();
+        $request = $this->getUsOrderBookRequest($tag);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -988,11 +992,12 @@ class USStocksOrderApi
     /**
      * Create request for operation 'getUsOrderBook'
      *
+     * @param  string $tag Return only orders placed with this tag; exact, case-sensitive match (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getUsOrderBookRequest()
+    protected function getUsOrderBookRequest($tag = null)
     {
 
         $resourcePath = '/v2/us/order/retrieve-all';
@@ -1002,6 +1007,10 @@ class USStocksOrderApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        if ($tag !== null) {
+            $queryParams['tag'] = ObjectSerializer::toQueryValue($tag, null);
+        }
 
 
         // body params
@@ -1400,339 +1409,6 @@ class USStocksOrderApi
         $query = \GuzzleHttp\Psr7\Query::build($queryParams);
         return new Request(
             'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation modifyUsOrder
-     *
-     * Modify US stocks order
-     *
-     * @param  \Upstox\Client\Model\UsModifyOrderRequest $body body (required)
-     *
-     * @throws \Upstox\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \Upstox\Client\Model\UsOrderResponse
-     */
-    public function modifyUsOrder($body)
-    {
-        list($response) = $this->modifyUsOrderWithHttpInfo($body);
-        return $response;
-    }
-
-    /**
-     * Operation modifyUsOrderWithHttpInfo
-     *
-     * Modify US stocks order
-     *
-     * @param  \Upstox\Client\Model\UsModifyOrderRequest $body (required)
-     *
-     * @throws \Upstox\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \Upstox\Client\Model\UsOrderResponse, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function modifyUsOrderWithHttpInfo($body)
-    {
-        $returnType = '\Upstox\Client\Model\UsOrderResponse';
-        $request = $this->modifyUsOrderRequest($body);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    $response->getBody()
-                );
-            }
-
-            $responseBody = $response->getBody();
-            if ($returnType === '\SplFileObject') {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string','integer','bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 405:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 423:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 422:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 410:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Upstox\Client\Model\ApiGatewayErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Upstox\Client\Model\UsOrderResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation modifyUsOrderAsync
-     *
-     * Modify US stocks order
-     *
-     * @param  \Upstox\Client\Model\UsModifyOrderRequest $body (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function modifyUsOrderAsync($body)
-    {
-        return $this->modifyUsOrderAsyncWithHttpInfo($body)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation modifyUsOrderAsyncWithHttpInfo
-     *
-     * Modify US stocks order
-     *
-     * @param  \Upstox\Client\Model\UsModifyOrderRequest $body (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function modifyUsOrderAsyncWithHttpInfo($body)
-    {
-        $returnType = '\Upstox\Client\Model\UsOrderResponse';
-        $request = $this->modifyUsOrderRequest($body);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ($returnType === '\SplFileObject') {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'modifyUsOrder'
-     *
-     * @param  \Upstox\Client\Model\UsModifyOrderRequest $body (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    protected function modifyUsOrderRequest($body)
-    {
-        // verify the required parameter 'body' is set
-        if ($body === null || (is_array($body) && count($body) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $body when calling modifyUsOrder'
-            );
-        }
-
-        $resourcePath = '/v2/us/order/modify';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // body params
-        $_tempBody = null;
-        if (isset($body)) {
-            $_tempBody = $body;
-        }
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['*/*']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['*/*'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires OAuth (access token)
-        if ($this->config->getAccessToken() !== null) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'PUT',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
