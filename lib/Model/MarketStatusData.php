@@ -59,7 +59,8 @@ class MarketStatusData implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'exchange' => 'string',
         'status' => 'string',
-        'last_updated' => 'int'
+        'last_updated' => 'int',
+        'cas_eligible_status' => '\Upstox\Client\Model\CasEligibleStatusData'
     ];
 
     /**
@@ -70,7 +71,8 @@ class MarketStatusData implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'exchange' => null,
         'status' => null,
-        'last_updated' => 'int64'
+        'last_updated' => 'int64',
+        'cas_eligible_status' => null
     ];
 
     /**
@@ -102,7 +104,8 @@ class MarketStatusData implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'exchange' => 'exchange',
         'status' => 'status',
-        'last_updated' => 'last_updated'
+        'last_updated' => 'last_updated',
+        'cas_eligible_status' => 'cas_eligible_status'
     ];
 
     /**
@@ -113,7 +116,8 @@ class MarketStatusData implements ModelInterface, ArrayAccess
     protected static $setters = [
         'exchange' => 'setExchange',
         'status' => 'setStatus',
-        'last_updated' => 'setLastUpdated'
+        'last_updated' => 'setLastUpdated',
+        'cas_eligible_status' => 'setCasEligibleStatus'
     ];
 
     /**
@@ -124,7 +128,8 @@ class MarketStatusData implements ModelInterface, ArrayAccess
     protected static $getters = [
         'exchange' => 'getExchange',
         'status' => 'getStatus',
-        'last_updated' => 'getLastUpdated'
+        'last_updated' => 'getLastUpdated',
+        'cas_eligible_status' => 'getCasEligibleStatus'
     ];
 
     /**
@@ -188,6 +193,7 @@ class MarketStatusData implements ModelInterface, ArrayAccess
         $this->container['exchange'] = isset($data['exchange']) ? $data['exchange'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
         $this->container['last_updated'] = isset($data['last_updated']) ? $data['last_updated'] : null;
+        $this->container['cas_eligible_status'] = isset($data['cas_eligible_status']) ? $data['cas_eligible_status'] : null;
     }
 
     /**
@@ -282,6 +288,30 @@ class MarketStatusData implements ModelInterface, ArrayAccess
     public function setLastUpdated($last_updated)
     {
         $this->container['last_updated'] = $last_updated;
+
+        return $this;
+    }
+
+    /**
+     * Gets cas_eligible_status
+     *
+     * @return \Upstox\Client\Model\CasEligibleStatusData
+     */
+    public function getCasEligibleStatus()
+    {
+        return $this->container['cas_eligible_status'];
+    }
+
+    /**
+     * Sets cas_eligible_status
+     *
+     * @param \Upstox\Client\Model\CasEligibleStatusData $cas_eligible_status cas_eligible_status
+     *
+     * @return $this
+     */
+    public function setCasEligibleStatus($cas_eligible_status)
+    {
+        $this->container['cas_eligible_status'] = $cas_eligible_status;
 
         return $this;
     }
